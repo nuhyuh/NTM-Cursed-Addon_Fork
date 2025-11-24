@@ -177,11 +177,19 @@ public abstract class MixinTileEntityCoreStabilizer extends TileEntityMachineBas
 	@Inject(method = "readFromNBT",at = @At("HEAD"))
 	public void onReadFromNBT(NBTTagCompound compound,CallbackInfo ci) {
 		readTargetPos(compound);
+		//bandaid shitfix
+		this.power = compound.getLong("power");
+		this.watts = compound.getInteger("watts");
+		this.isOn = compound.getBoolean("isOn");
 	}
 
 	@Inject(method = "writeToNBT",at = @At("HEAD"))
 	public void onWriteToNBT(NBTTagCompound compound,CallbackInfoReturnable<NBTTagCompound> cir) {
 		writeTargetPos(compound);
+		//bandaid shitfix
+		compound.setLong("power", this.power);
+		compound.setInteger("watts", this.watts);
+		compound.setBoolean("isOn", this.isOn);
 	}
 
 	@Override

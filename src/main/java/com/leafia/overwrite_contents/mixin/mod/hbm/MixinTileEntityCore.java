@@ -683,6 +683,22 @@ public abstract class MixinTileEntityCore extends TileEntityMachineBase implemen
 					if (!isPlayer || (isPlayer && !((EntityPlayer) e).capabilities.isCreativeMode))
 						e.attackEntityFrom(LeafiaDamageSource.dfc, (int) (this.temperature / 100));
 					e.setFire(3);
+
+					if (collapsing > 0 && (isFixTool(e) || isSurvivalFixTool(e))) {
+						e.setEntityInvulnerable(false);
+						e.setDead();
+						world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, false);
+						if (finalPhase || wasBoosted || isSurvivalFixTool(e) && world.rand.nextInt(100) < 80 - lastStabilizers * 10) {
+							world.playSound(null, pos, LeafiaSoundEvents.crucifix_fail, SoundCategory.BLOCKS, 20, 1);
+							continue;
+						}
+						temperature = 0;
+						containedEnergy = 0;
+						tanks[0].drain(1000000000, true);
+						tanks[1].drain(1000000000, true);
+						world.playSound(null, pos, LeafiaSoundEvents.crucifix, SoundCategory.BLOCKS, 20, 1);
+						continue;
+					}
 				}
 			}
 			if (isPlayer) AdvancementManager.grantAchievement(((EntityPlayer) e), AdvancementManager.progress_dfc);
@@ -691,21 +707,6 @@ public abstract class MixinTileEntityCore extends TileEntityMachineBase implemen
 		List<Entity> list3 = world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.getX() + 0.4, pos.getY() + 0.4, pos.getZ() + 0.4, pos.getX() + 0.6, pos.getY() + 0.6, pos.getZ() + 0.6));
 		if (collapsing > 0) {
 			for (Entity e : list3) {
-				if (isFixTool(e) || isSurvivalFixTool(e)) {
-					e.setEntityInvulnerable(false);
-					e.setDead();
-					world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, false);
-					if (finalPhase || wasBoosted || isSurvivalFixTool(e) && world.rand.nextInt(100) < 80 - lastStabilizers * 10) {
-						world.playSound(null, pos, LeafiaSoundEvents.crucifix_fail, SoundCategory.BLOCKS, 20, 1);
-						continue;
-					}
-					temperature = 0;
-					containedEnergy = 0;
-					tanks[0].drain(1000000000, true);
-					tanks[1].drain(1000000000, true);
-					world.playSound(null, pos, LeafiaSoundEvents.crucifix, SoundCategory.BLOCKS, 20, 1);
-					continue;
-				}
 				e.attackEntityFrom(LeafiaDamageSource.dfcMeltdown, (int) (this.temperature / 10));
 				if (!(e instanceof EntityLivingBase)) e.setDead();
 			}
