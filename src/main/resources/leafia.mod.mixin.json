@@ -28,6 +28,7 @@
     "hbm.MixinItemCell",
     "hbm.MixinItemDesignatorRange",
     "hbm.MixinItemLaserDetonator",
+    "hbm.MixinJEIConfig",
     "hbm.MixinModEventHandler",
     "hbm.MixinModItems",
     "hbm.MixinPacketDispatcher",
