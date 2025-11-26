@@ -4,8 +4,15 @@ import com.llib.group.LeafiaSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +32,7 @@ public class WorldServerLeafia {
 				//((BlockCoalOil) block).onBreakBlockProgress(world,pos,doxxed);
 		}
 	}
-	/*public static void fluid_onFilling(FluidStack stack,IFluidHandler inst) {
+	public static void fluid_onFilling(FluidStack stack,IFluidHandler inst) {
 		World world = null;
 		BlockPos pos = null;
 		if (inst instanceof TileEntity) {
@@ -54,9 +61,10 @@ public class WorldServerLeafia {
 			return fluid_checkTraits(stack,te,te.getWorld(),te.getPos());
 		else
 			return fluid_checkTraits(stack,null,null,null);
-	}*/ // one at time
+	}
 	public static LeafiaSet<BlockPos> violatedPositions = new LeafiaSet<>();
-	/*static boolean fluid_checkTraits(FluidStack stack,Object inst,World world,BlockPos pos) {
+	static boolean fluid_checkTraits(FluidStack stack,Object inst,World world,BlockPos pos) {
+		/*
 		LeafiaFluid fluid = LeafiaFluid.cast(stack);
 		if (fluid != null) {
 			List<LeafiaFluidTrait> hazards = new ArrayList<>();
@@ -103,7 +111,7 @@ public class WorldServerLeafia {
 					}
 				}
 			}
-		}
+		}*/
 		return true;
-	}*/
+	}
 }
