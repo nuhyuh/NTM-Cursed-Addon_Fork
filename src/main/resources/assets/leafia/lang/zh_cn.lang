@@ -1,0 +1,86 @@
+# Leafia's Cursed Addon 中文简体语言文件
+
+# 容器名称
+container.dfcEmitter=DFC 发射器
+container.dfcReceiver=DFC 接收器
+
+# 死亡消息
+death.attack.back=%1$s 被原子化并传送到了后室
+death.attack.fleija=%1$s 在真空环境中肺部爆炸而亡
+death.attack.dfc=%1$s 被强烈的高能辐射烧成灰烬
+death.attack.dfcMeltdown=%1$s 在坍缩恒星的超高温中被蒸发
+death.attack.mine=%1$s 应该多注意脚下的地面
+death.attack.pointed=%1$s 被尖锐物品撕裂
+
+# 描述文本
+desc.leafia.fuzzy.howto=点击任何支持的GUI中的流体储罐进行配置！
+desc.leafia.fuzzy.set=标识符设置为：
+desc.leafia.fuzzy.unset=未设置任何流体！
+desc.lens.fieldmodifier=力场修改器：
+desc.lens.energymodifier=核心能量修改器：
+desc.lens.powdrainmodifier=能量消耗修改器：
+
+# GUI界面
+gui.heatex.amount=每周期数量
+gui.heatex.cycle=周期延迟（刻）
+
+# 流体名称
+hbmfluid.ultrahotsteam=超浓密蒸汽
+
+# 物品信息
+info.leafiarod.empty=空
+
+# 物品名称
+item.ams_focus_blank.name=空白稳定器焦点
+item.ams_focus_booster.name=增压稳定器焦点
+item.ams_focus_limiter.name=限制稳定器焦点
+item.ams_focus_omega.name=UNDEFINED稳定器焦点
+item.ams_focus_safe.name=紧急停止稳定器焦点
+item.ams_lens.name=稳定器焦点
+item.detonator_laser.desc2=也可在多人游戏中用于指示目标
+item.fuzzy_identifier.message=标识符设置为 %s
+item.fuzzy_identifier.name=模糊标识符
+item.leafiarod=核燃料棒 "%s"
+item.leafiarodempty=核燃料棒组件
+item.wand_v.name=可视化魔杖
+
+# 音效字幕
+subtitles.weapon.nuke=核爆炸
+subtitles.weapon.nuke_d=远处的核爆炸
+subtitles.weapon.nuke_folkvangr=Fölkvangr 力场出现
+subtitles.weapon.nuke_n=核爆炸
+subtitles.weapon.nuke_s=小型核爆炸
+
+# 方块描述
+tile.crate_tungsten.desc=用于DFC箱子配方，不提供额外槽位
+tile.dfc_cemitter.name=创造模式DFC发射器
+tile.dfc_emitter.name=DFC发射器
+tile.dfc_receiver.name=DFC接收器
+tile.dfc_reinforced.name=DFC强化接收器
+tile.dfc_stabilizer.desc=连接建立时也会获取核心状态
+tile.dfc_exchanger.name=DFC热交换器
+tile.letter_sign.name=大型标志 %s
+tile.spk_cable.name=DFC重定向电缆
+
+# 特性和危险系统
+trait._hazardfluid.dfcFuel.desc=§d功率输出 §5%s%%
+trait._hazardfluid.dfcFuel=DFC燃料
+
+trait._hazarditem.radioactive.activation=污染：
+trait._hazarditem.radioactive.alpha=α阿尔法射线：
+trait._hazarditem.radioactive.beta=β贝塔射线：
+trait._hazarditem.radioactive.gamma=γ伽马射线：
+trait._hazarditem.radioactive.neutrons=中子射线：
+trait._hazarditem.radioactive.radon=氡气：
+trait._hazarditem.radioactive.x=X射线：
+
+trait._hazarditem.sharp.add=冲击时额外伤害 +%s
+trait._hazarditem.sharp=锋利边缘
+
+trait._machine.condenser=冷凝器
+trait._machine.modular=模块化
+trait._machine.multiblock.core=核心组件
+trait._machine.multiblock=多方块结构
+trait._machine.nuclear=核能
+trait._machine.power=发电机
+trait._machine.steam=热交换器
