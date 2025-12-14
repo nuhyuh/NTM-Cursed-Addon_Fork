@@ -36,6 +36,7 @@ public class AddonFluidTraits {
 		Fluids.WATZ.addTraits(new FT_DFCFuel(1.5F));
 		Fluids.XENON.addTraits(new FT_DFCFuel(1.25F));
 		Fluids.BALEFIRE.addTraits(new FT_DFCFuel(2.4F));
+		Fluids.STELLAR_FLUX.addTraits(new FT_DFCFuel(2.5F));
 	}
 	private static void registerTrait(String name, Class<? extends FluidTrait> clazz) {
 		traitNameMap.put(name, clazz);
