@@ -65,14 +65,17 @@ public abstract class FFDuctUtilityBase extends AddonBlockContainer implements I
 		if (!(te instanceof FFDuctUtilityTEBase duct))
 			return;
 		List<String> text = new ArrayList<>();
-		duct.addInfo(text);
 		text.add("&[" + duct.getType().getColor() + "&]" + duct.getType().getLocalizedName());
+		duct.addInfo(text);
 		ILookOverlay.printGeneric(event, I18nUtil.resolveKey(getTranslationKey() + ".name"), 0x00ff00, 0x004000, text);
 	}
 
 	@Override
 	public IBlockState getStateForPlacement(World world,BlockPos pos,EnumFacing facing,float hitX,float hitY,float hitZ,int meta,EntityLivingBase placer,EnumHand hand) {
-		return getDefaultState().withProperty(FACING,placer.isSneaking() ? facing : facing.getOpposite());
+		boolean snek = placer.isSneaking();
+		if (hand.equals(EnumHand.OFF_HAND))
+			snek = !snek;
+		return getDefaultState().withProperty(FACING,snek ? facing : facing.getOpposite());
 	}
 
 	@Override

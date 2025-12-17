@@ -10,11 +10,15 @@ import com.hbm.tileentity.network.TileEntityPipeBaseNT;
 import com.hbm.uninos.UniNodespace;
 import com.leafia.contents.network.pipe_amat.uninos.AmatNet;
 import com.leafia.contents.network.pipe_amat.uninos.AmatNode;
+import com.leafia.dev.container_utility.LeafiaPacket;
+import com.leafia.dev.container_utility.LeafiaPacketReceiver;
+import com.llib.exceptions.messages.TextWarningLeafia;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.WorldServer;
 
-public class AmatDuctTE extends TileEntityPipeBaseNT {
+public class AmatDuctTE extends TileEntityPipeBaseNT implements LeafiaPacketReceiver {
 	@Override
 	public boolean canConnect(FluidType type,ForgeDirection dir) {
 		TileEntity te = world.getTileEntity(pos.offset(dir.toEnumFacing()));
@@ -22,9 +26,8 @@ public class AmatDuctTE extends TileEntityPipeBaseNT {
 			return false;
 		return super.canConnect(type,dir);
 	}
-	/*protected AmatNode node;
-	protected FluidType type = Fluids.NONE;
-	protected FluidType lastType = Fluids.NONE;
+
+	protected AmatNode node;
 
 	@Override
 	public void update() {
@@ -40,6 +43,11 @@ public class AmatDuctTE extends TileEntityPipeBaseNT {
 					}
 				}
 			}
+		}
+		if (world.isRemote) {
+			timeout++;
+			if (timeout > 5)
+				ductPower = -1;
 		}
 	}
 	public AmatNode createNodeAmat(FluidType type) {
@@ -79,5 +87,35 @@ public class AmatDuctTE extends TileEntityPipeBaseNT {
 				UniNodespace.destroyNode(world, pos, AmatNet.getProvider(type));
 			}
 		}
-	}*/
+	}
+
+	@Override
+	public String getPacketIdentifier() {
+		return "AMAT_DUCT";
+	}
+
+	long ductPower = -1;
+	int timeout = 0;
+
+	@Override
+	public void onReceivePacketLocal(byte key,Object value) {
+		if (key == 31) {
+			ductPower = (long)value;
+			timeout = 0;
+		}
+	}
+
+	/// unused
+	@Override
+	public void onReceivePacketServer(byte key,Object value,EntityPlayer plr) {
+		long power = 0;
+		if (node != null && node.net != null)
+			power = node.net.power;
+		LeafiaPacket._start(this).__write(31,power).__sendToClient(plr);
+	}
+
+	/// signals with 0 data will be interpreted as validation packet
+	@Override
+	public void onPlayerValidate(EntityPlayer plr) {
+	}
 }

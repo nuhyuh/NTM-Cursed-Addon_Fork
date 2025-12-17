@@ -5,13 +5,16 @@ import com.hbm.api.fluidmk2.IFluidProviderMK2;
 import com.hbm.api.fluidmk2.IFluidReceiverMK2;
 import com.hbm.api.fluidmk2.IFluidUserMK2;
 import com.hbm.inventory.fluid.FluidType;
+import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Amat;
 import com.hbm.uninos.INetworkProvider;
 import com.hbm.uninos.NodeNet;
 import com.hbm.util.Tuple;
 import com.hbm.util.Tuple.ObjectLongPair;
+import com.leafia.contents.fluids.traits.FT_Magnetic;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongMap.Entry;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
+import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 public class AmatNet extends NodeNet<IFluidReceiverMK2,IFluidProviderMK2,AmatNode,AmatNet> {
+	public static long consumption = 1000/20;
+	public static long maxPower = consumption*20;
+	public long power = maxPower;
 	public static final Map<Integer,INetworkProvider<AmatNet>> PROVIDERS = new HashMap<>();
 	public static INetworkProvider<AmatNet> getProvider(FluidType type) {
 		if (PROVIDERS.containsKey(type.getID()))
@@ -26,6 +32,27 @@ public class AmatNet extends NodeNet<IFluidReceiverMK2,IFluidProviderMK2,AmatNod
 		INetworkProvider<AmatNet> provider = () -> new AmatNet(type);
 		PROVIDERS.put(type.getID(),provider);
 		return provider;
+	}
+	private boolean isConnectedToAnywhere(IFluidProviderMK2 provider) {
+		ObjectIterator<Entry<IFluidReceiverMK2>> iterator = receiverEntries.object2LongEntrySet().fastIterator();
+		while (iterator.hasNext()) {
+			Object2LongMap.Entry<IFluidReceiverMK2> entry = iterator.next();
+			if (entry.getKey() != provider)
+				return true;
+		}
+		return false;
+	}
+	public boolean checkExplode(IFluidProviderMK2 provider) {
+		if (!type.hasTrait(FT_Amat.class)) {
+			if (power <= 0 || !type.hasTrait(FT_Magnetic.class)) return true;
+		}
+		if (!isConnectedToAnywhere(provider)) return false;
+		if (power > 0 && type.hasTrait(FT_Magnetic.class)) return false;
+		if (provider instanceof TileEntity te) {
+			te.getWorld().newExplosion(null,te.getPos().getX(),te.getPos().getY(),te.getPos().getZ(),5,true,true);
+			return true;
+		}
+		return false;
 	}
 
 	// this entire shit below is copy-pasted
@@ -45,6 +72,7 @@ public class AmatNet extends NodeNet<IFluidReceiverMK2,IFluidProviderMK2,AmatNod
 
 	@Override
 	public void update() {
+		power = Math.max(power-consumption,0);
 
 		if(providerEntries.isEmpty()) return;
 		if(receiverEntries.isEmpty()) return;
@@ -69,7 +97,9 @@ public class AmatNet extends NodeNet<IFluidReceiverMK2,IFluidProviderMK2,AmatNod
 
 		while(iterator.hasNext()) {
 			Object2LongMap.Entry<IFluidProviderMK2> entry = iterator.next();
-			if(currentTime - entry.getLongValue() > timeout || isBadLink(entry.getKey())) { iterator.remove(); continue; }
+			if(currentTime - entry.getLongValue() > timeout || isBadLink(entry.getKey()) || checkExplode(entry.getKey())) {
+				iterator.remove(); continue;
+			}
 			IFluidProviderMK2 provider = entry.getKey();
 			int[] pressureRange = provider.getProvidingPressureRange(type);
 			for(int p = pressureRange[0]; p <= pressureRange[1]; p++) {

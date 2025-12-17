@@ -9,6 +9,7 @@ import com.hbm.inventory.fluid.trait.FluidTrait;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.fluids.traits.FT_DFCFuel;
 import com.leafia.contents.fluids.traits.FT_LFTRCoolant;
+import com.leafia.contents.fluids.traits.FT_Magnetic;
 
 import static com.hbm.inventory.fluid.trait.FluidTrait.traitList;
 import static com.hbm.inventory.fluid.trait.FluidTrait.traitNameMap;
@@ -17,19 +18,21 @@ public class AddonFluidTraits {
 	static {
 		registerTrait("dfceff",FT_DFCFuel.class);
 		registerTrait("lftrcoolant",FT_LFTRCoolant.class);
+		registerTrait("magnetic",FT_Magnetic.class);
 	}
+	public static final FT_Magnetic MAGNETIC = new FT_Magnetic();
 	public static void preInit() {
 		Fluids.DEUTERIUM.addTraits(new FT_DFCFuel(1.2F));
 		Fluids.TRITIUM.addTraits(new FT_DFCFuel(1.3F));
-		Fluids.OXYGEN.addTraits(new FT_DFCFuel(1.1F));
+		Fluids.OXYGEN.addTraits(new FT_DFCFuel(1.1F),MAGNETIC);
 		Fluids.HYDROGEN.addTraits(new FT_DFCFuel(1F));
 		Fluids.NITAN.addTraits(new FT_DFCFuel(1.6F));
 		Fluids.UF6.addTraits(new FT_DFCFuel(1.3F));
 		Fluids.PUF6.addTraits(new FT_DFCFuel(1.4F));
 		Fluids.SAS3.addTraits(new FT_DFCFuel(1.5F));
 		Fluids.SCHRABIDIC.addTraits(new FT_DFCFuel(1.7F));
-		Fluids.AMAT.addTraits(new FT_DFCFuel(2.2F));
-		Fluids.ASCHRAB.addTraits(new FT_DFCFuel(2.5F));
+		Fluids.AMAT.addTraits(new FT_DFCFuel(2.2F),MAGNETIC);
+		Fluids.ASCHRAB.addTraits(new FT_DFCFuel(2.5F),MAGNETIC);
 		Fluids.PEROXIDE.addTraits(new FT_DFCFuel(1.05F));
 		Fluids.SULFURIC_ACID.addTraits(new FT_DFCFuel(1.3F));
 		Fluids.NITRIC_ACID.addTraits(new FT_DFCFuel(1.4F));
@@ -40,7 +43,7 @@ public class AddonFluidTraits {
 		Fluids.WATZ.addTraits(new FT_DFCFuel(1.5F));
 		Fluids.XENON.addTraits(new FT_DFCFuel(1.25F));
 		Fluids.BALEFIRE.addTraits(new FT_DFCFuel(2.4F));
-		Fluids.STELLAR_FLUX.addTraits(new FT_DFCFuel(2.65F));
+		Fluids.STELLAR_FLUX.addTraits(new FT_DFCFuel(2.65F),MAGNETIC);
 
 		Fluids.COOLANT_HOT.addTraits(new FT_Heatable().setEff(HeatingType.BOILER, 1.0D).setEff(HeatingType.HEATEXCHANGER, 1.0D).addStep(700, 1, AddonFluids.COOLANT_MAL, 1));
 		AddonFluids.COOLANT_MAL.addTraits(new FT_Coolable(Fluids.COOLANT_HOT, 1, 1, 700).setEff(CoolingType.HEATEXCHANGER, 1.0D));

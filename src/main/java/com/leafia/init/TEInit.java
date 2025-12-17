@@ -21,8 +21,10 @@ import com.leafia.contents.machines.reactors.pwr.blocks.components.port.PWRPortT
 import com.leafia.contents.machines.reactors.pwr.blocks.components.terminal.PWRTerminalTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreckEntity;
 import com.leafia.contents.network.ff_duct.FFDuctTE;
+import com.leafia.contents.network.ff_duct.utility.converter.FFConverterTE;
 import com.leafia.contents.network.ff_duct.utility.pump.FFPumpTE;
 import com.leafia.contents.network.pipe_amat.AmatDuctTE;
+import com.leafia.contents.network.pipe_amat.charger.AmatDuctChargerTE;
 import com.leafia.contents.network.spk_cable.SPKCableTE;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -41,6 +43,7 @@ public class TEInit {
 		register(SignTE.class,"letter_sign_te");
 		register(FFDuctTE.class,"ff_duct_te");
 		register(FFPumpTE.class,"ff_pump_te");
+		register(FFConverterTE.class,"ff_converter_te");
 		register(SaltSeparatorTE.class,"salt_separator_te");
 		register(MSRArbitraryTE.class,"lftr_arbitrary_te");
 		register(MSRControlTE.class,"lftr_control_te");
@@ -56,6 +59,7 @@ public class TEInit {
 		register(PWRTerminalTE.class,"lwr_terminal_te");
 		register(PWRMeshedWreckEntity.class,"lwr_wreck_te");
 		register(AmatDuctTE.class,"pipe_amat_te");
+		register(AmatDuctChargerTE.class,"charger_amat_te");
 	}
 	private static void register(Class<? extends TileEntity> clazz,String res) {
 		GameRegistry.registerTileEntity(clazz,new ResourceLocation(AddonBase.MODID,res));

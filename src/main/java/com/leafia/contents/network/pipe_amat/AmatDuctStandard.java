@@ -18,6 +18,8 @@ import com.hbm.render.loader.HFRWavefrontObject;
 import com.hbm.tileentity.network.TileEntityPipeBaseNT;
 import com.hbm.util.I18nUtil;
 import com.leafia.contents.AddonBlocks;
+import com.leafia.contents.network.pipe_amat.charger.AmatDuctChargerTE;
+import com.leafia.dev.container_utility.LeafiaPacket;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
@@ -130,6 +132,10 @@ public class AmatDuctStandard extends AmatDuctBase implements IDynamicModels, IL
 		}
 
 		TileEntity neighbor = world.getTileEntity(neighborPos);
+		/*if (neighbor instanceof AmatDuctChargerTE charger) {
+			if (charger.getType().equals(type))
+				return true;
+		}*/ // fuck off
 		if (neighbor != null && !neighbor.isInvalid()) {
 			EnumFacing facing = dir.getOpposite().toEnumFacing();
 			if (neighbor.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
@@ -356,11 +362,17 @@ public class AmatDuctStandard extends AmatDuctBase implements IDynamicModels, IL
 	@SideOnly(Side.CLIENT)
 	public void printHook(RenderGameOverlayEvent.Pre event,World world,int x,int y,int z) {
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
-		if (!(te instanceof TileEntityPipeBaseNT duct))
+		if (!(te instanceof AmatDuctTE duct))
 			return;
 
 		List<String> text = new ArrayList<>();
 		text.add("&[" + duct.getType().getColor() + "&]" + duct.getType().getLocalizedName());
+		LeafiaPacket._start(duct).__write(0,false).__sendToServer();
+		if (duct.ductPower >= 0) {
+			text.add(I18nUtil.resolveKey("tile.amat_duct.power",duct.ductPower+" HE"));
+			for (String s : I18nUtil.resolveKey("tile.amat_duct.warn").split("\\$"))
+				text.add("&["+0xFF0000+"&]"+s);
+		}
 		ILookOverlay.printGeneric(event, I18nUtil.resolveKey(getTranslationKey() + ".name"), 0xffff00, 0x404000, text);
 	}
 

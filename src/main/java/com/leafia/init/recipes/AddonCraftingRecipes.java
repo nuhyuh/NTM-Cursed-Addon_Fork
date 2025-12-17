@@ -3,6 +3,7 @@ package com.leafia.init.recipes;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.OreDictManager;
 import com.hbm.inventory.OreDictManager.DictFrame;
+import com.hbm.inventory.material.Mats;
 import com.hbm.items.ItemEnums.EnumCircuitType;
 import com.hbm.items.ModItems;
 import com.leafia.contents.AddonBlocks;
@@ -40,6 +41,19 @@ public class AddonCraftingRecipes {
 				addShapelessAuto(new ItemStack(rod.baseItem,1,rod.baseMeta),rod);
 			}
 		}
+		// A NOTE TO SELF: Ingredient keys are supposed to be chars, not strings.
+		// If they're strings, they things its part of the shape and probably shits your bed off.
+
+		// CraftingManager can suck my ass god fucking dammit
+		addRecipeAuto(new ItemStack(AddonBlocks.amat_duct,3),"CCC","DDD","CCC",'C',ALLOY.wireFine(),'D',new ItemStack(ModBlocks.fluid_duct_neo,1,0));
+		addRecipeAuto(new ItemStack(AddonBlocks.amat_charger)," D ","DED"," D ",'D',AddonBlocks.amat_duct,'E',ModBlocks.machine_battery);
+
+		for (int meta = 0; meta < 3; meta++) {
+			addRecipeAuto(new ItemStack(AddonBlocks.ff_duct,3,meta),"DDD",'D',new ItemStack(ModBlocks.fluid_duct_neo,1,meta));
+			addShapelessAuto(new ItemStack(ModBlocks.fluid_duct_neo,1,meta),'D',new ItemStack(AddonBlocks.ff_duct,1,meta));
+		}
+		addShapelessAuto(new ItemStack(AddonBlocks.ff_pump),new ItemStack(AddonBlocks.ff_duct,1,2),new ItemStack(ModItems.motor));
+		addShapelessAuto(new ItemStack(AddonBlocks.ff_converter),new ItemStack(AddonBlocks.ff_duct,1,2),AL.plate());
 
 		removeRecipesForItem(reg,ModItems.ams_lens);
 

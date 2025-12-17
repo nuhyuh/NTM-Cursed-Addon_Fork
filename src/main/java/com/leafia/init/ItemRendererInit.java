@@ -45,6 +45,7 @@ public class ItemRendererInit {
 			register(sign,signRenderer);
 		FFDuctUtilityItemRender ductUtilRenderer = new FFDuctUtilityItemRender();
 		register(AddonBlocks.ff_pump,ductUtilRenderer);
+		register(AddonBlocks.ff_converter,ductUtilRenderer);
 
 		register(AddonBlocks.salt_separator,new SaltSeparatorItemRender());
 		register(AddonBlocks.mixingvat,new MixingVatItemRender());

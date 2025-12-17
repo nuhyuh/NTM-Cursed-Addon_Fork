@@ -21,6 +21,7 @@ public class FFDuctUtilityRender extends TileEntitySpecialRenderer<FFDuctUtility
 	public static final ResourceLocation ff = new ResourceLocation("leafia", "textures/models/leafia/lftr/pipe_silver.png");
 	public static final ResourceLocation ntmf = new ResourceLocation("hbm", "textures/blocks/pipe_silver.png");
 	public static final ResourceLocation box = new ResourceLocation("leafia", "textures/models/leafia/lftr/pipe_converter.png");
+	public static final ResourceLocation arrow = new ResourceLocation("leafia", "textures/models/leafia/lftr/pipe_converter_arrow.png");
 	public static class FFDuctUtilityItemRender extends LeafiaItemRenderer {
 		@Override
 		protected double _sizeReference() {
@@ -40,12 +41,16 @@ public class FFDuctUtilityRender extends TileEntitySpecialRenderer<FFDuctUtility
 				pump.renderPart("pZ");
 				bindTexture(box);
 				pump.renderPart("Cylinder");
+				bindTexture(arrow);
+				pump.renderPart("Cylinder");
 			} else {
 				bindTexture(ff);
 				converter.renderPart("pZ");
 				bindTexture(ntmf);
 				converter.renderPart("nZ");
 				bindTexture(box);
+				converter.renderPart("Cube");
+				bindTexture(arrow);
 				converter.renderPart("Cube");
 			}
 		}
@@ -68,12 +73,23 @@ public class FFDuctUtilityRender extends TileEntitySpecialRenderer<FFDuctUtility
 			}
 			int code = te.getType().getColor();
 			float max = 240/255f;
-			LeafiaGls.color((code>>>16&0xFF)/255f*max,(code>>>8&0xFF)/255f*max,(code&0xFF)/255f*max);
+			float red = (code>>>16&0xFF)/255f;
+			float green = (code>>>8&0xFF)/255f;
+			float blue = (code&0xFF)/255f;
+			LeafiaGls.color(red*max,green*max,blue*max);
+			float lightColor = 0.65f;
+			float darkColor = 0.4f;
 			if (te instanceof FFPumpTE) {
 				bindTexture(ff);
 				pump.renderPart("pZ");
 				bindTexture(box);
-				LeafiaGls.color((code>>>16&0xFF)/255f,(code>>>8&0xFF)/255f,(code&0xFF)/255f);
+				if ((red+green+blue)/3f > 0.5f)
+					LeafiaGls.color(darkColor,darkColor,darkColor);
+				else
+					LeafiaGls.color(lightColor,lightColor,lightColor);
+				pump.renderPart("Cylinder");
+				LeafiaGls.color(1,1,1);
+				bindTexture(arrow);
 				pump.renderPart("Cylinder");
 			} else {
 				bindTexture(ff);
@@ -81,10 +97,15 @@ public class FFDuctUtilityRender extends TileEntitySpecialRenderer<FFDuctUtility
 				bindTexture(ntmf);
 				converter.renderPart("nZ");
 				bindTexture(box);
-				LeafiaGls.color((code>>>16&0xFF)/255f,(code>>>8&0xFF)/255f,(code&0xFF)/255f);
+				if ((red+green+blue)/3f > 0.5f)
+					LeafiaGls.color(darkColor,darkColor,darkColor);
+				else
+					LeafiaGls.color(lightColor,lightColor,lightColor);
+				converter.renderPart("Cube");
+				LeafiaGls.color(1,1,1);
+				bindTexture(arrow);
 				converter.renderPart("Cube");
 			}
-			LeafiaGls.color(1,1,1);
 		}
 		LeafiaGls.popMatrix();
 	}

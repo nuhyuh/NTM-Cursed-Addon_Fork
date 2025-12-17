@@ -35,8 +35,10 @@ import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreck;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckMetal;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckStone;
 import com.leafia.contents.network.ff_duct.FFDuctStandard;
+import com.leafia.contents.network.ff_duct.utility.converter.FFConverterBlock;
 import com.leafia.contents.network.ff_duct.utility.pump.FFPumpBlock;
 import com.leafia.contents.network.pipe_amat.AmatDuctStandard;
+import com.leafia.contents.network.pipe_amat.charger.AmatDuctChargerBlock;
 import com.leafia.contents.network.spk_cable.SPKCableBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -172,8 +174,10 @@ public class AddonBlocks {
 
 	public static final Block ff_duct = new FFDuctStandard(Material.IRON, "ff_duct").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
 	public static final Block ff_pump = new FFPumpBlock(Material.IRON,"ff_pump").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
+	public static final Block ff_converter = new FFConverterBlock(Material.IRON,"ff_converter").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
 
-	public static final Block amat_duct = new AmatDuctStandard(Material.IRON, "amat_duct").setHardness(8.0F).setResistance(30.0F).setCreativeTab(MainRegistry.templateTab);
+	public static final Block amat_duct = new AmatDuctStandard(Material.IRON, "amat_duct").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
+	public static final Block amat_charger = new AmatDuctChargerBlock(Material.IRON, "amat_duct_charger").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
 
 	static boolean test_dummy = TestBlocks.dummy;
 	public static class TestBlocks {

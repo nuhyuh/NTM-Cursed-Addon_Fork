@@ -1,22 +1,35 @@
 package com.leafia.overwrite_contents.mixin.mod.hbm;
 
+import com.hbm.api.fluidmk2.FluidNode;
 import com.hbm.api.fluidmk2.IFluidStandardTransceiverMK2;
 import com.hbm.inventory.fluid.FluidType;
+import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.lib.DirPos;
 import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.Library;
 import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.tileentity.machine.TileEntityBarrel;
+import com.hbm.uninos.UniNodespace;
+import com.leafia.contents.network.pipe_amat.uninos.AmatNet;
+import com.leafia.contents.network.pipe_amat.uninos.AmatNode;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 
 @Mixin(value = TileEntityBarrel.class)
 public abstract class MixinTileEntityBarrel extends TileEntityMachineBase implements IFluidStandardTransceiverMK2 {
+	@Shadow(remap=false) public FluidTankNTM tankNew;
+	@Shadow(remap=false) public short mode = 0;
+
 	public MixinTileEntityBarrel(int scount) {
 		super(scount);
 	}
@@ -57,5 +70,24 @@ public abstract class MixinTileEntityBarrel extends TileEntityMachineBase implem
 		if (dir != ForgeDirection.UP && dir != ForgeDirection.DOWN)
 			return false;
 		return IFluidStandardTransceiverMK2.super.canConnect(type,dir);
+	}
+
+	@Inject(method = "update",at = @At(value = "INVOKE", target = "Lcom/hbm/tileentity/machine/TileEntityBarrel;getConPos()[Lcom/hbm/lib/DirPos;",remap=false),require = 1)
+	public void onOnUpdate(CallbackInfo ci) {
+		for(DirPos pos : this.getConPos()) {
+			AmatNode dirNode = (AmatNode)UniNodespace.getNode(world, pos.getPos(),AmatNet.getProvider(tankNew.getTankType()));
+
+			if(mode == 2) {
+				tryProvide(tankNew, world, pos.getPos(), pos.getDir());
+			} else {
+				if(dirNode != null && dirNode.hasValidNet()) dirNode.net.removeProvider(this);
+			}
+
+			if(mode == 0) {
+				if(dirNode != null && dirNode.hasValidNet()) dirNode.net.addReceiver(this);
+			} else {
+				if(dirNode != null && dirNode.hasValidNet()) dirNode.net.removeReceiver(this);
+			}
+		}
 	}
 }

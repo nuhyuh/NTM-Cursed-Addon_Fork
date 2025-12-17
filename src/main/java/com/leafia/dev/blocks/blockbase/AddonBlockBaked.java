@@ -3,6 +3,7 @@ package com.leafia.dev.blocks.blockbase;
 import com.google.common.collect.ImmutableMap;
 import com.hbm.items.IDynamicModels;
 import com.hbm.render.block.BlockBakeFrame;
+import com.leafia.dev.blocks.AddonBlockBakeFrame;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -19,10 +20,10 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import static com.hbm.render.block.BlockBakeFrame.BlockForm.ALL;
 
 public class AddonBlockBaked extends AddonBlockBase implements IDynamicModels {
-	protected BlockBakeFrame blockFrame;
+	protected AddonBlockBakeFrame blockFrame;
 
 	public AddonBlockBaked(
-			Material m,String s,BlockBakeFrame blockFrame) {
+			Material m,String s,AddonBlockBakeFrame blockFrame) {
 		super(m, s);
 		this.blockFrame = blockFrame;
 		IDynamicModels.INSTANCES.add(this);
@@ -32,7 +33,7 @@ public class AddonBlockBaked extends AddonBlockBase implements IDynamicModels {
 	public AddonBlockBaked(
 			Material m, String s, String texture) {
 		super(m, s);
-		this.blockFrame = new BlockBakeFrame(ALL, texture);
+		this.blockFrame = new AddonBlockBakeFrame(ALL, texture);
 		IDynamicModels.INSTANCES.add(this);
 
 	}
@@ -40,7 +41,7 @@ public class AddonBlockBaked extends AddonBlockBase implements IDynamicModels {
 	public AddonBlockBaked(
 			Material m, String s) {
 		super(m, s);
-		this.blockFrame = new BlockBakeFrame(ALL, s);
+		this.blockFrame = new AddonBlockBakeFrame(ALL, s);
 		IDynamicModels.INSTANCES.add(this);
 
 	}
@@ -48,7 +49,7 @@ public class AddonBlockBaked extends AddonBlockBase implements IDynamicModels {
 	public AddonBlockBaked(
 			Material m, String s, String textureTop, String textureSide) {
 		super(m, s);
-		this.blockFrame = new BlockBakeFrame(textureTop, textureSide);
+		this.blockFrame = new AddonBlockBakeFrame(textureTop, textureSide);
 		IDynamicModels.INSTANCES.add(this);
 
 	}
