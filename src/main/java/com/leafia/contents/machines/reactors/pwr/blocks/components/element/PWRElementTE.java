@@ -4,6 +4,9 @@ import com.custom_hbm.util.LCETuple.Pair;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.handler.radiation.ChunkRadiationManager;
 import com.hbm.interfaces.IRadResistantBlock;
+import com.hbm.inventory.fluid.FluidType;
+import com.hbm.inventory.fluid.Fluids;
+import com.hbm.inventory.fluid.trait.FT_PWRModerator;
 import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Gaseous;
 import com.hbm.lib.InventoryHelper;
 import com.hbm.tileentity.TileEntityInventoryBase;
@@ -509,6 +512,11 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 							Tracker._endProfile(this);
 							double value = rod.getFlux(items.getStackInSlot(0))*(1-retrival.moderation)+rod.getFlux(items.getStackInSlot(0),true)*retrival.moderation;
 							Tracker._tracePosition(this,pos,value);
+							if (data != null) {
+								FluidType type = Fluids.fromID(data.coolantId);
+								if (type.hasTrait(FT_PWRModerator.class))
+									value *= type.getTrait(FT_PWRModerator.class).getMultiplier();
+							}
 							return value;
 						}
 					}

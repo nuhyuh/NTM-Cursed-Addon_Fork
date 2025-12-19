@@ -191,7 +191,7 @@ public class MSRElementTE extends MSRTEBase {
 			nbt.setDouble("heat",heat);
 			stack0.tag = nbt;
 			double rad = Math.pow(heatMg,0.65)/2;
-			//ChunkRadiationManager.proxy.incrementRad(world,pos,(float)rad/8,(float)rad);
+			ChunkRadiationManager.proxy.incrementRad(world,pos,(float)rad/8,(float)rad);
 		}
 	}
 

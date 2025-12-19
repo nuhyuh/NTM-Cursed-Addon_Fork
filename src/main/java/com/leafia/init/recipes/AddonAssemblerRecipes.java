@@ -35,6 +35,14 @@ public class AddonAssemblerRecipes {
 						new OreDictStack(ZR.ingot(),2)
 				)
 		);
+		INSTANCE.register(new GenericRecipe("ass.leafia.legacy_pwrconductor").setup(130,100)
+				.outputItems(new ItemStack(PWR.conductor))
+				.inputItems(
+						new OreDictStack(STEEL.ingot(),4),
+						new OreDictStack(CU.plate(),12),
+						new OreDictStack(W.wireFine(),4)
+				)
+		);
 		replaceOutput("ass.pwrcontrol",new ItemStack(PWR.control));
 		replaceOutput("ass.pwrfuel",new ItemStack(PWR.element));
 		replaceOutput("ass.pwrchannel",new ItemStack(PWR.channel));
@@ -42,6 +50,7 @@ public class AddonAssemblerRecipes {
 		replaceOutput("ass.pwrreflector",new ItemStack(PWR.reflector));
 		replaceOutput("ass.pwrcasing",new ItemStack(PWR.hull));
 		replaceOutput("ass.pwrcontroller",new ItemStack(PWR.terminal));
+		replaceOutput("ass.pwrport",new ItemStack(PWR.port));
 		remove("ass.pwrneutronsource");
 		remove("ass.pwrheatsink");
 	}
