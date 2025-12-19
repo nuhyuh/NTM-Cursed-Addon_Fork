@@ -134,10 +134,10 @@ public class ItemFuzzyIdentifier extends AddonItemBase implements IItemFluidIden
 						if (nbt == null) nbt = new NBTTagCompound();
 						nbt.setString("fluidtype",fluid.getName());
 						stack.setTagCompound(nbt);
-						if (!worldIn.isRemote)
+						if (!worldIn.isRemote) {
 							worldIn.playSound(null,player.getPosition(),HBMSoundHandler.techBleep,SoundCategory.PLAYERS,1,1);
-						else
 							Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("item.fuzzy_identifier.message",fluid.getLocalizedName()).setStyle(new Style().setColor(TextFormatting.YELLOW)));
+						}
 					}
 				}
 			}

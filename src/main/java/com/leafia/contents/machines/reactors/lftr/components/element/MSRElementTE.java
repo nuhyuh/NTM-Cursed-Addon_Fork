@@ -56,7 +56,7 @@ public class MSRElementTE extends MSRTEBase {
 				new String[]{OreDictManager.TH232.nugget()},
 				"(x÷2)^0.6/B",
 				(x)->Math.pow(x/2,0.6),
-				100000000d,
+				70000000d,
 				MSRByproduct.th232
 		),
 		pa233(
@@ -64,7 +64,7 @@ public class MSRElementTE extends MSRTEBase {
 				new String[]{},
 				"(x÷2)^0.6/B",
 				(x)->Math.pow(x/2,0.6),
-				100000000d,
+				1000000d,
 				MSRByproduct.pa233
 		),
 		u233(

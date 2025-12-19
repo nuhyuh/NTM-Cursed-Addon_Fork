@@ -1,5 +1,6 @@
 package com.leafia.init;
 
+import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.trait.FT_Coolable;
 import com.hbm.inventory.fluid.trait.FT_Coolable.CoolingType;
@@ -7,9 +8,14 @@ import com.hbm.inventory.fluid.trait.FT_Heatable;
 import com.hbm.inventory.fluid.trait.FT_Heatable.HeatingType;
 import com.hbm.inventory.fluid.trait.FluidTrait;
 import com.leafia.contents.AddonFluids;
+import com.leafia.contents.fluids.AddonFluidType;
 import com.leafia.contents.fluids.traits.FT_DFCFuel;
 import com.leafia.contents.fluids.traits.FT_LFTRCoolant;
 import com.leafia.contents.fluids.traits.FT_Magnetic;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import static com.hbm.inventory.fluid.trait.FluidTrait.traitList;
 import static com.hbm.inventory.fluid.trait.FluidTrait.traitNameMap;
@@ -20,6 +26,7 @@ public class AddonFluidTraits {
 		registerTrait("lftrcoolant",FT_LFTRCoolant.class);
 		registerTrait("magnetic",FT_Magnetic.class);
 	}
+	public static final Map<AddonFluidType,FluidType> copyTraits = new HashMap<>();
 	public static final FT_Magnetic MAGNETIC = new FT_Magnetic();
 	public static void preInit() {
 		Fluids.DEUTERIUM.addTraits(new FT_DFCFuel(1.2F));
@@ -54,6 +61,11 @@ public class AddonFluidTraits {
 
 		double eff_steam_cool = 0.5D;
 		AddonFluids.DEATHSTEAM.addTraits(new FT_Coolable(Fluids.ULTRAHOTSTEAM, 1, 10, 960).setEff(CoolingType.HEATEXCHANGER, eff_steam_cool));
+
+		for (Entry<AddonFluidType,FluidType> entry : copyTraits.entrySet()) {
+			if (entry.getKey().copyFunction != null)
+				entry.getKey().copyTraits(entry.getValue(),entry.getKey().copyFunction);
+		}
 	}
 	private static void registerTrait(String name, Class<? extends FluidTrait> clazz) {
 		traitNameMap.put(name, clazz);

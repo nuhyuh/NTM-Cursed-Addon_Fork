@@ -15,6 +15,7 @@ import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.util.BobMathUtil;
 import com.hbm.util.Tuple.Pair;
+import com.hbm.util.Tuple.Triplet;
 import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementTE;
 import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementTE.MSRFuel;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.container.SaltSeparatorContainer;
@@ -24,6 +25,7 @@ import com.leafia.contents.machines.reactors.lftr.processing.separator.recipes.S
 import com.leafia.contents.network.FFNBT;
 import com.leafia.contents.network.ff_duct.uninos.IFFProvider;
 import com.leafia.contents.network.ff_duct.uninos.IFFReceiver;
+import com.leafia.dev.LeafiaDebug;
 import com.leafia.dev.LeafiaUtil;
 import com.leafia.dev.container_utility.LeafiaPacket;
 import com.leafia.dev.container_utility.LeafiaPacketReceiver;
@@ -92,7 +94,7 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 	public UpgradeManagerNT upgradeManager = new UpgradeManagerNT(this);
 
 	/// gets appropriate amount to be transferred to salt tank
-	public Pair<Integer,Double> getExtractionAmount(Map<MSRFuel,Double> recipe) {
+	public Triplet<Integer,Integer,Double> getExtractionAmount(Map<MSRFuel,Double> recipe) {
 		if (bufferIn.getFluid() != null && saltType.getFF() != null) {
 			NBTTagCompound tag = MSRElementTE.nbtProtocol(bufferIn.getFluid().tag);
 			bufferIn.getFluid().tag = tag;
@@ -100,6 +102,9 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 			double multiplier = 99999999;
 			int tankSpace = saltTank.getCapacity()-saltTank.getFluidAmount();
 			int bufferSpace = bufferOut.getCapacity()-bufferOut.getFluidAmount();
+			double sumAll = 0;
+			for (Entry<String,Double> entry : mixture.entrySet())
+				sumAll += entry.getValue();
 			for (Entry<MSRFuel,Double> entry : recipe.entrySet()) {
 				String name = entry.getKey().name();
 				if (mixture.containsKey(name)) {
@@ -108,19 +113,17 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 					multiplier = Math.min(multiplier,mixtureAmount/recipeAmount);
 				} else return null;
 			}
-			int conversion = Math.min((int)(Math.min(bufferIn.getFluidAmount()*multiplier,tankSpace)/multiplier),bufferSpace);
-			return new Pair<>(conversion,multiplier);
+			double sumRecipe = 0;
+			for (Entry<MSRFuel,Double> entry : recipe.entrySet())
+				sumRecipe += entry.getValue()*multiplier;
+			int conversion = Math.min(Math.min((int)(Math.min(bufferIn.getFluidAmount()*multiplier*(sumRecipe/sumAll),tankSpace)/multiplier/(sumRecipe/sumAll)),bufferSpace),bufferIn.getFluidAmount());
+			int actualConversion = (int)(conversion*(sumRecipe/sumAll));
+			return new Triplet<>(conversion,actualConversion,multiplier);
 		}
 		return null;
 	}
-	/*public void transferToTank(Map<MSRFuel,Double> recipe,int conversion,double multiplier) {
-		Map<String,Double> outputMixture = new HashMap<>();
-		if (bufferIn.getFluid() != null) {
-			NBTTagCompound tag = MSRElementTE.nbtProtocol(bufferIn.getFluid().tag);
-			bufferIn.getFluid().tag = tag;
-			outputMixture = MSRElementTE.readMixture(tag);
-		}
-		if (bufferIn.getFluid() != null && saltType.getFF() != null) {
+	public void transferToTank(Map<MSRFuel,Double> recipe,int conversion,int actualConversion,double multiplier) {
+		if (bufferIn.getFluid() != null && saltType.getFF() != null && bufferIn.getFluidAmount() > 0) {
 			int inAmt = bufferIn.getFluidAmount();
 			NBTTagCompound tag = MSRElementTE.nbtProtocol(bufferIn.getFluid().tag);
 			bufferIn.getFluid().tag = tag;
@@ -130,7 +133,7 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 				throw new LeafiaDevFlaw("Salt Separator: Could not drain input buffer. How did this happen?");
 			if (stack.amount != conversion)
 				throw new LeafiaDevFlaw("Salt Separator: Drained amount does not match conversion value. How did this happen?");
-			outputMixture = new HashMap<>();
+			Map<String,Double> outputMixture = MSRElementTE.readMixture(tag);
 			for (Entry<String,Double> entry : mixture.entrySet()) {
 				try {
 					if (recipe.containsKey(MSRFuel.valueOf(entry.getKey()))) {
@@ -141,61 +144,11 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 						outputMixture.put(entry.getKey(),entry.getValue());
 				} catch (IllegalArgumentException ignored) { }
 			}
-			//if (buf.getFluidAmount() > 0)
-			//	throw new LeafiaDevFlaw("Salt Separator: "+buf.getFluidAmount()+"mB was sent into the backrooms. How?\n\nExtended Information: Output was "+bufferOut.getFluidAmount()+"/"+bufferOut.getCapacity()+"mB");
-			Map<String,Double> fillMixture = new HashMap<>();
-			for (Entry<MSRFuel,Double> entry : recipe.entrySet())
-				fillMixture.put(entry.getKey().name(),entry.getValue());
-			NBTTagCompound fillTag = new NBTTagCompound();
-			fillTag.setTag("itemMixture",MSRElementTE.writeMixture(fillMixture));
-			FluidStack wh = new FluidStack(saltType.getFF(),saltTank.getFluidAmount()+(int)(conversion*multiplier),fillTag);
-			System.out.println(wh);
-			saltTank.setFluid(wh);
-		}
-		if (bufferIn.getFluid() != null) {
-			NBTTagCompound tag1 = MSRElementTE.nbtProtocol(bufferIn.getFluid().tag);
-			tag1.setTag("itemMixture",MSRElementTE.writeMixture(outputMixture));
-			bufferIn.getFluid().tag = tag1;
-			LeafiaUtil.fillFF(bufferIn,bufferOut,conversion);
-		}
-	}*/
-	public void transferToTank(Map<MSRFuel,Double> recipe,int conversion,double multiplier) {
-		if (bufferIn.getFluid() != null && saltType.getFF() != null) {
-			int inAmt = bufferIn.getFluidAmount();
-			NBTTagCompound tag = MSRElementTE.nbtProtocol(bufferIn.getFluid().tag);
-			bufferIn.getFluid().tag = tag;
-			Map<String,Double> mixture = MSRElementTE.readMixture(tag);
-			FluidStack stack = bufferIn.drain(conversion,true);
-			if (stack == null)
-				throw new LeafiaDevFlaw("Salt Separator: Could not drain input buffer. How did this happen?");
-			if (stack.amount != conversion)
-				throw new LeafiaDevFlaw("Salt Separator: Drained amount does not match conversion value. How did this happen?");
-			Map<String,Double> outputMixture = new HashMap<>();
-			double ogMix = 0;
-			double postMix = 0;
-			for (Entry<String,Double> entry : mixture.entrySet()) {
-				ogMix += entry.getValue();
-				try {
-					if (recipe.containsKey(MSRFuel.valueOf(entry.getKey()))) {
-						double mix = entry.getValue()-recipe.get(MSRFuel.valueOf(entry.getKey()))*multiplier;//conversion/inAmt;
-						if (mix > 0)
-							outputMixture.put(entry.getKey(),mix);
-					} else
-						outputMixture.put(entry.getKey(),entry.getValue());
-				} catch (IllegalArgumentException ignored) { }
-				postMix += outputMixture.getOrDefault(entry.getKey(),0d);
-			}
-			stack.tag.setTag("itemMixture",MSRElementTE.writeMixture(outputMixture));
-			FluidTank buf = new FluidTank(conversion);
-			boolean dontstop = (int)(stack.amount*(1-postMix/ogMix)) > 0 && (int)(stack.amount*(postMix/ogMix)) > 0;
-			if (dontstop)
-				stack.amount = (ogMix > 0) ? (int)(stack.amount*(postMix/ogMix)) : 0;
-			else
-				stack.tag = tag;
-			buf.setFluid(stack);
-			LeafiaUtil.fillFF(buf,bufferOut,buf.getFluidAmount());
-			if (!dontstop)
-				return;
+			NBTTagCompound outTag = new NBTTagCompound();
+			outTag.setTag("itemMixture",MSRElementTE.writeMixture(outputMixture));
+			FluidTank buf = new FluidTank(conversion-actualConversion);
+			buf.setFluid(new FluidStack(saltType.getFF(),conversion-actualConversion,outTag));
+			LeafiaUtil.fillFF(buf,bufferOut,conversion-actualConversion);
 			if (buf.getFluidAmount() > 0)
 				throw new LeafiaDevFlaw("Salt Separator: "+buf.getFluidAmount()+"mB was sent into the backrooms. How?\n\nExtended Information: Output was "+bufferOut.getFluidAmount()+"/"+bufferOut.getCapacity()+"mB");
 			Map<String,Double> fillMixture = new HashMap<>();
@@ -203,9 +156,8 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 				fillMixture.put(entry.getKey().name(),entry.getValue());
 			NBTTagCompound fillTag = new NBTTagCompound();
 			fillTag.setTag("itemMixture",MSRElementTE.writeMixture(fillMixture));
-			FluidStack wh = new FluidStack(saltType.getFF(),saltTank.getFluidAmount()+(int)(conversion*multiplier*(1-postMix/ogMix)),fillTag);
-			System.out.println(wh);
-			saltTank.setFluid(wh);
+			FluidStack tankFill = new FluidStack(saltType.getFF(),saltTank.getFluidAmount()+actualConversion,fillTag);
+			saltTank.setFluid(tankFill);
 		}
 	}
 
@@ -254,9 +206,15 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 			SaltSeparatorRecipe curRecipe = this.module.getRecipe();
 			saltType = (curRecipe != null) ? curRecipe.saltType : Fluids.NONE;
 			if (curRecipe != null) {
-				Pair<Integer,Double> conversion = getExtractionAmount(curRecipe.mixture);
-				if (conversion != null && conversion.getKey() > 0)
-					transferToTank(curRecipe.mixture,conversion.getKey(),conversion.getValue());
+				Triplet<Integer,Integer,Double> conversion = getExtractionAmount(curRecipe.mixture);
+				if (conversion != null) {
+					/*
+					int fuckoff = (int)(conversion.getY()*conversion.getZ());
+					if (fuckoff > 0)
+						transferToTank(curRecipe.mixture,(int)(conversion.getX()*conversion.getZ()),fuckoff,1);
+					 */
+					transferToTank(curRecipe.mixture,conversion.getX(),conversion.getY(),1);
+				}
 				LeafiaUtil.fillFF(bufferIn,bufferOut,bufferIn.getFluidAmount());
 			}
 
