@@ -1,5 +1,6 @@
 package com.leafia.contents.machines.reactors.pwr.blocks.components.control;
 
+import com.hbm.inventory.control_panel.*;
 import com.hbm.main.MainRegistry;
 import com.hbm.sound.AudioWrapper;
 import com.leafia.contents.AddonBlocks;
@@ -18,15 +19,16 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITickable, LeafiaPacketReceiver {
+public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITickable, LeafiaPacketReceiver, IControllable {
     BlockPos corePos = null;
     PWRData data = null;
 
@@ -175,6 +177,7 @@ public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITic
         if (sound != null)
             sound.stopSound();
         sound = null;
+        ControlEventSystem.get(world).removeControllable(this);
         super.invalidate();
         if (this.data != null)
             this.data.invalidate(world);
@@ -183,6 +186,7 @@ public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITic
     @Override
     public void validate() {
         super.validate();
+        ControlEventSystem.get(world).addControllable(this);
         //if (world.isRemote) {
             //LeafiaPacket._validate(this); //LeafiaPacket._start(this).__write((byte)0,true).__setTileEntityQueryType(Chunk.EnumCreateEntityType.CHECK).__sendToServer();
         //}
@@ -292,5 +296,32 @@ public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITic
             PWRData.addDataToPacket(packet,this.data);
         }
         packet.__sendToClient(plr);
+    }
+
+    @Override
+    public BlockPos getControlPos() {
+        return pos;
+    }
+
+    @Override
+    public World getControlWorld() {
+        return world;
+    }
+
+    @Override
+    public void receiveEvent(BlockPos from,ControlEvent e) {
+        if (e.name.equals("pwr_ctrl_set_level"))
+            targetPosition = MathHelper.clamp(e.vars.get("level").getNumber()/100d,0,1);
+    }
+    @Override
+    public Map<String,DataValue> getQueryData() {
+        Map<String,DataValue> map = new HashMap<>();
+        map.put("level",new DataValueFloat((float)(position*100)));
+        return map;
+    }
+
+    @Override
+    public List<String> getInEvents() {
+        return Collections.singletonList("pwr_ctrl_set_level");
     }
 }

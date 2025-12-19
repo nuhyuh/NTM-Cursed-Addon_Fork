@@ -69,6 +69,8 @@ public class AddonCraftingRecipes {
 		addRecipeAuto(new ItemStack(AddonItems.ams_focus_safe, 1), "PFP", "GEG", "PFP", 'P', ModItems.rune_isa, 'G', AddonItems.ams_focus_limiter, 'E', ModItems.upgrade_effect_3, 'F', ModItems.thermo_unit_endo);
 		addRecipeAuto(new ItemStack(ModItems.ams_catalyst_blank, 1), "TET", "ETE", "TET", 'T', TS.dust(), 'E', EUPH.ingot());
 
+		addRecipeAuto(new ItemStack(AddonBlocks.ff_duct_solid_shielded, 8), "SAS", "ADA", "SAS", 'S', ModBlocks.brick_compound, 'A', AddonBlocks.ff_duct, 'D', ModItems.ducttape);
+
 		hack.getRegistry().register(new PWRDebrisCrafting().setRegistryName(new ResourceLocation("leafia", "lwr_debris_crafting_handler")));
 	}
 	static void removeRecipesForItem(ForgeRegistry<IRecipe> reg,Item item) {

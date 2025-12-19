@@ -113,6 +113,7 @@ tile.dfc_reinforced.name=DFC 強化アブソーバー
 tile.dfc_stabilizer.desc=接続が確立されている場合、$コアのステータスも取得します。
 tile.ff_duct.name=特殊パイプ
 tile.ff_duct.desc=技術的な理由で$ファジーフィルターしか対応していません
+tile.ff_duct_solid_shielded.name=放射線遮蔽特殊パイプ
 tile.ff_converter.ff=FF %s
 tile.ff_converter.name=特殊パイプアダプター
 tile.ff_converter.ntmf=NTMF %s

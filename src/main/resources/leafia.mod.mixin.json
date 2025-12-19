@@ -8,11 +8,11 @@
   "client": [
     "hbm.MixinFluidTankNTM",
     "hbm.MixinFolderButton",
+    "hbm.MixinFT_HEatable",
     "hbm.MixinItemFluidIcon",
     "hbm.MixinItemRenderLaserDetonator",
     "hbm.MixinParticleRBMKMush",
-    "hbm.MixinRenderTorex",
-    "hbm.MixinFT_HEatable"
+    "hbm.MixinRenderTorex"
   ],
   "mixins": [
     "hbm.MixinBlockCoalOil",
@@ -60,7 +60,9 @@
     "hbm.MixinTileEntityHeatBoiler",
     "hbm.MixinTileEntityHeatBoilerIndustrial",
     "hbm.MixinTileEntityMachineBase",
-    "hbm.MixinTileEntityMachineFluidTank"
+    "hbm.MixinTileEntityMachineFluidTank",
+    "hbm.MixinTileEntityMachineLargeTurbine",
+    "hbm.MixinTileEntityMachineTurbine"
   ],
   "server": [
   ],

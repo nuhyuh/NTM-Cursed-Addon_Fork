@@ -3,10 +3,7 @@ package com.leafia.overwrite_contents.mixin.mod.hbm;
 import com.hbm.api.energymk2.IEnergyReceiverMK2;
 import com.hbm.api.fluid.IFluidStandardReceiver;
 import com.hbm.interfaces.ILaserable;
-import com.hbm.inventory.control_panel.ControlEvent;
-import com.hbm.inventory.control_panel.DataValue;
-import com.hbm.inventory.control_panel.DataValueFloat;
-import com.hbm.inventory.control_panel.IControllable;
+import com.hbm.inventory.control_panel.*;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.lib.ForgeDirection;
@@ -390,6 +387,18 @@ public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase i
     @Override
     public List<String> getInEvents() {
         return Arrays.asList("set_booster_level","set_booster_active");
+    }
+
+    @Override
+    public void validate(){
+        super.validate();
+        ControlEventSystem.get(world).addControllable(this);
+    }
+
+    @Override
+    public void invalidate(){
+        super.invalidate();
+        ControlEventSystem.get(world).removeControllable(this);
     }
 
     // OC //

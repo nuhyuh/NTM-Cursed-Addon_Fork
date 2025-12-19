@@ -5,10 +5,7 @@ import com.hbm.api.fluid.IFluidStandardReceiver;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.interfaces.ILaserable;
-import com.hbm.inventory.control_panel.ControlEvent;
-import com.hbm.inventory.control_panel.DataValue;
-import com.hbm.inventory.control_panel.DataValueFloat;
-import com.hbm.inventory.control_panel.IControllable;
+import com.hbm.inventory.control_panel.*;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.lib.ForgeDirection;
@@ -421,6 +418,18 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 	@Override
 	public List<String> getInEvents() {
 		return Collections.singletonList("set_absorber_level");
+	}
+
+	@Override
+	public void validate(){
+		super.validate();
+		ControlEventSystem.get(world).addControllable(this);
+	}
+
+	@Override
+	public void invalidate(){
+		super.invalidate();
+		ControlEventSystem.get(world).removeControllable(this);
 	}
 
 	// OC //

@@ -111,6 +111,7 @@ tile.dfc_stabilizer.desc=Also retrieves core status$when connection is establish
 tile.dfc_exchanger.name=DFC Heat Exchanger
 tile.ff_duct.name=Special Pipe
 tile.ff_duct.desc=Only supports Fuzzy Identifiers$for technical reasons
+tile.ff_duct_solid_shielded.name=Rad Shielded Special Pipe
 tile.ff_converter.ff=FF: %s
 tile.ff_converter.name=Special Pipe Adapter
 tile.ff_converter.ntmf=NTMF: %s

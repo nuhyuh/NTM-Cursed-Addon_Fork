@@ -34,6 +34,7 @@ import com.leafia.contents.machines.reactors.pwr.blocks.components.terminal.PWRT
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreck;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckMetal;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckStone;
+import com.leafia.contents.network.ff_duct.FFDuctRadShielded;
 import com.leafia.contents.network.ff_duct.FFDuctStandard;
 import com.leafia.contents.network.ff_duct.utility.converter.FFConverterBlock;
 import com.leafia.contents.network.ff_duct.utility.pump.FFPumpBlock;
@@ -175,6 +176,8 @@ public class AddonBlocks {
 	public static final Block ff_duct = new FFDuctStandard(Material.IRON, "ff_duct").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
 	public static final Block ff_pump = new FFPumpBlock(Material.IRON,"ff_pump").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
 	public static final Block ff_converter = new FFConverterBlock(Material.IRON,"ff_converter").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
+
+	public static final Block ff_duct_solid_shielded = new FFDuctRadShielded(Material.IRON,"ff_duct_solid_shielded").setHardness(15.0F).setResistance(COMPOUND_MESH.v).setCreativeTab(MainRegistry.templateTab);
 
 	public static final Block amat_duct = new AmatDuctStandard(Material.IRON, "amat_duct").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
 	public static final Block amat_charger = new AmatDuctChargerBlock(Material.IRON, "amat_duct_charger").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.templateTab);
