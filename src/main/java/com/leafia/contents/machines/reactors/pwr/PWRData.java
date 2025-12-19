@@ -236,7 +236,7 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 		((PWRComponentEntity) companion).assignCore(null);
 		world.getMinecraftServer().addScheduledTask(() -> {
 			if (world.getBlockState(checkPos).getBlock() instanceof CoriumFinite)
-				this.explode(world, null,null);
+				this.explode(world, null,null,1);
 		});
 	}
 
@@ -548,7 +548,7 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 					break;
 					default:
 						if (tanks[2].getFill() >= tanks[2].getMaxFill())
-							explode(getWorld(), stack, null); // Blowout
+							explode(getWorld(), stack, null,0); // Blowout
 						return;
 				}
 			}
@@ -974,7 +974,7 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 		}
 	}
 
-	public void explode(World world, @Nullable ItemStack prevStack,@Nullable LeafiaRodItem doNuke) {
+	public void explode(World world, @Nullable ItemStack prevStack,@Nullable LeafiaRodItem doNuke,int forceLevel) {
 		if (exploded) return;
 		exploded = true;
 		explodeWorld = world;
@@ -1015,12 +1015,21 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 		}
 
 		PWRExplosion boom = new PWRExplosion(world, centerPoint, minX, minY, minZ, maxX, maxY, maxZ);
-		if (toughness >= 15_000)
-			boom.explodeLv3();
-		else if (toughness >= 10_000)
-			boom.explodeLv2();
-		else
-			boom.explodeLv1();
+		if (forceLevel == 0) {
+			if (toughness >= 15_000)
+				boom.explodeLv3();
+			else if (toughness >= 10_000)
+				boom.explodeLv2();
+			else
+				boom.explodeLv1();
+		} else {
+			if (forceLevel == 1)
+				boom.explodeLv1();
+			if (forceLevel == 2)
+				boom.explodeLv2();
+			if (forceLevel == 3)
+				boom.explodeLv3();
+		}
 
 		boolean nope = true;
         /*

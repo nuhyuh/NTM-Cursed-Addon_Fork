@@ -739,7 +739,7 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 					if (data != null) {
 						if (data.getBoolean("nuke")) {
 							if (gathered != null)
-								gathered.explode(world,stack,rod);
+								gathered.explode(world,stack,rod,1);
 							inventory.setStackInSlot(0,ItemStack.EMPTY);
 							return;
 						} else if (data.getInteger("spillage") > 100) {
@@ -748,7 +748,7 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 									gathered.explode(world,stack);
 							} else */
 							if (gathered != null && gathered.tankTypes[1].hasTrait(FT_Gaseous.class))
-								gathered.explode(world,stack,null);
+								gathered.explode(world,stack,null,1);
 							else {
 								//inventory.setStackInSlot(0,ItemStack.EMPTY);
 								//world.destroyBlock(pos,false);

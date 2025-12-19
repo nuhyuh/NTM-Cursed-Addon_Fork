@@ -305,7 +305,7 @@ public class PWRDiagnosis {
 					if (link != null) {
 						if (!members.contains(link.corePos)) {
 							if (isMeltdown) {
-								link.explode(world,null,null);
+								link.explode(world,null,null,1);
 								return;
 							}
 						}
