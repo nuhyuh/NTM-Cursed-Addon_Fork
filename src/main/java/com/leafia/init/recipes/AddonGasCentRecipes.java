@@ -43,6 +43,6 @@ public class AddonGasCentRecipes {
 		fluidConversions.put(AddonFluids.UF6_235, AddonPseudoFluidTypes.U235F6);
 
 		gasCent.put(new FluidStack(1200, AddonFluids.UF6_233), new Object[] { new ItemStack[] {new ItemStack(ModItems.nugget_u233, 11), new ItemStack(ModItems.nugget_u235, 1), new ItemStack(ModItems.fluorite, 4)}, true, 4 });
-		gasCent.put(new FluidStack(1200, AddonFluids.UF6_235), new Object[] { new ItemStack[] {new ItemStack(ModItems.nugget_u233, 9), new ItemStack(ModItems.nuclear_waste_tiny,2), new ItemStack(ModItems.nugget_u233, 1), new ItemStack(ModItems.fluorite, 4)}, true, 4 });
+		gasCent.put(new FluidStack(1200, AddonFluids.UF6_235), new Object[] { new ItemStack[] {new ItemStack(ModItems.nugget_u235, 9), new ItemStack(ModItems.nuclear_waste_tiny,2), new ItemStack(ModItems.nugget_u233, 1), new ItemStack(ModItems.fluorite, 4)}, true, 4 });
 	}
 }

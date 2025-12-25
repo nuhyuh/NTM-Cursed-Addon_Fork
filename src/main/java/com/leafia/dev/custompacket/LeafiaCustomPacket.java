@@ -2,7 +2,9 @@ package com.leafia.dev.custompacket;
 
 import com.custom_hbm.explosion.LCEExplosionNT.ExplosionNTSyncPacket;
 import com.hbm.packet.PacketDispatcher;
+import com.leafia.contents.gear.utility.ItemFuzzyIdentifier;
 import com.leafia.contents.gear.utility.ItemFuzzyIdentifier.FuzzyIdentifierPacket;
+import com.leafia.contents.gear.utility.ItemFuzzyIdentifier.FuzzyIdentifierResponsePacket;
 import com.leafia.dev.LeafiaDebug.Tracker.VisualizerPacket;
 import com.leafia.dev.optimization.bitbyte.LeafiaBuf;
 import com.leafia.dev.optimization.diagnosis.RecordablePacket;
@@ -30,7 +32,8 @@ public class LeafiaCustomPacket extends RecordablePacket {
 		VISUALIZER_TRACE(new VisualizerPacket()),
 		FUZZY_IDENTIFIER(new FuzzyIdentifierPacket()),
 		DFC_SHOCK(new DFCShockPacket()),
-		EXPLOSION_NT(new ExplosionNTSyncPacket())
+		EXPLOSION_NT(new ExplosionNTSyncPacket()),
+		FUZZY_RESPONSE(new FuzzyIdentifierResponsePacket())
 		;
 		final LeafiaCustomPacketEncoder encoder;
 		CustomPacketType() { encoder = null; }

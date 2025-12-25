@@ -23,8 +23,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
@@ -53,6 +55,11 @@ public class LeafiaServerListener {
 				if (evt.phase == Phase.END)
 					LeafiaPassiveServer.onTick(evt.world);
 			}
+		}
+		@SubscribeEvent
+		public void soundRegistering(RegistryEvent.Register<SoundEvent> evt) {
+			for (SoundEvent e : LeafiaSoundEvents.ALL_SOUNDS)
+				evt.getRegistry().register(e);
 		}
 	}
 	public static class Unsorted {

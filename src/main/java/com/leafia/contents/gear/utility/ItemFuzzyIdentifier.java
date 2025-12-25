@@ -12,6 +12,7 @@ import com.hbm.tileentity.network.TileEntityPipeBaseNT;
 import com.hbm.util.I18nUtil;
 import com.leafia.contents.AddonItems;
 import com.leafia.contents.network.ff_duct.FFDuctTE;
+import com.leafia.dev.custompacket.LeafiaCustomPacket;
 import com.leafia.dev.custompacket.LeafiaCustomPacketEncoder;
 import com.leafia.dev.items.itembase.AddonItemBase;
 import com.leafia.dev.optimization.bitbyte.LeafiaBuf;
@@ -127,6 +128,7 @@ public class ItemFuzzyIdentifier extends AddonItemBase implements IItemFluidIden
 							Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("item.fuzzy_identifier.message",fluid.getLocalizedName()).setStyle(new Style().setColor(TextFormatting.YELLOW)));
 					} else if (te instanceof IFluidStandardSenderMK2 mk2) {
 						FluidTankNTM[] sending = mk2.getSendingTanks();
+						if (sending.length <= 0) return EnumActionResult.PASS;
 						if (index >= sending.length) index = 0;
 						FluidType fluid = sending[index].getTankType();
 						index++;
@@ -136,7 +138,9 @@ public class ItemFuzzyIdentifier extends AddonItemBase implements IItemFluidIden
 						stack.setTagCompound(nbt);
 						if (!worldIn.isRemote) {
 							worldIn.playSound(null,player.getPosition(),HBMSoundHandler.techBleep,SoundCategory.PLAYERS,1,1);
-							Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("item.fuzzy_identifier.message",fluid.getLocalizedName()).setStyle(new Style().setColor(TextFormatting.YELLOW)));
+							FuzzyIdentifierResponsePacket response = new FuzzyIdentifierResponsePacket();
+							response.id = fluid.getID();
+							LeafiaCustomPacket.__start(response).__sendToClient(player);
 						}
 					}
 				}
@@ -210,6 +214,21 @@ public class ItemFuzzyIdentifier extends AddonItemBase implements IItemFluidIden
 						ctx.getServerHandler().player.world.playSound(null,ctx.getServerHandler().player.getPosition(),HBMSoundHandler.techBleep,SoundCategory.PLAYERS,1,1);
 					}
 				}
+			};
+		}
+	}
+	public static class FuzzyIdentifierResponsePacket implements LeafiaCustomPacketEncoder {
+		int id;
+		@Override
+		public void encode(LeafiaBuf buf) {
+			buf.writeInt(id);
+		}
+		@Override
+		public @Nullable Consumer<MessageContext> decode(LeafiaBuf buf) {
+			int id = buf.readInt();
+			return (ctx)->{
+				FluidType fluid = Fluids.fromID(id);
+				Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("item.fuzzy_identifier.message",fluid.getLocalizedName()).setStyle(new Style().setColor(TextFormatting.YELLOW)));
 			};
 		}
 	}
