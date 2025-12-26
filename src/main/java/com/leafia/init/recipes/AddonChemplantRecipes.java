@@ -20,10 +20,10 @@ public class AddonChemplantRecipes {
 				.inputFluids(new FluidStack(Fluids.SULFURIC_ACID,2_000))
 				.outputItems(new ItemStack(ModItems.ingot_calcium,2),new ItemStack(ModItems.sulfur,2))
 				.outputFluids(new FluidStack(AddonFluids.FLUORIDE,2700),new FluidStack(Fluids.WATER,2_000),new FluidStack(Fluids.OXYGEN,2_000)));
-		INSTANCE.register(new GenericRecipe("chem.leafia.fluorine").setupNamed(100,600).setIcon(ModItems.fluid_icon,Fluids.FLUORINE.getID())
+		/*INSTANCE.register(new GenericRecipe("chem.leafia.fluorine").setupNamed(100,600).setIcon(ModItems.fluid_icon,Fluids.FLUORINE.getID())
 				.inputItems(new RecipesCommon.OreDictStack(F.dust(),1))
 				.outputItems(new ItemStack(ModItems.ingot_calcium))
 				.outputFluids(new FluidStack(Fluids.FLUORINE,1000))
-		);
+		);*/
 	}
 }

@@ -12,6 +12,7 @@ import com.hbm.util.I18nUtil;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.PWRComponentBlock;
 import com.leafia.dev.machine.MachineTooltip;
+import com.leafia.passive.LeafiaPassiveServer;
 import com.leafia.unsorted.ParticleBalefire;
 import com.leafia.unsorted.ParticleBalefireLava;
 import net.minecraft.block.Block;
@@ -69,6 +70,14 @@ public class PWRElementBlock extends BlockMachineBase implements ITooltipProvide
 		check(worldIn,pos);
 		beginDiagnosis(worldIn,pos,fromPos);
 	}
+
+	@Override
+	public void onBlockAdded(World worldIn,BlockPos pos,IBlockState state) {
+		super.onBlockAdded(worldIn,pos,state);
+		if (!worldIn.isRemote)
+			LeafiaPassiveServer.queueFunction(()->beginDiagnosis(worldIn,pos,pos));
+	}
+
 	@Override
 	public void addInformation(ItemStack stack,@Nullable World player,List<String> tooltip,ITooltipFlag advanced) {
 		MachineTooltip.addMultiblock(tooltip);

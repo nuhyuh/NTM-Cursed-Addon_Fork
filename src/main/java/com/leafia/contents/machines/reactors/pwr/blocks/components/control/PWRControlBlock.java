@@ -10,6 +10,7 @@ import com.leafia.contents.machines.reactors.pwr.blocks.components.PWRComponentB
 import com.leafia.dev.blocks.blockbase.AddonBlockBase;
 import com.leafia.dev.machine.MachineTooltip;
 import com.leafia.dev.container_utility.LeafiaPacket;
+import com.leafia.passive.LeafiaPassiveServer;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -62,6 +63,8 @@ public class PWRControlBlock extends AddonBlockBase implements ITooltipProvider,
 	public void onBlockAdded(World worldIn,BlockPos pos,IBlockState state) {
 		super.onBlockAdded(worldIn,pos,state);
 		updateState(state,worldIn,pos);
+		if (!worldIn.isRemote)
+			LeafiaPassiveServer.queueFunction(()->beginDiagnosis(worldIn,pos,pos));
 	}
 
 	@Override
@@ -132,7 +135,7 @@ public class PWRControlBlock extends AddonBlockBase implements ITooltipProvider,
 		if (meta >= 1)
 			return this.getDefaultState().withProperty(stacked,true);
 		else
-			return this.getDefaultState();
+			return this.getDefaultState().withProperty(stacked,false);
 	}
 
 	public boolean isBlockNormalCube(IBlockState state) {

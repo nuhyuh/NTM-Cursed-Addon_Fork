@@ -89,11 +89,13 @@ public class ItemWandV extends AddonItemBaked {
 						"STAT: isNormalCube: "+pfx(state.isOpaqueCube()),
 						"STAT: isBlockNormalCube: "+pfx(state.isBlockNormalCube()),
 						"STAT: isOpaqueCube: "+pfx(state.isOpaqueCube()),
-						TextFormatting.GREEN+"BLK: !isTranslucent: "+pfx(!state.isTranslucent()),
+						//TextFormatting.GREEN+"BLK: !isTranslucent: "+pfx(!state.isTranslucent()),
 						"STAT: renderType: "+state.getRenderType().name(),
 						TextFormatting.YELLOW+"-----------",
 						"MAT: isOpaque: "+pfx(mat.isOpaque()),
-						"MAT: isSolid: "+pfx(mat.isSolid())
+						"MAT: isSolid: "+pfx(mat.isSolid()),
+						TextFormatting.YELLOW+"-----------",
+						"META: "+block.getMetaFromState(state)
 				);
 			}
 		} else {

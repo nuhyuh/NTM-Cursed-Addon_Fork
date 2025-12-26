@@ -13,9 +13,7 @@ import com.leafia.dev.NTMFNBT;
 import com.leafia.init.*;
 import com.leafia.eventbuses.LeafiaServerListener;
 import com.leafia.init.proxy.LeafiaServerProxy;
-import com.leafia.init.recipes.AddonAssemblerRecipes;
-import com.leafia.init.recipes.AddonChemplantRecipes;
-import com.leafia.init.recipes.AddonGasCentRecipes;
+import com.leafia.init.recipes.*;
 import com.leafia.overwrite_contents.asm.TransformerCoreLeafia;
 import com.leafia.overwrite_contents.other.LCEItemCatalyst;
 import com.leafia.settings.AddonConfig;
@@ -145,6 +143,8 @@ public class AddonBase {
 		AddonChemplantRecipes.register();
 		AddonGasCentRecipes.register();
 		AddonAssemblerRecipes.register();
+		AddonElectrolyzerRecipes.register();
+		AddonPyroOvenRecipes.register();
 		if (TransformerCoreLeafia.loadFailed != null)
 			TransformerCoreLeafia.loadFailed.run();
 	}

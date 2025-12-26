@@ -23,6 +23,11 @@ import com.leafia.contents.gear.IADSWeapon;
 import com.leafia.contents.gear.utility.FuzzyIdentifierBakedModel;
 import com.leafia.contents.gear.utility.FuzzyIdentifierRender;
 import com.leafia.contents.gear.utility.ItemFuzzyIdentifier;
+import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitraryBlock;
+import com.leafia.contents.machines.reactors.lftr.components.ejector.MSREjectorBlock;
+import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementBlock;
+import com.leafia.contents.machines.reactors.lftr.components.plug.MSRPlugBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.PWRComponentBlock;
 import com.leafia.contents.network.ff_duct.FFDuctStandard;
 import com.leafia.contents.network.pipe_amat.AmatDuctStandard;
 import com.leafia.dev.LeafiaUtil;
@@ -49,6 +54,7 @@ import net.minecraft.client.shader.ShaderLinkHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
@@ -179,6 +185,18 @@ public class LeafiaClientListener {
 		/// For calls before addInformation, see com.leafia.dev.machine.MachineTooltip.addInfoASM()
 		@SubscribeEvent
 		public void drawTooltip(ItemTooltipEvent event) {
+			List<String> list = event.getToolTip();
+			Item item = event.getItemStack().getItem();
+			if (item instanceof ItemBlock ib) {
+				Block block = ib.getBlock();
+				if (block instanceof PWRComponentBlock) {
+					list.add(TextFormatting.GRAY+"["+I18nUtil.resolveKey("trait.leafia.component.pwr")+"]");
+					list.add(TextFormatting.GRAY+"-::"+TextFormatting.WHITE+I18nUtil.resolveKey("trait.leafia.component.pwr.desc"));
+				} else if (block instanceof MSRArbitraryBlock || block instanceof MSRPlugBlock || block instanceof MSREjectorBlock || block instanceof MSRElementBlock) {
+					list.add(TextFormatting.GRAY+"["+I18nUtil.resolveKey("trait.leafia.component.lftr")+"]");
+					list.add(TextFormatting.GRAY+"-::"+TextFormatting.WHITE+I18nUtil.resolveKey("trait.leafia.component.lftr.desc"));
+				}
+			}
 		}
 		@SubscribeEvent
 		public void modelBaking(ModelBakeEvent evt) {
