@@ -11,6 +11,7 @@ import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.inventory.fluid.trait.FT_Heatable;
+import com.hbm.inventory.fluid.trait.FT_Heatable.HeatingStep;
 import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Gaseous;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.IItemFluidIdentifier;
@@ -18,6 +19,7 @@ import com.hbm.lib.HBMSoundHandler;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.util.Tuple.Pair;
+import com.hbm.util.Tuple.Triplet;
 import com.leafia.CommandLeaf;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonFluids;
@@ -81,7 +83,6 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 	public int coolantId = Fluids.COOLANT.getID();
 	public int compression = 0;
 	//public double heat = 20;
-	public int lastTickDrain;
 	public int coriums = 0;
 	public double masterControl = 0.25;
 	public final Map<String, Double> controlDemand = new HashMap<>();
@@ -191,22 +192,25 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 				coolantId = type.getID();
 		}
 	}
+	public double multiplier = 1;
 	boolean updateCoolantType(int coolantId) {
 		FluidType coolant = Fluids.fromID(coolantId);
 		if (!coolant.equals(Fluids.NONE)) {
-			Pair<FluidType,FluidType> hots = getBoiledCoolant(coolant);
+			this.coolantId = coolantId;
+			Triplet<FluidType,FluidType,Double> hots = getBoiledCoolant(coolant);
 			if (hots != null) {
 				if (tankTypes[0] != coolant)
 					tanks[2].setFill(0);
-				if (tankTypes[1] != hots.getKey())
+				if (tankTypes[1] != hots.getX())
 					tanks[2].setFill(0);
-				if (tankTypes[2] != hots.getKey())
+				if (tankTypes[2] != hots.getX())
 					tanks[2].setFill(0);
 				tankTypes[0] = coolant;
-				tankTypes[1] = hots.getKey();
-				tankTypes[2] = hots.getValue();
+				tankTypes[1] = hots.getX();
+				tankTypes[2] = hots.getY();
 				for (int i = 0; i < 3; i++)
 					tanks[i].setTankType(tankTypes[i]);
+				multiplier = hots.getZ();
 				resizeTanks(lastChannels,lastConductors);
 					/*
 					Fluid hotter = hot;
@@ -302,18 +306,31 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 		return null;
 	}
 
-	Pair<FluidType,FluidType> getBoiledCoolant(FluidType f) {
+	double getBoilRatio(FluidType f) {
+		if (f.hasTrait(FT_Heatable.class)) {
+			HeatingStep step = f.getTrait(FT_Heatable.class).getFirstStep();
+			return step.amountProduced/(double)step.amountReq;
+		}
+		return 0;
+	}
+
+	Triplet<FluidType,FluidType,Double> getBoiledCoolant(FluidType f) {
 		FluidType hot = getBoilFluid(f);
+		double mul = 1;
 		if (hot == null) return null;
 		FluidType secondhot = getBoilFluid(f);
+		mul *= getBoilRatio(f);
+		double mul2 = mul;
 		while (true) {
 			FluidType hotter = getBoilFluid(hot);
 			if (hotter != null) {
+				mul = mul2;
+				mul2 *= getBoilRatio(hot);
 				secondhot = hot;
 				hot = hotter;
 			} else break;
 		}
-		return new Pair<>(secondhot,hot);
+		return new Triplet<>(secondhot,hot,mul);
 	};
 
 	public PWRData readFromNBT(NBTTagCompound nbt) {
@@ -324,7 +341,7 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 		tankTypes[0] = Fluids.COOLANT;
 		tankTypes[1] = Fluids.COOLANT_HOT;
 		tankTypes[2] = AddonFluids.COOLANT_MAL;
-		if (nbt.hasKey("coolantName")) {
+		if (nbt.hasKey("coolantId")) {
 			coolantId = nbt.getInteger("coolantId");
 			updateCoolantType(coolantId);
 		}
@@ -515,9 +532,10 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 	}
 
 	int boilingAccum = 0;
+	public static final double transferMultiplier = 8;
 
 	public void spendCoolant(double cooled, @Nullable ItemStack stack) {
-		double drainD = cooled * 8;
+		double drainD = cooled * transferMultiplier/multiplier;
 		int drain = (int) Math.floor(drainD);///12500*tanks[0].getMaxFill());
 
 		double accum = drainD - drain;
@@ -526,10 +544,11 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 		spendAccum -= add;
 		drain += add;
 
+		drain = (int)((int)(drain*multiplier)/multiplier);
+
 		FluidStack fs = tanks[0].drain(drain, true);
 		if (fs != null) {
-			int drained = fs.amount;
-			lastTickDrain = drained;
+			int drained = (int)(fs.amount*multiplier);
 			for (int tank = 1; drained > 0; tank++) {
 				switch (tank) {
 					case 1: {

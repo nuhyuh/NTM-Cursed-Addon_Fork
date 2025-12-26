@@ -242,7 +242,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 	}
 	double lastY = 0;
 	/**
-	 * Do nuclear fissions
+	 * Does nuclear fissions
 	 * @param stack The fuel rod stack to cause fission reaction
 	 * @param updateHeat true for fission reaction, false for item tooltip
 	 * @param x Incoming heat
@@ -252,6 +252,19 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 	 * @return Tooltip message
 	 */
 	public String HeatFunction(@Nullable ItemStack stack, boolean updateHeat, double x, double cool, double desiredTemp, double coolingRate) {
+		return HeatFunction(stack,updateHeat,x,cool,desiredTemp,coolingRate,0);
+	}
+	/**
+	 * Does nuclear fissions
+	 * @param stack The fuel rod stack to cause fission reaction
+	 * @param updateHeat true for fission reaction, false for item tooltip
+	 * @param x Incoming heat
+	 * @param cool Should represent coolant %, range 0~1
+	 * @param desiredTemp Temperature of coolant
+	 * @param coolingRate Temperature of hot coolant
+	 * @return Tooltip message
+	 */
+	public String HeatFunction(@Nullable ItemStack stack, boolean updateHeat, double x, double cool, double desiredTemp, double coolingRate, double minimumRequired) {
 		NBTTagCompound data = null;
 		String flux = TextFormatting.RED+"0°C"+TextFormatting.YELLOW;
 		String temp = TextFormatting.GOLD+"ERROR°C"+TextFormatting.YELLOW;
@@ -420,6 +433,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 							Math.pow(coolingRate,0.5)/100
 					)-1
 			)*cool;
+			if (cooled < minimumRequired) cooled = 0;
 			double newCooledTemp = Math.max(newTemp-cooled,-273.15/*20*/);
 			data.setDouble("cooled",cooled);
 			data.setDouble(

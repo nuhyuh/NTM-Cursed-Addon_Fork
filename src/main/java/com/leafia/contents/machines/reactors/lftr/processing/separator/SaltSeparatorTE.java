@@ -123,7 +123,7 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 		return null;
 	}
 	public void transferToTank(Map<MSRFuel,Double> recipe,int conversion,int actualConversion,double multiplier) {
-		if (bufferIn.getFluid() != null && saltType.getFF() != null && bufferIn.getFluidAmount() > 0 && conversion > 0 && actualConversion > 0) {
+		if (bufferIn.getFluid() != null && saltType.getFF() != null && bufferIn.getFluidAmount() > 0 && conversion > 0 && actualConversion > 0 && bufferOut.getCapacity()-bufferOut.getFluidAmount() >= conversion-actualConversion) {
 			int inAmt = bufferIn.getFluidAmount();
 			NBTTagCompound tag = MSRElementTE.nbtProtocol(bufferIn.getFluid().tag);
 			bufferIn.getFluid().tag = tag;

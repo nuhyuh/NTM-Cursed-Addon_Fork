@@ -87,6 +87,7 @@ public abstract class MSRTEBase extends TileEntity implements ITickable, LeafiaP
 		NBTTagCompound target = nbtProtocol(stack1.tag);
 		Map<String,Double> mixture0 = readMixture(compound);
 		Map<String,Double> mixture1 = readMixture(target);
+		/*
 		for (String fluid : mixture0.keySet()) {
 			double amount0 = mixture0.get(fluid);
 			double amount1 = 0;
@@ -100,9 +101,25 @@ public abstract class MSRTEBase extends TileEntity implements ITickable, LeafiaP
 				mixture0.put(fluid,amount0);
 				mixture1.put(fluid,amount1);
 			}
+		}*/
+		Map<String,Double> mixture2 = new LeafiaMap<>();
+		int sum = stack0.amount+stack1.amount;
+		if (stack0.amount > 0) {
+			for (Entry<String,Double> entry : mixture0.entrySet()) {
+				double amount = 0;
+				amount += entry.getValue()*stack0.amount/sum;
+				mixture2.put(entry.getKey(),amount);
+			}
 		}
-		compound.setTag("itemMixture",writeMixture(mixture0));
-		target.setTag("itemMixture",writeMixture(mixture1));
+		if (stack1.amount > 0) {
+			for (Entry<String,Double> entry : mixture1.entrySet()) {
+				double amount = mixture2.getOrDefault(entry.getKey(),entry.getValue());
+				amount += entry.getValue()*stack1.amount/sum;
+				mixture2.put(entry.getKey(),amount);
+			}
+		}
+		compound.setTag("itemMixture",writeMixture(mixture2));
+		target.setTag("itemMixture",writeMixture(mixture2));
 		double heatTransfer = compound.getDouble("heat")-target.getDouble("heat");
 		//if (heatTransfer > 0) {
 			heatTransfer /= div * 2;

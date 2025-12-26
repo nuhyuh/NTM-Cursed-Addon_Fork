@@ -329,21 +329,21 @@ public class PWRDiagnosis {
 					core.members = blockPos;
 					core.controls = controlPositions;
 					core.fuels = fuelPositions;
-				}
-				if (!world.isRemote) {
-					core.coriums = this.coriums.size();
-					float avg = sumHardness/Math.max(divide,1);
-					float hardness = avg*0.8f+maxHardness*0.2f;
-					core.toughness = (int)(Math.pow(hardness,0.25)*4800);
-					core.lastChannels = channels.size();
-					core.lastConductors = conductors;
-					core.resizeTanks(channels.size(),conductors);
-					gridFill();
-					LeafiaSet<BlockPos> projection = new LeafiaSet<>();
-					for (Entry<Pair<Integer,Integer>,Pair<Integer,Boolean>> entry : projected.entrySet())
-						projection.add(new BlockPos(entry.getKey().getKey(),entry.getValue().getKey(),entry.getKey().getValue()));
-					core.projection = projection;
-					core.onDiagnosis(world);
+					if (!world.isRemote) {
+						core.coriums = this.coriums.size();
+						float avg = sumHardness/Math.max(divide,1);
+						float hardness = avg*0.8f+maxHardness*0.2f;
+						core.toughness = (int)(Math.pow(hardness,0.25)*4800);
+						core.lastChannels = channels.size();
+						core.lastConductors = conductors;
+						core.resizeTanks(channels.size(),conductors);
+						gridFill();
+						LeafiaSet<BlockPos> projection = new LeafiaSet<>();
+						for (Entry<Pair<Integer,Integer>,Pair<Integer,Boolean>> entry : projected.entrySet())
+							projection.add(new BlockPos(entry.getKey().getKey(),entry.getValue().getKey(),entry.getKey().getValue()));
+						core.projection = projection;
+						core.onDiagnosis(world);
+					}
 				}
 			}
 		}

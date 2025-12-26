@@ -708,12 +708,14 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 					double coolin = 0;
 					PWRData gathered = gatherData();
 					double coolantTemp = 400;
+					double required = 0;
 					if (gathered != null) {
 						// DONE PROBABLY: make it detect only nearby channels
 						// DONE PROBABLY: exchangers would increase coolant consumption rate
 						coolin = Math.pow(gathered.tanks[0].getFluidAmount()/(double)Math.max(gathered.tanks[0].getCapacity(),1),0.4)
 								;//*(gathered.tanks[0].getCapacity()/1250d);
 						coolantTemp = gathered.tankTypes[1].temperature;
+						required = 1/gathered.multiplier/(PWRData.transferMultiplier/gathered.multiplier);
 					}
 					LeafiaRodItem rod = (LeafiaRodItem)(stack.getItem());
 					double heatDetection = 0;
@@ -728,7 +730,7 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 					//double coolingCap = MathHelper.clamp(heat,20,400+Math.pow(Math.max(heat-400,0),0.5));
 
 
-					rod.HeatFunction(stack,true,heatDetection,channelScale*coolin,400,400*exchangerScale);
+					rod.HeatFunction(stack,true,heatDetection,channelScale*coolin,coolantTemp,coolantTemp*exchangerScale,required);
 					double rad = Math.pow(heatDetection,0.65)/2;
 					ChunkRadiationManager.proxy.incrementRad(world,pos,(float)rad/8,(float)rad);
 					//DONE PROBABLY: add neutron radiations to indicate emitted chunk radiations
