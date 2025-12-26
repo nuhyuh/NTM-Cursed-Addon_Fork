@@ -119,6 +119,7 @@ tile.amat_duct_charger.name=Electromagnetic Fluid Duct Charger
 tile.amat_duct.name=Electromagnetic Fluid Duct
 tile.amat_duct.power=Power: %s
 tile.amat_duct.warn=Network power will NOT save!$Always keep your chargers charged!
+tile.control_torch.name=Control Panel Torch
 tile.coolant_heatex.name=Coolant Heat Exchanger
 tile.crate_tungsten.desc=Used for DFC Crate Recipes, does not have more slots.
 tile.dfc_cemitter.name=Creative DFC Booster

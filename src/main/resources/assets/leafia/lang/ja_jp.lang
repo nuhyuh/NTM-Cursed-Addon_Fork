@@ -121,6 +121,7 @@ tile.amat_duct_charger.name=電磁力流体ダクト充電機
 tile.amat_duct.name=電磁力流体ダクト
 tile.amat_duct.power=電力 %s
 tile.amat_duct.warn=ネットワークの電力は保存されません!$充電機が充電されていることを常に確認してください。
+tile.control_torch.name=Control Panel Torch
 tile.coolant_heatex.name=冷媒熱交換機
 tile.crate_tungsten.desc=DFCボックスレシピに使用するものであり、スロットが増えるわけではありません。
 tile.dfc_cemitter.name=Creative DFC Booster
