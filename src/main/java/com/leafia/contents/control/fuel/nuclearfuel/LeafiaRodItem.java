@@ -561,7 +561,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 			decay = data.getDouble("decay");
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-			list.add(TextFormatting.YELLOW + "Heat Function");
+			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("item.leafiarod.heatfunc_shift"));
 			for (String s : graph)
 				list.add("  "+funcColor+s);
 		} else {
@@ -571,31 +571,31 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				list.add(TextFormatting.DARK_GREEN + "["+(int)Math.max(Math.ceil((1-depletion/life)*100),0)+"%]");
 			if (newFuel != null) {
 				if (newFuel instanceof LeafiaRodItem)
-					list.add(TextFormatting.DARK_GRAY + "  Decays into: " + TextFormatting.GRAY + ((LeafiaRodItem)newFuel).label);
+					list.add(TextFormatting.DARK_GRAY + "  " + I18nUtil.resolveKey("item.leafiarod.decays",((LeafiaRodItem)newFuel).label));
 				else
-					list.add(TextFormatting.DARK_GRAY + "  Decays into: " + TextFormatting.GRAY + I18nUtil.resolveKey(newFuel.getTranslationKey()+".name"));
+					list.add(TextFormatting.DARK_GRAY + "  " + I18nUtil.resolveKey("item.leafiarod.decays",I18nUtil.resolveKey(newFuel.getTranslationKey()+".name")));
 			}
 			if (life != 0) {
-				list.add(TextFormatting.DARK_GREEN + "  Life: About "+life+"°C");
-				list.add(TextFormatting.GOLD + "  Fission Product Decay Heat: +"+String.format("%01.3f",decay*20)+"°C/s");
+				list.add(TextFormatting.DARK_GREEN + "  "+I18nUtil.resolveKey("item.leafiarod.life",life+"°C"));
+				list.add(TextFormatting.GOLD + "  "+I18nUtil.resolveKey("item.leafiarod.decayheat","+"+String.format("%01.3f",decay*20)+"°C/s"));
 			}
 			if (emission != 1)
-				list.add(TextFormatting.AQUA+"  Emission "+formatHeatMultiplier(emission));
+				list.add(TextFormatting.AQUA+"  "+I18nUtil.resolveKey("item.leafiarod.reac.out",formatHeatMultiplier(emission)));
 			if (reactivity != 1)
-				list.add(TextFormatting.AQUA+"  Reactivity "+formatHeatMultiplier(reactivity));
+				list.add(TextFormatting.AQUA+"  "+I18nUtil.resolveKey("item.leafiarod.reac.in",formatHeatMultiplier(reactivity)));
 			if (splitWithAny)
-				list.add(TextFormatting.AQUA + "  Prefers all neutrons");
+				list.add(TextFormatting.AQUA + "  "+I18nUtil.resolveKey("item.leafiarod.pref.all"));
 			else if (splitWithFast)
-				list.add(TextFormatting.LIGHT_PURPLE + "  Prefers fast neutrons");
+				list.add(TextFormatting.LIGHT_PURPLE + "  "+I18nUtil.resolveKey("item.leafiarod.pref.fast"));
 			if (!splitIntoFast)
-				list.add(TextFormatting.AQUA + "  Moderated");
+				list.add(TextFormatting.AQUA + "  "+I18nUtil.resolveKey("item.leafiarod.moderated"));
 			super.addInformation(stack,worldIn,list,flagIn);
 			list.add("");
-			list.add(TextFormatting.YELLOW + "Heat Function: "+item.HeatFunction(stack,false,0,0,0,0));
-			list.add(TextFormatting.GOLD + "Temperature: "+String.format("%01.1f",heat)+"°C");
+			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("item.leafiarod.heatfunc",item.HeatFunction(stack,false,0,0,0,0)));
+			list.add(TextFormatting.GOLD + I18nUtil.resolveKey("item.leafiarod.temp",String.format("%01.1f",heat)+"°C"));
 		}
 		if (meltingPoint != 0) {
-			list.add(TextFormatting.DARK_RED + "Melting Point: "+String.format("%01.1f",meltingPoint));
+			list.add(TextFormatting.DARK_RED + I18nUtil.resolveKey("item.leafiarod.meltingpt",String.format("%01.1f",meltingPoint)));
 			double percent = heat/meltingPoint;
 			int barLength = 60;
 			String bar = "";
@@ -620,24 +620,24 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 			switch(status) {
 				case 0:
 					list.add(TextFormatting.LIGHT_PURPLE+"["+bar+TextFormatting.LIGHT_PURPLE+"]");
-					list.add(TextFormatting.LIGHT_PURPLE+"  SUBOPTIMAL");
+					list.add(TextFormatting.LIGHT_PURPLE+"  "+I18nUtil.resolveKey("item.leafiarod.status.1"));
 					break;
 				case 1:
 					list.add(TextFormatting.GREEN+"["+bar+TextFormatting.GREEN+"]");
-					list.add(TextFormatting.GREEN+"  OPTIMAL");
+					list.add(TextFormatting.GREEN+"  "+I18nUtil.resolveKey("item.leafiarod.status.2"));
 					break;
 				case 2:
 					list.add(TextFormatting.RED+"["+bar+TextFormatting.RED+"]");
-					list.add(TextFormatting.RED+"  OVERHEAT");
+					list.add(TextFormatting.RED+"  "+I18nUtil.resolveKey("item.leafiarod.status.3"));
 					break;
 				case 3:
 					list.add(TextFormatting.DARK_RED+"["+bar+TextFormatting.DARK_RED+"]");
 					meltdownFlash = Math.floorMod(meltdownFlash+1,20);
-					list.add((meltdownFlash >= 11) ? "" : TextFormatting.DARK_RED +"  MELTDOWN");
+					list.add((meltdownFlash >= 11) ? "" : TextFormatting.DARK_RED +"  "+I18nUtil.resolveKey("item.leafiarod.status.4"));
 					break;
 				case -1:
 					list.add(TextFormatting.DARK_AQUA+"["+TextFormatting.DARK_GRAY+bar+TextFormatting.DARK_AQUA+"]");
-					list.add(TextFormatting.AQUA+"  FRIGID");
+					list.add(TextFormatting.AQUA+"  "+I18nUtil.resolveKey("item.leafiarod.status.0"));
 					break;
 			}
 		}

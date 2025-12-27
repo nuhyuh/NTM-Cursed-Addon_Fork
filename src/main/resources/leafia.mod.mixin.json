@@ -12,7 +12,9 @@
     "hbm.MixinItemFluidIcon",
     "hbm.MixinItemRenderLaserDetonator",
     "hbm.MixinParticleRBMKMush",
-    "hbm.MixinRenderTorex"
+    "hbm.MixinRenderTorex",
+    "hbm.MixinCoriumBlock",
+    "hbm.MixinCoriumFinite"
   ],
   "mixins": [
     "hbm.MixinBlockCoalOil",
