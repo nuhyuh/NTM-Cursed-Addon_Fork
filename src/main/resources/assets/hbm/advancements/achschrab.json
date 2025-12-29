@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achdesh",
+  "parent": "hbm:achmanhattan",
   "display": {
     "icon": {
       "item": "hbm:ingot_schrabidium"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "achievement.schrab.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

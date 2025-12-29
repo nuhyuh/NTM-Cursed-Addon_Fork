@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achcentrifuge",
+  "parent": "leafia:genericfuel",
   "display": {
     "icon": {
       "item": "hbm:ingot_tcalloy"

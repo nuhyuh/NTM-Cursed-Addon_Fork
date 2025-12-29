@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:root",
+  "parent": "hbm:achomega12",
   "display": {
     "icon": {
       "item": "hbm:achievement_icon",

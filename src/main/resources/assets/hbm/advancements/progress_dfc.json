@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achfusion",
+  "parent": "hbm:horizonsend",
   "display": {
     "icon": {
       "item": "hbm:dfc_core"

@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achpolymer",
+  "parent": "hbm:achgascent",
   "display": {
     "icon": {
       "item": "hbm:nuke_boy"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "achievement.manhattan.desc"
     },
-    "frame": "challenge",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

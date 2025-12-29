@@ -10,7 +10,7 @@
 			"translate": "achievement.bossMeltdown.desc"
 		}
 	},
-	"parent": "hbm:bosscreeper",
+	"parent": "leafia:nukepwr",
 	"criteria": {
 		"impossible": {
 			"trigger": "minecraft:impossible"

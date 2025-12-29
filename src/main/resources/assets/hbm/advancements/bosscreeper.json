@@ -8,9 +8,11 @@
 		},
 		"description": {
 			"translate": "achievement.bossCreeper.desc"
-		}
+		},
+      "frame": "challenge",
+      "hidden": true
 	},
-	"parent": "hbm:root",
+	"parent": "hbm:achmanhattan",
 	"criteria": {
 		"impossible": {
 			"trigger": "minecraft:impossible"

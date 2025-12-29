@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achdesh",
+  "parent": "hbm:achspace",
   "display": {
     "icon": {
       "item": "minecraft:baked_potato"

@@ -1,14 +1,14 @@
 {
-  "parent": "hbm:achredballoons",
+  "parent": "hbm:root",
   "display": {
     "icon": {
-      "item": "hbm:sat_foeq"
+      "item": "leafia:advisor"
     },
     "title": {
-      "translate": "achievement.FOEQ"
+      "translate": "advancement.leafia.loseadvisor"
     },
     "description": {
-      "translate": "achievement.FOEQ.desc"
+      "translate": "advancement.leafia.loseadvisor.desc"
     },
     "frame": "challenge",
     "show_toast": true,

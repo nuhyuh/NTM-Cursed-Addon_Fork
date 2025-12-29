@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achassembly",
+  "parent": "hbm:achpolymer",
   "display": {
     "icon": {
       "item": "hbm:machine_centrifuge"

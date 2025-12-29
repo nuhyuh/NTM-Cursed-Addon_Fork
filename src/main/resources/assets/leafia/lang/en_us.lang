@@ -1,5 +1,8 @@
+achievement.watz=Watz Power Plant
 advancement.leafia.genericfuel=Powerful Clean Energy
 advancement.leafia.genericfuel.desc=Create your first MEU nuclear fuel rod assembly
+advancement.leafia.loseadvisor=| |i || |_
+advancement.leafia.loseadvisor.desc=Lose a High-Tech Advisor
 advancement.leafia.nukebwr=Chernobyl Apprentice
 advancement.leafia.nukebwr.desc=Recreate the Fukushima nuclear accident with a BWR (a water-cooled PWR)
 advancement.leafia.nukepwr=Disassembly Crew

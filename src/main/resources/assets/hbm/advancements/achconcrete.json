@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achchemplant",
+  "parent": "hbm:achtechnetium",
   "display": {
     "icon": {
       "item": "hbm:concrete"

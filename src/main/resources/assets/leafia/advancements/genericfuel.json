@@ -1,5 +1,5 @@
 {
-  "parent": "hbm:achchemplant",
+  "parent": "hbm:achgascent",
   "display": {
     "icon": {
       "item": "leafia:leafia_rod_meu235"
