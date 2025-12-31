@@ -73,7 +73,7 @@ public class AddonAssemblerRecipes {
 				.outputItems(new ItemStack(AddonItems.advisor))
 				.inputItems(
 						new OreDictStack(ANY_PLASTIC.ingot(),2),
-						new ComparableStack(ModItems.circuit,1,EnumCircuitType.ADVANCED.ordinal()),
+						new ComparableStack(ModItems.circuit,1,EnumCircuitType.BASIC.ordinal()),
 						new ComparableStack(Blocks.STONE_BUTTON)
 				)
 		);
