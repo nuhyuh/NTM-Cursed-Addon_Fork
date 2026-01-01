@@ -19,8 +19,9 @@
     "hbm.MixinRenderTorex"
   ],
   "mixins": [
-    "hbm.MixinFluidTankNTM",
     "hbm.MixinBlockCoalOil",
+    "hbm.MixinBlockGasRadon",
+    "hbm.MixinBlockRadonDense",
     "hbm.MixinBlockStorageCrate",
     "hbm.MixinBossSpawnHandler",
     "hbm.MixinContaminationUtil",
@@ -37,6 +38,7 @@
     "hbm.MixinEntityNukeTorex",
     "hbm.MixinFluidNetMK2",
     "hbm.MixinFluids",
+    "hbm.MixinFluidTankNTM",
     "hbm.MixinFT_Polluting",
     "hbm.MixinHazardSystem",
     "hbm.MixinHazardTypeHot",

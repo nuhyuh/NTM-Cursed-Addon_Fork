@@ -1,15 +1,12 @@
 package com.leafia;
 
 import com.hbm.handler.GuiHandler;
-import com.hbm.inventory.fluid.Fluids;
-import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.AddonFluids.AddonFF;
 import com.leafia.contents.AddonItems;
 import com.leafia.contents.machines.controlpanel.AddonNodesRegister;
 import com.leafia.contents.potion.LeafiaPotion;
-import com.leafia.dev.NTMFNBT;
 import com.leafia.init.*;
 import com.leafia.eventbuses.LeafiaServerListener;
 import com.leafia.init.proxy.LeafiaServerProxy;
@@ -21,7 +18,6 @@ import com.llib.exceptions.LeafiaDevFlaw;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -140,13 +136,17 @@ public class AddonBase {
 	// postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
 	public void postInit(FMLPostInitializationEvent event) {
 		AddonFF.setFromRegistry();
-		AddonChemplantRecipes.register();
-		AddonGasCentRecipes.register();
-		AddonAssemblerRecipes.register();
-		AddonElectrolyzerRecipes.register();
-		AddonPyroOvenRecipes.register();
+		ArmorInit.postInit();
 		if (TransformerCoreLeafia.loadFailed != null)
 			TransformerCoreLeafia.loadFailed.run();
+	}
+
+	public static void registerSerializable() {
+		AddonChemplantRecipes.register();
+		AddonAssemblerRecipes.register();
+		AddonGasCentRecipes.register();
+		AddonElectrolyzerRecipes.register();
+		AddonPyroOvenRecipes.register();
 	}
 
 	@EventHandler

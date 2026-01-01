@@ -27,7 +27,7 @@ public class Radon implements IHazardType, LCERad {
         if(ArmorRegistry.hasProtection(target, EntityEquipmentSlot.HEAD, ArmorRegistry.HazardClass.RAD_GAS)) {
             ArmorUtil.damageGasMaskFilter(target, hazardRate);
         } else {
-            ContaminationUtil.contaminate(target, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.CREATIVE, level * hazardRate);
+            ContaminationUtil.contaminate(target, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.RAD_BYPASS, level * hazardRate);
         }
     }
 
