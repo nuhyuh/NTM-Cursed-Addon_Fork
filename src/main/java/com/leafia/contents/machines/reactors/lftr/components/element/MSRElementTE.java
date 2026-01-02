@@ -71,7 +71,7 @@ public class MSRElementTE extends MSRTEBase {
 		u233(
 				new Item[]{},
 				new String[]{OreDictManager.U233.nugget()},
-				"(x×3)^0.6/B",
+				"(x×3)^0.65/B",
 				(x)->Math.pow(x*3,0.65),
 				600000000d,
 				MSRByproduct.u233

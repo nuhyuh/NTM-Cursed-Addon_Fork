@@ -34,7 +34,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 @Mod(modid = Tags.MODID, version = "Unknown", name = Tags.MODNAME, acceptedMinecraftVersions = "[1.12.2]",
-		dependencies = "required-after:hbm@[1.3.1.3,);required:mixinbooter")
+		dependencies = "required-after:hbm@[1.3.2.7,);required:mixinbooter")
 public class AddonBase {
 
 	public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
