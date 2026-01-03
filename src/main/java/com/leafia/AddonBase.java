@@ -154,6 +154,7 @@ public class AddonBase {
 		proxy.onLoadComplete(evt);
 		if (TransformerCoreLeafia.loadFailed != null)
 			TransformerCoreLeafia.loadFailed.run();
+		FalloutConfigInit.onInit();
         /*
         FluidTankNTM tankNTM = new FluidTankNTM(Fluids.CRYOGEL,1000);
         NBTTagCompound nbt = new NBTTagCompound();

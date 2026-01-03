@@ -1,5 +1,6 @@
 package com.leafia.contents;
 
+import com.hbm.blocks.ICustomBlockItem;
 import com.hbm.blocks.generic.BlockModDoor;
 import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
@@ -461,6 +462,8 @@ public class AddonItems {
 					}
 				};
 				ForgeRegistries.ITEMS.register(item.setRegistryName(block.getRegistryName()));
+			} else if (block instanceof ICustomBlockItem) {
+				((ICustomBlockItem) block).registerItem();
 			} else {
 				ForgeRegistries.ITEMS.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
 			}

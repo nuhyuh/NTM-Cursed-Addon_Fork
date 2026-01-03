@@ -19,9 +19,12 @@
     "hbm.MixinRenderTorex"
   ],
   "mixins": [
+    "hbm.MixinBalefire",
     "hbm.MixinBlockCoalOil",
     "hbm.MixinBlockGasRadon",
     "hbm.MixinBlockRadonDense",
+    "hbm.MixinBlockSellafield",
+    "hbm.MixinBlockSellafieldSlaked",
     "hbm.MixinBlockStorageCrate",
     "hbm.MixinBossSpawnHandler",
     "hbm.MixinContaminationUtil",
@@ -36,6 +39,7 @@
     "hbm.MixinEntityGrenadeASchrab",
     "hbm.MixinEntityNukeExplosionMK3",
     "hbm.MixinEntityNukeTorex",
+    "hbm.MixinExplosionBalefire",
     "hbm.MixinFluidNetMK2",
     "hbm.MixinFluids",
     "hbm.MixinFluidTankNTM",
@@ -74,7 +78,9 @@
     "hbm.MixinTileEntityMachineFluidTank",
     "hbm.MixinTileEntityMachineLargeTurbine",
     "hbm.MixinTileEntityMachineTurbine",
-    "hbm.MixinTileEntityReactorZIRNOX"
+    "hbm.MixinTileEntityReactorZIRNOX",
+    "hbm.MixinWasteEarth",
+    "hbm.MixinWasteGrassTall"
   ],
   "server": [
   ],

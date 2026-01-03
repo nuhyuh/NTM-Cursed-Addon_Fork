@@ -38,6 +38,7 @@ import com.leafia.passive.rendering.TopRender;
 import com.leafia.shit.leafiashader.BigBruh;
 import com.leafia.transformer.LeafiaGls;
 import com.leafia.unsorted.IEntityCustomCollision;
+import com.llib.exceptions.LeafiaDevFlaw;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -45,6 +46,8 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.client.shader.ShaderLinkHelper;
 import net.minecraft.entity.Entity;
@@ -69,6 +72,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.GetCollisionBoxesEvent;
+import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -79,6 +83,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -89,11 +94,11 @@ public class LeafiaClientListener {
 		public static float digammaDose = 1;
 		static Random rand = new Random();
 		static List<DigammaText> texts = new ArrayList<>();
-		@SubscribeEvent
+		/*@SubscribeEvent
 		public void fovUpdate(FOVUpdateEvent e){
 			float fovMultiplier = 1-digammaDose*0.21428571428f;
 			e.setNewfov(e.getFov()*fovMultiplier);
-		}
+		}*/
 		@SubscribeEvent
 		public void shake(EntityViewRenderEvent.CameraSetup e) {
 			if (digammaDose > 0.25f) {
@@ -402,7 +407,9 @@ public class LeafiaClientListener {
 			if (viewADS != 0)
 				multiplier *= Math.abs(viewADS);
 			//multiplier *= IdkWhereThisShitBelongs.fovM;
-			e.setNewfov(e.getFov()*multiplier);
+			float fovMultiplier = 1-Digamma.digammaDose*0.21428571428f;
+
+			e.setNewfov(e.getFov()*multiplier*fovMultiplier);
 		}
 
 		public static final Logger LOGGER = LogManager.getLogger();
@@ -552,6 +559,52 @@ public class LeafiaClientListener {
 		public void dammit(RenderGameOverlayEvent.Text debug) {
 			//LeafiaGeneralLocal.injectDebugInfoLeft(debug.getLeft());
 		}
+
+		/*static final Field mapRegisteredSprites;
+		static {
+			try {
+				mapRegisteredSprites = TextureMap.class.getDeclaredField(
+						FMLDeobfuscatingRemapper.INSTANCE.mapFieldName(
+								"net.minecraft.client.renderer.texture.TextureMap",
+								"mapRegisteredSprites",//"field_110574_e",
+								"Ljava/util/Map;"
+						)
+				);
+				mapRegisteredSprites.setAccessible(true);
+			} catch (NoSuchFieldException e) {
+				throw new LeafiaDevFlaw(e);
+			}
+		}
+
+		TextureMap manager;
+		Map<String,TextureAtlasSprite> map;
+		private void redirectNTMSprite(String s) {
+			ResourceLocation loc = new ResourceLocation("leafia",s);
+			TextureAtlasSprite sprite = manager.registerSprite(loc);
+			map.remove(loc.toString());
+			map.put(new ResourceLocation("hbm",s).toString(),sprite);
+		}
+
+		@SubscribeEvent
+		public void textureStitch(TextureStitchEvent.Pre evt) {
+			try {
+				Map<String,TextureAtlasSprite> map = (Map<String,TextureAtlasSprite>)mapRegisteredSprites.get(evt.getMap());
+				this.manager = evt.getMap();
+				this.map = map;
+				{
+					for (int z = 0; z <= 6; z++) {
+						redirectNTMSprite("blocks/contamination/grass/waste_grass_side_"+z);
+						redirectNTMSprite("blocks/contamination/grass/waste_grass_top_"+z);
+					}
+					for (int z = 0; z <= 6; z++)
+						redirectNTMSprite("blocks/contamination/grass_tall/waste_grass_tall_"+z);
+				}
+				this.manager = null;
+				this.map = null;
+			} catch (IllegalAccessException e) {
+				throw new LeafiaDevFlaw(e);
+			}
+		}*/ // well that didnt work out. Fuck off!
 
 		@SubscribeEvent
 		public void onGetEntityCollision(GetCollisionBoxesEvent evt) {
