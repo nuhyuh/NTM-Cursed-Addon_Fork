@@ -95,6 +95,6 @@ public class PWRTerminalBlock extends BlockMachineBase implements ITooltipProvid
 
 	@Override
 	public boolean tileEntityShouldCreate(World world,BlockPos pos) {
-		return false;
+		return true;
 	}
 }

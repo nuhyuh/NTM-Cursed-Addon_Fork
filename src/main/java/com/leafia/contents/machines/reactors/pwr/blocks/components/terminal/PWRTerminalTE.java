@@ -86,6 +86,10 @@ public class PWRTerminalTE extends TileEntity implements PWRComponentEntity, Lea
 					compound.getInteger("corePosZ")
 			);
 		super.readFromNBT(compound);
+		if (compound.hasKey("data")) { // DO NOT MOVE THIS ABOVE SUPER CALL! super.readFromNBT() is where this.pos gets initialized!!
+			PWRData data = new PWRData(this);
+			data.readFromNBT(compound);
+		}
 	}
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
