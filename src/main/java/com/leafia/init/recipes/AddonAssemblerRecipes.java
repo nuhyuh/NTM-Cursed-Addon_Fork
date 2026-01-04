@@ -77,6 +77,14 @@ public class AddonAssemblerRecipes {
 						new ComparableStack(Blocks.STONE_BUTTON)
 				)
 		);
+		INSTANCE.register(new GenericRecipe("ass.leafia.cp").setup(130,100)
+				.outputItems(new ItemStack(PWR.conductor))
+				.inputItems(
+						new OreDictStack(STEEL.plate(),4),
+						new ComparableStack(ModItems.circuit,2,EnumCircuitType.BASIC),
+						new OreDictStack(MINGRADE.wireFine(),2)
+				)
+		);
 	}
 	public static void remove(String entry) {
 		GenericRecipe recipe = INSTANCE.recipeNameMap.get(entry);

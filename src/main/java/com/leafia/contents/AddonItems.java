@@ -253,7 +253,7 @@ public class AddonItems {
 				.setCreativeTab(MainRegistry.controlTab);
 		public static final Item
 				leafRodPu238Be
-				= new LeafiaRodItem("Pu-238Be",200000, 1287)
+				= new LeafiaRodItem("Pu-238Be",200000, 2744)
 				.setAppearance(ModItems.billet_pu238be, BILLET, SOURCE)
 				.setModerated()
 				.addRad(ItemRads.plutonium238be)

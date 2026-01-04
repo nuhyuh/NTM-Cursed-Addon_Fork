@@ -21,6 +21,7 @@
   "mixins": [
     "hbm.MixinBalefire",
     "hbm.MixinBlockCoalOil",
+    "hbm.MixinBlockGasExplosive",
     "hbm.MixinBlockGasRadon",
     "hbm.MixinBlockRadonDense",
     "hbm.MixinBlockSellafield",
