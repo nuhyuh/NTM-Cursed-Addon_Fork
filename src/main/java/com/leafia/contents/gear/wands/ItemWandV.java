@@ -21,6 +21,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -41,13 +42,29 @@ public class ItemWandV extends AddonItemBaked {
 	public ItemWandV(String s,String texture) {
 		super(s,texture);
 	}
-	
+
+	public enum DebuggerMode {
+		DEFAULT_TRACKER,
+		PWR_SET_CORE,
+		PWR_PRINT_CORE
+	}
+
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		Block b = world.getBlockState(pos).getBlock();
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack.getItem() instanceof ItemWandV wandV) {
 			switch(getMode(stack)) {
+				case PWR_PRINT_CORE -> {
+					if (!world.isRemote) {
+						TileEntity te = world.getTileEntity(pos);
+						if (te != null) {
+							NBTTagCompound lol = te.writeToNBT(new NBTTagCompound());
+							if (lol.hasKey("corePosX"))
+								LeafiaDebug.debugPos(world,new BlockPos(lol.getInteger("corePosX"),lol.getInteger("corePosY"),lol.getInteger("corePosZ")),3,0x00FFFF,"Core");
+						}
+					}
+				}
 				case PWR_SET_CORE -> {
 					if (!world.isRemote) {
 						PWRDiagnosis.cleanup();
@@ -161,11 +178,6 @@ public class ItemWandV extends AddonItemBaked {
 		} else {
 		}
 		return super.itemInteractionForEntity(stack, playerIn, target, hand);
-	}
-
-	public enum DebuggerMode {
-		DEFAULT_TRACKER,
-		PWR_SET_CORE
 	}
 
 	public DebuggerMode getMode(ItemStack stack) {

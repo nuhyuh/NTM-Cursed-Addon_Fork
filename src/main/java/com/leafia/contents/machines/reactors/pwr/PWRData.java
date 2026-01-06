@@ -242,7 +242,7 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 	public void invalidate(World world) {
 		if (!(world instanceof WorldServer)) return;
 		BlockPos checkPos = companion.getPos();
-		((PWRComponentEntity) companion).assignCore(null);
+		//((PWRComponentEntity) companion).assignCore(null); how many hours was I smoking my tail when I was coding this?
 		world.getMinecraftServer().addScheduledTask(() -> {
 			if (world.getBlockState(checkPos).getBlock() instanceof CoriumFinite)
 				this.explode(world, null,null,1);

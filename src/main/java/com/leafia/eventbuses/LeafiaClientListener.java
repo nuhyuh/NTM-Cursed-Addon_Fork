@@ -421,7 +421,7 @@ public class LeafiaClientListener {
 			LeafiaShakecam.noise = new NoiseGeneratorPerlin(new Random(),1);
 			this.addShader("tom",new ResourceLocation("leafia:shaders/help/tom_desat.json"));
 			this.addShader("nuclear",new ResourceLocation("leafia:shaders/help/nuclear.json"));
-			this.addShader("drx",new ResourceLocation("hbm:shaders/help/digamma.json"));
+			this.addShader("drx",new ResourceLocation("leafia:shaders/help/digamma.json"));
 		}
 		@SubscribeEvent
 		public void renderTick(RenderTickEvent e){
