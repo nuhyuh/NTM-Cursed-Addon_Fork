@@ -118,7 +118,7 @@ public abstract class MSRTEBase extends TileEntity implements ITickable, LeafiaP
 		}
 		if (stack1.amount > 0) {
 			for (Entry<String,Double> entry : mixture1.entrySet()) {
-				double amount = mixture2.getOrDefault(entry.getKey(),entry.getValue());
+				double amount = mixture2.getOrDefault(entry.getKey(),0d);
 				amount += entry.getValue()*stack1.amount/sum;
 				mixture2.put(entry.getKey(),amount);
 			}
@@ -209,11 +209,11 @@ public abstract class MSRTEBase extends TileEntity implements ITickable, LeafiaP
 				nbt.setDouble("heat",Math.max(0,nbt.getDouble("heat")-1));
 				stack.tag = nbt;
 				if (nbt.getDouble("heat") >= 6000-getBaseTemperature(AddonFluids.fromFF(stack.getFluid()))) {
-					if (world.rand.nextInt(350) == 0) {
+					/*if (world.rand.nextInt(350) == 0) {
 						world.playEvent(2001,pos,Block.getStateId(world.getBlockState(pos)));
 						world.setBlockState(pos,ModBlocks.block_corium.getDefaultState());
 						return;
-					}
+					}*/
 				}
 			}
 			sendFluids();

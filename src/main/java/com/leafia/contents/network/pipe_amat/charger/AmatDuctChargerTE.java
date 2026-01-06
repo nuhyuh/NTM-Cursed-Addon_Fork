@@ -16,12 +16,14 @@ import com.leafia.contents.network.pipe_amat.AmatDuctTE;
 import com.leafia.contents.network.pipe_amat.uninos.AmatNet;
 import com.leafia.dev.container_utility.LeafiaPacket;
 import com.leafia.dev.container_utility.LeafiaPacketReceiver;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldServer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -79,7 +81,21 @@ public class AmatDuctChargerTE extends AmatDuctTE implements ITickable, IEnergyR
 		LeafiaPacket._start(this).__write(30,type.getID()).__sendToAffectedClients();
 	}
 	public void setType(FluidType type) {
+		FluidType prev = this.type;
 		this.type = type;
+		this.markDirty();
+
+		if (world instanceof WorldServer) {
+			IBlockState state = world.getBlockState(pos);
+			world.notifyBlockUpdate(pos, state, state, 3);
+			world.markBlockRangeForRenderUpdate(pos, pos);
+		}
+
+		UniNodespace.destroyNode(world, pos, AmatNet.getProvider(prev));
+
+		if(this.node != null) {
+			this.node = null;
+		}
 		sendTypeUpdatePacket();
 	}
 	public FluidType getType() {
