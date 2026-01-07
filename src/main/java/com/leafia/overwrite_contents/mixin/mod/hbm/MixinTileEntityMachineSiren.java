@@ -56,6 +56,21 @@ public abstract class MixinTileEntityMachineSiren extends TileEntity implements 
 	protected MixinTileEntityMachineSiren() {
 	}
 
+	@Unique
+	@Optional.Method(modid="computronics")
+	boolean checkSpeakerMode() {
+		boolean spk = false;
+		for (EnumFacing face : EnumFacing.VALUES) {
+			TileEntity ate = world.getTileEntity(pos.offset(face));
+			if (computronics && ate != null && ate.hasCapability(AUDIO_RECEIVER_CAPABILITY,face.getOpposite())) {
+				spk = true;
+				InventoryHelper.dropInventoryItems(world,pos,this);
+				break;
+			}
+		}
+		return spk;
+	}
+
 	/**
 	 * @author ntmleafia
 	 * @reason tapes support
@@ -63,16 +78,8 @@ public abstract class MixinTileEntityMachineSiren extends TileEntity implements 
 	@Overwrite
 	public void update() {
 		if(!world.isRemote) {
-			boolean spk = false;
-			for (EnumFacing face : EnumFacing.VALUES) {
-				TileEntity ate = world.getTileEntity(pos.offset(face));
-				if (computronics && ate != null && ate.hasCapability(AUDIO_RECEIVER_CAPABILITY,face.getOpposite())) {
-					spk = true;
-					InventoryHelper.dropInventoryItems(world,pos,this);
-					break;
-				}
-			}
-			speakerMode = spk;
+			if (computronics)
+				speakerMode = checkSpeakerMode();
 			// speaker check end
 
 			int id = Arrays.asList(TrackType.VALUES).indexOf(getCurrentType());
