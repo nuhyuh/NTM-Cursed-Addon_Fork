@@ -31,6 +31,7 @@ public class MixinPacketDispatcher {
 
     @Inject(method = "registerPackets", at = @At("TAIL"),require = 1)
     private static void onRegisterPackets(CallbackInfo ci, @Local int i) {
+        i += 1000;
         wrapper.registerMessage(LeafiaPacket.Handler.class, LeafiaPacket.class, i++, Side.SERVER);
         wrapper.registerMessage(LeafiaPacket.Handler.class, LeafiaPacket.class, i++, Side.CLIENT);
         wrapper.registerMessage(LeafiaCustomPacket.Handler.class, LeafiaCustomPacket.class, i++, Side.SERVER);
