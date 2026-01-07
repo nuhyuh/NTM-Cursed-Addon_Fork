@@ -63,6 +63,8 @@ public class AddonCraftingRecipes {
 
 		addShapelessAuto(new ItemStack(PWR.element_old_blank),new ItemStack(PWR.element_old));
 		addShapelessAuto(new ItemStack(PWR.element_old),new ItemStack(PWR.element_old_blank));
+		addShapelessAuto(new ItemStack(PWR.hatch_alt),new ItemStack(PWR.hatch));
+		addShapelessAuto(new ItemStack(PWR.hatch),new ItemStack(PWR.hatch_alt));
 
 		addRecipeAuto(new ItemStack(AddonItems.ams_focus_blank),"PTP","GSG","PJP",'P',ModItems.plate_dineutronium,'T',ModItems.rune_thurisaz,'G',ModBlocks.reinforced_glass,'S',AL.shell(),'J',ModItems.rune_jera);
 		addRecipeAuto(new ItemStack(ModItems.ams_lens, 1), "PFP", "GEG", "PFP", 'P', ModItems.rune_dagaz, 'G', AddonItems.ams_focus_blank, 'E', ModItems.upgrade_overdrive_3, 'F', ModItems.fusion_shield_tungsten);

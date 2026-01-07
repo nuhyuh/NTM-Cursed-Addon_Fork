@@ -30,8 +30,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class PWRTerminalBlock extends BlockMachineBase implements ITooltipProvider, PWRComponentBlock, IRadResistantBlock {
-	public PWRTerminalBlock() {
-		super(Material.IRON,0,"lwr_terminal");
+	public PWRTerminalBlock(String s) {
+		super(Material.IRON,0,s);
 		this.setTranslationKey("lwr_terminal");
 		this.setCreativeTab(MainRegistry.machineTab);
 		ModBlocks.ALL_BLOCKS.remove(this);

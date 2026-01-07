@@ -50,6 +50,14 @@ public class AddonAssemblerRecipes {
 						new OreDictStack(W.wireFine(),4)
 				)
 		);
+		INSTANCE.register(new GenericRecipe("ass.leafia.legacy_pwrhatch").setup(130,150)
+				.outputItems(new ItemStack(PWR.hatch))
+				.inputItems(
+						new ComparableStack(ModBlocks.brick_concrete,1),
+						new OreDictStack(STEEL.plate(),6),
+						new ComparableStack(ModItems.circuit, 4, EnumCircuitType.BASIC)
+				)
+		);
 		replaceOutput("ass.pwrcontrol",new ItemStack(PWR.control));
 		replaceOutput("ass.pwrfuel",new ItemStack(PWR.element));
 		replaceOutput("ass.pwrchannel",new ItemStack(PWR.channel));
