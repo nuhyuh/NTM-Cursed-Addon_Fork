@@ -25,6 +25,9 @@ public abstract class MixinTileEntityReactorResearch extends TileEntityMachineBa
 	@Shadow(remap = false)
 	public int totalFlux;
 
+	@Shadow(remap = false)
+	protected abstract void explode();
+
 	public MixinTileEntityReactorResearch(int scount) {
 		super(scount);
 	}
@@ -113,6 +116,7 @@ public abstract class MixinTileEntityReactorResearch extends TileEntityMachineBa
 					detonate.resetDetonate();
 					detonate.detonateRadius = 2;
 					detonate.detonate(world,pos);
+					explode();
 					ci.cancel();
 					return;
 				}
