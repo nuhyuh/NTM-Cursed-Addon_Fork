@@ -299,7 +299,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 		double tempx = heat-20;
 		double y = 0; // x = 20+~~
 		switch(functionId) {
-				// DEPLETED
+			// DEPLETED
 			case "depleteduranium": case "depletedmox":
 				y = 80-20;
 				n = "80-20";
@@ -321,7 +321,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				disableDecay = true;
 				break;
 
-				// URANIUM
+			// URANIUM
 			case "meu235": case "nu": case "u238":
 				y = Math.pow(x*8,0.56)*3;
 				n = "("+flux+"×8)^0.56×3 "+TextFormatting.DARK_GREEN+"(FINE)";
@@ -335,7 +335,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				n = "("+flux+"×8)^0.56×2 "+TextFormatting.DARK_GREEN+"(FINE)";
 				break;
 
-				// THORIUM
+			// THORIUM
 			case "th232":
 				y = Math.pow(x*4,0.35)*3;
 				n = "("+flux+"×4)^0.35×3 "+TextFormatting.DARK_AQUA+"(LIKE, REALLY POOR)";
@@ -345,7 +345,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				n = "("+flux+"×64)^0.35×3 "+TextFormatting.DARK_AQUA+"(POOR)";
 				break;
 
-				// PLUTONIUM
+			// PLUTONIUM
 			case "lepu239": case "mepu239": case "npu": case "pu240":
 				y = Math.pow(x*8,0.6)*3;
 				n = "("+flux+"×8)^0.6×3 "+TextFormatting.DARK_GREEN+"(FINE)";
@@ -355,7 +355,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				n = "("+flux+"×8)^0.6×3 "+TextFormatting.DARK_GREEN+"(FINE)";
 				break;
 
-				// AMERICIUM
+			// AMERICIUM
 			case "leam242": case "meam242": case "heam242":
 				y = Math.pow(x*8,0.64)*3;
 				n = "("+flux+"×8)^0.64×3 "+TextFormatting.GOLD+"(RISKY)";
@@ -365,31 +365,31 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				n = "("+flux+"×8)^0.64×3 "+TextFormatting.GOLD+"(RISKY)";
 				break;
 
-				// NEPTUNIUM
+			// NEPTUNIUM
 			case "menp237": case "henp237":
 				y = Math.pow(x*8,0.52)*3;
 				n = "("+flux+"×8)^0.52×3 "+TextFormatting.DARK_GREEN+"(FINE)";
 				break;
 
-				// SCHRABIDIUM
+			// SCHRABIDIUM
 			case "lesa326": case "mesa326": case "hesa326": case "sa326": case "sa327":
 				y = Math.pow(x,0.65)*12+Math.pow(Math.max(x-2500,0)/1600,3);
 				n = ""+flux+"^0.65×12 "+TextFormatting.GOLD+"(RISKY)";
 				break;
 
-				// RADIUM
+			// RADIUM
 			case "ra226be":
 				y = 300/(1+Math.pow(Math.E,-0.02*x))-150;
 				n = "300/(1+e^(-0.02×"+flux+"))-150 "+TextFormatting.DARK_AQUA+"(POOR)";
 				break;
 
-				// OTHER
+			// OTHER
 			case "potentialinstantblowoutapplicator":
 				y = Math.tan(Math.min(heat/400,0.5)*Math.PI)+x/4;
 				n = "tan(min("+temp+"/400,0.5)*PI)\n + "+flux+"/4 "+TextFormatting.DARK_RED+"(JUST NO)";
 				break;
 
-				// B.F.
+			// B.F.
 			case "balefire":
 				y = 100*Math.pow(x/1000-2,3)-500*Math.pow(x/1000-2,2)+x/600+2800;
 				n = "100(("+flux+"/1000-2)³)-500(("+flux+"/1000-2)²)+"+flux+"/600+2800 "+TextFormatting.RED+"(DANGEROUS)";
@@ -400,7 +400,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				n = "100(("+flux+"/1000-1)³)-500(("+flux+"/1000-1)²)+("+flux+"+1000)/600+2800 "+TextFormatting.RED+"(DANGEROUS)";
 				break;
 
-				// COPY OLD SHIT
+			// COPY OLD SHIT
 			case "po210": case "po210be":
 				y = 700+Math.pow(x*2,0.69);
 				n = "700 + ("+flux+"×2)^0.69 "+TextFormatting.GOLD+"(RISKY)";
@@ -414,7 +414,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				n = "2300 + "+flux+"×0.4 "+TextFormatting.DARK_RED+"(DANGEROUS)";
 				break;
 
-				// SOME RUSHED CRAP
+			// SOME RUSHED CRAP
 			case "pu238": case "pu238be":
 				y = 1330+Math.pow(x*2,0.62);
 				n = "1330 + ("+flux+"*2)^0.62 "+TextFormatting.GOLD+"(RISKY)";
@@ -429,6 +429,19 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 			case "debug":
 				y = Math.max(heat,0)+Math.sqrt(x);
 				n = temp+"+20+√"+flux+TextFormatting.GRAY+" (DEBUG)";
+				disableDecay = true;
+				break;
+
+			// YHARONITE
+			case "yhxxx":
+				y = Math.pow(x,0.75)*8;
+				n = ""+flux+"^0.75×8 "+TextFormatting.RED+"(DANGEROUS)";
+				disableDecay = true;
+				break;
+			// DIGAMMA
+			case "dgomega":
+				y = Math.pow(1.01916169,x);
+				n = "1.01916169^"+flux+" "+TextFormatting.DARK_RED+"(JUST NO)";
 				disableDecay = true;
 				break;
 		}
@@ -470,13 +483,16 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 			}
 			if (heatMg > 0)
 				heatMg *= heatMultiplier;
-			double newTemp = heat+heatMg;
-			if (heatMg*2 > decay)
-				decay += (heatMg*2-decay)*0.01;
+			double decayBase = Math.min(heatMg/2,x);
+			if (decayBase > decay)
+				decay += (decayBase-decay)*0.01;
 			if (disableDecay) decay = 0;
 			decay *= 0.99992694932; // this is f*cked lmao //0.99854;
 			data.setDouble("decay",decay);
-			newTemp += decay * Math.pow(Math.max(1-Math.max(newTemp,20)/1300,0),0.2);
+			double newTemp = heat+Math.max(heatMg,decay);
+			if (Double.isNaN(newTemp))
+				newTemp = Double.MAX_VALUE;
+			//newTemp += decay * Math.pow(Math.max(1-Math.max(newTemp,20)/1300,0),0.2); old algorithm
 			double cooled = (
 					Math.pow(
 							Math.max(newTemp-desiredTemp,0)+1,
@@ -486,6 +502,8 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 			if (cooled < minimumRequired) cooled = 0;
 			double newCooledTemp = Math.max(newTemp-cooled,-273.15/*20*/);
 			data.setDouble("cooled",cooled);
+			if (Double.isNaN(newCooledTemp))
+				newCooledTemp = Double.MAX_VALUE;
 			data.setDouble(
 					"heat",
 					newCooledTemp

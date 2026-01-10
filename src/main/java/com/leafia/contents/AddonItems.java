@@ -417,6 +417,21 @@ public class AddonItems {
 				= new LeafiaRodItem("Potential Instant Blowout Applicator",95000000, 650000000)
 				.setAppearance(ModItems.meltdown_tool, BILLET, UNSTABLE)
 				.setCreativeTab(MainRegistry.controlTab);
+
+		public static final Item
+				leafRodYharonite
+				= new LeafiaRodItem("Yh-XXX",666666, 3200)
+				.setAppearance(ModItems.billet_yharonite, BILLET, FUEL)
+				//.setDecayProduct("depleteduranium")
+				//.addRad(ItemRads.uraniumFuel)
+				.setCreativeTab(MainRegistry.controlTab);
+		public static final Item
+				leafRodDGOmega
+				= new LeafiaRodItem("DG-OMEGA",Double.MAX_VALUE, 1916169)
+				.setSpecialRodModel().setBaseItem(ModItems.particle_digamma)
+				.setReactivity(2)
+				.addDigamma(0.333)
+				.setCreativeTab(MainRegistry.controlTab);
 		static {
 			LeafiaRodItem.confirmDecayProducts();
 		}

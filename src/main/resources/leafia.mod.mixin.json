@@ -64,7 +64,6 @@
     "hbm.MixinModEventHandler",
     "hbm.MixinModItems",
     "hbm.MixinOreDictManager",
-    "hbm.MixinPacketDispatcher",
     "hbm.MixinSerializableRecipe",
     "hbm.MixinTileEntityBarrel",
     "hbm.MixinTileEntityChungus",
@@ -86,6 +85,7 @@
     "hbm.MixinTileEntityMachineTurbine",
     "hbm.MixinTileEntityReactorResearch",
     "hbm.MixinTileEntityReactorZIRNOX",
+    "hbm.MixinTileEntityWasteDrum",
     "hbm.MixinWasteEarth",
     "hbm.MixinWasteGrassTall"
   ],

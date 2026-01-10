@@ -34,6 +34,7 @@ import com.llib.LeafiaLib.NumScale;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
 import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.network.SimpleComponent;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -61,8 +62,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
 
+@Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "opencomputers")})
 @Mixin(value = TileEntityCoreReceiver.class)
-public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase implements ITickable, IMixinTileEntityCoreReceiver, IEnergyProviderMK2, ILaserable, IFluidStandardReceiver, IGUIProvider, IControllable {
+public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase implements ITickable, IMixinTileEntityCoreReceiver, IEnergyProviderMK2, ILaserable, IFluidStandardReceiver, IGUIProvider, IControllable, SimpleComponent {
 	@Shadow(remap = false) public long joules;
 
 	@Shadow(remap = false) public long prevJoules;

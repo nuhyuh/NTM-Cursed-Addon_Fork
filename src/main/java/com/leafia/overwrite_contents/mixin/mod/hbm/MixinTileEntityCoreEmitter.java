@@ -23,6 +23,7 @@ import com.llib.LeafiaLib;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
 import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.network.SimpleComponent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -49,8 +50,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "opencomputers")})
 @Mixin(value = TileEntityCoreEmitter.class, remap = false)
-public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase implements ITickable, IMixinTileEntityCoreEmitter, IEnergyReceiverMK2, ILaserable, IFluidStandardReceiver, IControllable {
+public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase implements ITickable, IMixinTileEntityCoreEmitter, IEnergyReceiverMK2, ILaserable, IFluidStandardReceiver, IControllable, SimpleComponent {
     public MixinTileEntityCoreEmitter(int scount) {
         super(scount);
     }

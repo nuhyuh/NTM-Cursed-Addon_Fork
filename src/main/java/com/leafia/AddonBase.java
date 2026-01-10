@@ -1,6 +1,7 @@
 package com.leafia;
 
 import com.hbm.handler.GuiHandler;
+import com.hbm.packet.PacketDispatcher;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.AddonFluids.AddonFF;
@@ -34,7 +35,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 @Mod(modid = Tags.MODID, version = "Unknown", name = Tags.MODNAME, acceptedMinecraftVersions = "[1.12.2]",
-		dependencies = "required-after:hbm@[1.4.0.2,);required:mixinbooter")
+		dependencies = "required-after:hbm@[1.4.0.3,);required:mixinbooter")
 public class AddonBase {
 
 	public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
@@ -76,6 +77,8 @@ public class AddonBase {
 		Configuration config = new Configuration(new File(proxy.getDataDir().getPath() + "/config/hbm/leafia.cfg"));
 		config.load();
 		AddonConfig.loadFromConfig(config);
+
+		PacketDispatcher.LISTENERS.add(new AddonPacketRegister());
 
 		for (Class<?> cl : LeafiaServerListener.class.getClasses()) {
 			try {

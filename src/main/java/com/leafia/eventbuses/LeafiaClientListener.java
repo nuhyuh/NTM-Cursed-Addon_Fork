@@ -139,7 +139,7 @@ public class LeafiaClientListener {
 		static float timerMax = 5;
 		public static int messageVariants = 10;
 		public static void update() {
-			digammaDose = (float)HbmLivingProps.getDigamma(Minecraft.getMinecraft().player)/10;
+			digammaDose = (float)Math.pow(HbmLivingProps.getDigamma(Minecraft.getMinecraft().player)/10,0.666);
 			int needle = 0;
 			while (needle < texts.size()) {
 				DigammaText text = texts.get(needle);
@@ -214,6 +214,17 @@ public class LeafiaClientListener {
 				}
 			}
 			{
+				for (LeafiaRodItem item : LeafiaRodItem.fromResourceMap.values()) {
+					if (item.specialRodModel != null) {
+						Object object = evt.getModelRegistry().getObject(item.specialRodModel);
+						if(object instanceof IBakedModel) {
+							item.bakedSpecialRod = (IBakedModel)object;
+						}
+						evt.getModelRegistry().putObject(item.specialRodModel, new LeafiaRodBakedModel());
+					}
+				}
+			}
+			{
 				Object object = evt.getModelRegistry().getObject(LeafiaRodItem.rodModel);
 				if(object instanceof IBakedModel) {
 					IBakedModel model = (IBakedModel) object;
@@ -231,6 +242,7 @@ public class LeafiaClientListener {
 
 		private void registerModel(Item item,int meta) {
 			if (item instanceof LeafiaRodItem.EmptyLeafiaRod) {
+				ModelLoader.setCustomModelResourceLocation(item, 14, new ModelResourceLocation(item.getRegistryName() + "_overlay_bf", "inventory"));
 				ModelLoader.setCustomModelResourceLocation(item, 15, new ModelResourceLocation(item.getRegistryName() + "_overlay", "inventory"));
 				ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName() + "_empty", "inventory"));
 			} else if(item instanceof IHasCustomModel) {
