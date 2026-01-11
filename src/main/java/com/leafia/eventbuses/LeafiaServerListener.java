@@ -93,7 +93,7 @@ public class LeafiaServerListener {
 					} catch (NullPointerException ignored) {}
 				}
 			} else {
-				throw new LeafiaDevFlaw("New type: "+palette.getClass().getName());
+				throw new LeafiaDevFlaw("Impossible case ("+palette.getClass().getName()+")");
 			}
 		}
 		@SubscribeEvent
