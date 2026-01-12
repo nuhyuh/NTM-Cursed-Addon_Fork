@@ -81,7 +81,7 @@ public class AddonBase {
 		_initClass(AddonEnumBatteryPack.class);
 
 		for (EnumBatteryPack value : EnumBatteryPack.values()) {
-			System.out.println(value.name());
+			System.out.println("ENUM: "+value.name());
 		}
 
 		Configuration config = new Configuration(new File(proxy.getDataDir().getPath() + "/config/hbm/leafia.cfg"));
