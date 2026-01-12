@@ -5,6 +5,7 @@ import com.hbm.blocks.generic.BlockModDoor;
 import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
 import com.leafia.AddonBase;
+import com.leafia.contents.bomb.missile.customnuke.CustomNukeMissileItem;
 import com.leafia.contents.building.pinkdoor.ItemPinkDoor;
 import com.leafia.contents.building.sign.SignBlock;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem;
@@ -448,6 +449,8 @@ public class AddonItems {
 	public static final Item ingot_francium = new AddonItemBaked("ingot_francium","leafia/ingots/ingot_francium").setCreativeTab(MainRegistry.partsTab);
 
 	public static final Item advisor = new AdvisorItem("advisor").setCreativeTab(MainRegistry.consumableTab);
+
+	public static final Item missile_customnuke = new CustomNukeMissileItem("missile_customnuke");
 
 	private static void modifyItemParams() {
 		ModItems.pwr_fuel.setCreativeTab(null);
