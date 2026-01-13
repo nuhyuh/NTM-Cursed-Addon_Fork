@@ -384,6 +384,7 @@ public class AMSStabilizerTE extends TileEntity implements ITickable, IFluidStan
 		return new AMSStabilizerContainer(entityPlayer.inventory,this);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public GuiScreen provideGUI(int i,EntityPlayer entityPlayer,World world,int i1,int i2,int i3) {
 		return new AMSStabilizerUI(entityPlayer.inventory,this);

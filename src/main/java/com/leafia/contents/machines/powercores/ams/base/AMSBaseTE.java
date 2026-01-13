@@ -567,6 +567,7 @@ public class AMSBaseTE extends TileEntity implements ITickable, IFluidStandardRe
 		return new AMSBaseContainer(entityPlayer.inventory,this);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public GuiScreen provideGUI(int i,EntityPlayer entityPlayer,World world,int i1,int i2,int i3) {
 		return new AMSBaseUI(entityPlayer.inventory,this);

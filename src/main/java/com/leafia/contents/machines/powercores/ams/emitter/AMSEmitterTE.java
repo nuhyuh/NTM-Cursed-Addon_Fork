@@ -345,6 +345,7 @@ public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandar
 		return new AMSEmitterContainer(entityPlayer.inventory,this);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public GuiScreen provideGUI(int i,EntityPlayer entityPlayer,World world,int i1,int i2,int i3) {
 		return new AMSEmitterUI(entityPlayer.inventory,this);
