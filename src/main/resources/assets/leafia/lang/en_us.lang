@@ -202,6 +202,7 @@ tile.baleonite_2.name=Boiling Baleonite
 tile.baleonite_3.name=Blazing Baleonite
 tile.baleonite_4.name=Infernal Baleonite
 tile.baleonite_5.name=Baleonite-Corium
+tile.block_welded_osmiridium.name=Block of Welded Osmiridium
 tile.control_torch.name=Control Panel Torch
 tile.coolant_heatex.name=Coolant Heat Exchanger
 tile.crate_tungsten.desc=Used for DFC Crate Recipes, does not have more slots.

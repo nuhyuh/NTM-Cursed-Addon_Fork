@@ -35,7 +35,7 @@ public class AddonCraftingRecipes {
 
 		addRecipeAuto(new ItemStack(AddonBlocks.spk_cable, 16), " W ", "RRR", " W ", 'W', ModItems.plate_dineutronium, 'R',OreDictManager.MAGTUNG.wireFine());
 		addShapelessAuto(new ItemStack(ModBlocks.dfc_receiver, 1), AddonItems.dfcsh_beam, AddonItems.dfcsh_cable, AddonItems.dfcsh_corner, AddonItems.dfcsh_core, OreDictManager.STEEL.heavyBarrel(), AddonItems.dfcsh_front, AddonItems.dfcsh_corner, AddonItems.dfcsh_beam, AddonItems.dfcsh_beam);
-		addRecipeAuto(new ItemStack(AddonBlocks.dfc_reinforced, 1), "SDS", "TXL", "SDS", 'S', OSMIRIDIUM.plateWelded(), 'D', ModItems.plate_dineutronium, 'T', AddonItems.supercooler, 'L', ModBlocks.dfc_receiver, 'X', ModBlocks.block_dineutronium);
+		addRecipeAuto(new ItemStack(AddonBlocks.dfc_reinforced, 1), "SDS", "TXL", "SDS", 'S', AddonBlocks.block_welded_osmiridium, 'D', ModItems.plate_dineutronium, 'T', AddonItems.supercooler, 'L', ModBlocks.dfc_receiver, 'X', ModBlocks.block_dineutronium);
 		addRecipeAuto(new ItemStack(AddonBlocks.dfc_exchanger, 1), "SCS", "HMP", "SCS", 'S', OSMIRIDIUM.plateWelded(), 'C', ModItems.plate_combine_steel, 'H', ModBlocks.heater_heatex, 'M', ModItems.motor, 'P', ModItems.pipes_steel);
 
 		addRecipeAuto(new ItemStack(AddonItems.fuzzy_identifier, 1), "=  ", "@CS", "@MP", '@', OreDictManager.GOLD.wireFine(), 'P', ANY_PLASTIC.ingot(), '=', DictFrame.fromOne(ModItems.circuit, EnumCircuitType.BASIC), 'M', ModItems.motor_desh, 'C', ModItems.coil_gold, 'S', ModItems.screwdriver_desh);
@@ -81,6 +81,9 @@ public class AddonCraftingRecipes {
 
 		addShapelessAuto(new ItemStack(AddonBlocks.fluid_duct_valve_mdl),new ItemStack(ModBlocks.fluid_duct_neo,1,2),AL.plate());
 		addShapelessAuto(new ItemStack(AddonBlocks.fluid_duct_valve_mdl_rs),new ItemStack(ModBlocks.fluid_duct_neo,1,2),new ItemStack(ModItems.motor));
+
+		addShapelessAuto(new ItemStack(AddonBlocks.block_welded_osmiridium),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id),new ItemStack(ModItems.plate_welded,1,Mats.MAT_OSMIRIDIUM.id));
+		addShapelessAuto(new ItemStack(ModItems.plate_welded,9,Mats.MAT_OSMIRIDIUM.id),new ItemStack(AddonBlocks.block_welded_osmiridium));
 
 		// make laser detonator cheap af
 		removeRecipesForItem(reg,ModItems.detonator_laser);

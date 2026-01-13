@@ -214,6 +214,7 @@ tile.baleonite_2.name=超高温べーレオナイト
 tile.baleonite_3.name=炎上べーレオナイト
 tile.baleonite_4.name=業火べーレオナイト
 tile.baleonite_5.name=溶融べーレオナイト
+tile.block_welded_osmiridium.name=溶接オスミリジウムのブロック
 tile.control_torch.name=Control Panel Torch
 tile.coolant_heatex.name=冷媒熱交換機
 tile.crate_tungsten.desc=DFCボックスレシピに使用するものであり、スロットが増えるわけではありません。

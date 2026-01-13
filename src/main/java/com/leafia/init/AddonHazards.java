@@ -6,18 +6,19 @@ import static com.hbm.hazard.HazardRegistry.*;
 import com.hbm.hazard.HazardEntry;
 import com.hbm.hazard.HazardSystem;
 import com.hbm.hazard.modifier.IHazardModifier;
-import com.hbm.hazard.type.HazardTypeHydroactive;
-import com.hbm.hazard.type.IHazardType;
+import com.hbm.hazard.type.*;
 import com.hbm.inventory.OreDictManager;
 import com.hbm.inventory.OreDictManager.DictFrame;
 import com.hbm.inventory.RecipesCommon;
 import com.hbm.items.ModItems;
+import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonItems;
 import com.leafia.database.AddonOreDictHazards;
 import com.leafia.dev.items.itembase.AddonItemHazardBase;
 import com.leafia.init.hazards.ItemRads;
 import com.leafia.init.hazards.types.HazardTypeAlkaline;
 import com.leafia.init.hazards.types.HazardTypeSharpEdges;
+import com.leafia.init.hazards.types.LCERad;
 import com.leafia.init.hazards.types.radiation.*;
 import net.minecraft.item.Item;
 
@@ -94,6 +95,9 @@ public class AddonHazards {
 		HazardSystem.register(ModItems.blades_steel,makeData(SHARP,40));
 		HazardSystem.register(ModItems.blades_titanium,makeData(SHARP,40));
 		HazardSystem.register(ModItems.blades_advanced_alloy,makeData(SHARP,40));
+
+		registerHazard(OreDictManager.OSMIRIDIUM,new HazardEntry(DIGAMMA,0.004));
+		HazardSystem.register(AddonBlocks.block_welded_osmiridium,makeData(DIGAMMA,0.04f));
 
 		for (AddonItemHazardBase hazardItem : AddonItemHazardBase.ALL_HAZARD_ITEMS) {
 			HazardEntry entry_contamination = null;
@@ -176,6 +180,7 @@ public class AddonHazards {
 					if (s.startsWith("plate")) return true;
 					if (s.startsWith("bedrock")) return true;
 					if (s.startsWith("billet")) return true;
+					if (s.startsWith("crystal")) return true;
 					return false;
 				},
 				entries
@@ -190,8 +195,15 @@ public class AddonHazards {
 		for (Entry<String,Float> entry : map.entrySet()) {
 			if (processor.apply(entry.getKey())) {
 				HazardData data = HazardSystem.oreMap.computeIfAbsent(entry.getKey(),k->new HazardData());
-				for (HazardEntry hazard : entries)
-					data.addEntry(hazard);
+				for (HazardEntry hazard : entries) {
+					double level = hazard.baseLevel;
+					if (hazard.type instanceof HazardTypeRadiation || hazard.type instanceof LCERad || hazard.type instanceof HazardTypeDigamma || hazard.type instanceof HazardTypeCoal || hazard.type instanceof HazardTypeAsbestos)
+						level *= entry.getValue();
+					if (hazard.type instanceof HazardTypeToxic)
+						level = level+(level*entry.getValue()-level)*0.25;
+					HazardEntry haz = new HazardEntry(hazard.type,level);
+					data.addEntry(haz);
+				}
 			}
 		}
 	}

@@ -27,6 +27,7 @@ import com.leafia.contents.machines.powercores.ams.base.AMSBaseBlock;
 import com.leafia.contents.machines.powercores.ams.emitter.AMSEmitterBlock;
 import com.leafia.contents.machines.powercores.ams.stabilizer.AMSStabilizerBlock;
 import com.leafia.contents.machines.powercores.dfc.AddonCoreComponent;
+import com.leafia.contents.machines.powercores.dfc.OsmiridiumBlock;
 import com.leafia.contents.machines.processing.mixingvat.MixingVatBlock;
 import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitraryBlock;
 import com.leafia.contents.machines.reactors.lftr.components.control.MSRControlBlock;
@@ -305,6 +306,8 @@ public class AddonBlocks {
 	public static final Block ams_base = new AMSBaseBlock(Material.IRON, "ams_base").setHardness(5.0F).setResistance(100.0F).setCreativeTab(MainRegistry.machineTab);
 	public static final Block ams_emitter = new AMSEmitterBlock(Material.IRON, "ams_emitter").setHardness(5.0F).setResistance(100.0F).setCreativeTab(MainRegistry.machineTab);
 	public static final Block ams_limiter = new AMSStabilizerBlock(Material.IRON, "ams_limiter").setHardness(5.0F).setResistance(100.0F).setCreativeTab(MainRegistry.machineTab);
+
+	public static final Block block_welded_osmiridium = new OsmiridiumBlock(Material.IRON,"block_welded_osmiridium").setHardness(15).setResistance(6500000);
 
 	static {
 		if (Loader.isModLoaded("opencomputers")) {
