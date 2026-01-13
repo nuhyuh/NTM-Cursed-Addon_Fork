@@ -45,6 +45,7 @@
     "hbm.MixinEntityNukeExplosionMK3",
     "hbm.MixinEntityNukeExplosionMK5",
     "hbm.MixinEntityNukeTorex",
+    "hbm.MixinEnumBatteryPack",
     "hbm.MixinExplosionBalefire",
     "hbm.MixinFluidNetMK2",
     "hbm.MixinFluids",

@@ -10,7 +10,8 @@ import com.hbm.inventory.recipes.loader.GenericRecipe;
 import com.hbm.items.ModItems;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.AddonItems;
-import com.leafia.contents.control.battery.AddonBatteryPackItem.AddonEnumBatteryPack;
+//import com.leafia.contents.control.battery.AddonBatteryPackItem.AddonEnumBatteryPack;
+import com.leafia.contents.control.battery.AddonEnumBatteryPack;
 import net.minecraft.item.ItemStack;
 
 import static com.hbm.inventory.OreDictManager.*;
@@ -37,7 +38,7 @@ public class AddonChemplantRecipes {
 				.inputFluids(
 						new FluidStack(Fluids.COALGAS,3000)
 				)
-				.outputItems(new ItemStack(AddonItems.addon_battery_pack,1,AddonEnumBatteryPack.BATTERY_DESH.ordinal()))
+				.outputItems(new ItemStack(ModItems.battery_pack,1,AddonEnumBatteryPack.BATTERY_DESH.ordinal()))
 		);
 		INSTANCE.register(new GenericRecipe("chem.leafia.battery_euphemium").setup(100, 50_000)
 				.inputItems(
@@ -48,7 +49,7 @@ public class AddonChemplantRecipes {
 				.inputFluids(
 						new FluidStack(Fluids.HELIUM4, 8_000)
 				)
-				.outputItems(new ItemStack(AddonItems.addon_battery_pack,1,AddonEnumBatteryPack.BATTERY_EUPHEMIUM.ordinal()))
+				.outputItems(new ItemStack(ModItems.battery_pack,1,AddonEnumBatteryPack.BATTERY_EUPHEMIUM.ordinal()))
 		);
 		INSTANCE.register(new GenericRecipe("chem.leafia.battery_slop").setup(100, 300_000)
 				.inputItems(
@@ -59,7 +60,7 @@ public class AddonChemplantRecipes {
 				.inputFluids(
 						new FluidStack(AddonFluids.RADSPICE_SLOP,32_000)
 				)
-				.outputItems(new ItemStack(AddonItems.addon_battery_pack,1,AddonEnumBatteryPack.BATTERY_SLOP.ordinal()))
+				.outputItems(new ItemStack(ModItems.battery_pack,1,AddonEnumBatteryPack.BATTERY_SLOP.ordinal()))
 		);
 		INSTANCE.register(new GenericRecipe("chem.leafia.battery_spk").setup(100, 500_000)
 				.inputItems(
@@ -71,7 +72,7 @@ public class AddonChemplantRecipes {
 						new FluidStack(Fluids.PERFLUOROMETHYL_COLD,8_000),
 						new FluidStack(Fluids.STELLAR_FLUX,4_000)
 				)
-				.outputItems(new ItemStack(AddonItems.addon_battery_pack,1,AddonEnumBatteryPack.BATTERY_SPK.ordinal()))
+				.outputItems(new ItemStack(ModItems.battery_pack,1,AddonEnumBatteryPack.BATTERY_SPK.ordinal()))
 				.outputFluids(
 						new FluidStack(Fluids.PERFLUOROMETHYL_HOT,8_000)
 				)
@@ -85,7 +86,7 @@ public class AddonChemplantRecipes {
 				.inputFluids(
 						new FluidStack(Fluids.PERFLUOROMETHYL_COLD,16_000)
 				)
-				.outputItems(new ItemStack(AddonItems.addon_battery_pack,1,AddonEnumBatteryPack.BATTERY_ELECTRO.ordinal()))
+				.outputItems(new ItemStack(ModItems.battery_pack,1,AddonEnumBatteryPack.BATTERY_ELECTRO.ordinal()))
 				.outputFluids(
 						new FluidStack(Fluids.PERFLUOROMETHYL_HOT,16_000)
 				)

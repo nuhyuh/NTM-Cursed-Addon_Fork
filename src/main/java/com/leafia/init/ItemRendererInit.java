@@ -73,7 +73,7 @@ public class ItemRendererInit {
 
 		register(AddonItems.advisor,new AdvisorRender());
 
-		register(AddonItems.addon_battery_pack,new AddonBatteryPackItemRender());
+		//register(AddonItems.addon_battery_pack,new AddonBatteryPackItemRender());
 
 		register(AddonBlocks.ams_limiter,new AMSStabilizerItemRender());
 

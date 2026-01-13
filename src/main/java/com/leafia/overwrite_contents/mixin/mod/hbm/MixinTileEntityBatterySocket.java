@@ -11,9 +11,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Deprecated // suck my butt
 @Mixin(value = TileEntityBatterySocket.class)
-public abstract class MixinTileEntityBatterySocket extends TileEntityBatteryBase implements IMixinTileEntityBatterySocket {
-	@Unique public int renderPackLeafia = -1;
+public abstract class MixinTileEntityBatterySocket /*extends TileEntityBatteryBase implements IMixinTileEntityBatterySocket*/ {
+	/*@Unique public int renderPackLeafia = -1;
 	@Override
 	public int renderPackLeafia() {
 		return renderPackLeafia;
@@ -32,5 +33,5 @@ public abstract class MixinTileEntityBatterySocket extends TileEntityBatteryBase
 	@Inject(method = "deserialize",at = @At(value = "TAIL"),require = 1,remap = false)
 	public void onDeserialize(ByteBuf buf,CallbackInfo ci) {
 		renderPackLeafia = buf.readByte();
-	}
+	}*/
 }

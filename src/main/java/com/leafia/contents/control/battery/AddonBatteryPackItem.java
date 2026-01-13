@@ -11,10 +11,12 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class AddonBatteryPackItem extends ItemBatteryPack {
+@Deprecated // suck my butt
+public class AddonBatteryPackItem /*extends ItemBatteryPack*/ {
+	/*
 	public AddonBatteryPackItem(String s) {
 		super(s);
-		theEnum = AddonEnumBatteryPack.class;
+		//theEnum = AddonEnumBatteryPack.class;
 		ModItems.ALL_ITEMS.remove(this);
 		AddonItems.ALL_ITEMS.add(this);
 	}
@@ -54,7 +56,7 @@ public class AddonBatteryPackItem extends ItemBatteryPack {
 		BATTERY_SODIUM("battery_sodium", 50_000L, false),
 		BATTERY_SCHRABIDIUM("battery_schrabidium", 250_000L, false),
 		BATTERY_QUANTUM("battery_quantum", 1_000_000L, 20 * 60 * 60);*/
-
+/*
 		public final ResourceLocation texture;
 		public final long capacity;
 		public final long chargeRate;

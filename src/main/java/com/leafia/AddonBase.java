@@ -1,11 +1,14 @@
 package com.leafia;
 
 import com.hbm.handler.GuiHandler;
+import com.hbm.items.machine.ItemBatteryPack;
+import com.hbm.items.machine.ItemBatteryPack.EnumBatteryPack;
 import com.hbm.packet.PacketDispatcher;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.AddonFluids.AddonFF;
 import com.leafia.contents.AddonItems;
+import com.leafia.contents.control.battery.AddonEnumBatteryPack;
 import com.leafia.contents.machines.controlpanel.AddonNodesRegister;
 import com.leafia.contents.potion.LeafiaPotion;
 import com.leafia.init.*;
@@ -74,6 +77,10 @@ public class AddonBase {
 	public void preInit(FMLPreInitializationEvent event) {
 		// register to the event bus so that we can listen to events
 		MinecraftForge.EVENT_BUS.register(this);
+
+		for (EnumBatteryPack value : EnumBatteryPack.values()) {
+			System.out.println("ENUM: "+value.name()+", ORDINAL: "+value.ordinal());
+		}
 
 		Configuration config = new Configuration(new File(proxy.getDataDir().getPath() + "/config/hbm/leafia.cfg"));
 		config.load();
