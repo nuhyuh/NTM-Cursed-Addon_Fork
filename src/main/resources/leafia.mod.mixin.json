@@ -18,11 +18,13 @@
     "hbm.MixinParticleRBMKMush",
     "hbm.MixinRenderBatterySocket",
     "hbm.MixinRenderChemicalPlant",
+    "hbm.MixinRenderControlPanel",
     "hbm.MixinRenderInfoSystemLegacy",
     "hbm.MixinRenderTorex"
   ],
   "mixins": [
     "hbm.MixinBalefire",
+    "hbm.MixinBlockControlPanel",
     "hbm.MixinBlockGasExplosive",
     "hbm.MixinBlockGasRadon",
     "hbm.MixinBlockRadonDense",
@@ -74,6 +76,7 @@
     "hbm.MixinTileEntityBatterySocket",
     "hbm.MixinTileEntityChungus",
     "hbm.MixinTileEntityCondenser",
+    "hbm.MixinTileEntityControlPanel",
     "hbm.MixinTileEntityCore",
     "hbm.MixinTileEntityCoreEmitter",
     "hbm.MixinTileEntityCoreInjector",

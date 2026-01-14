@@ -22,6 +22,7 @@ import com.leafia.contents.machines.powercores.dfc.components.injector.CoreInjec
 import com.leafia.contents.machines.powercores.dfc.debris.AbsorberShrapnelEntity;
 import com.leafia.contents.machines.powercores.dfc.debris.AbsorberShrapnelEntity.DebrisType;
 import com.leafia.contents.network.spk_cable.uninos.ISPKReceiver;
+import com.leafia.dev.LeafiaDebug;
 import com.leafia.dev.NTMFNBT;
 import com.leafia.dev.container_utility.LeafiaPacket;
 import com.leafia.dev.math.FiaMatrix;
@@ -29,6 +30,7 @@ import com.leafia.init.LeafiaSoundEvents;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCore;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCoreReceiver;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityInjector;
+import com.leafia.passive.LeafiaPassiveServer;
 import com.leafia.settings.AddonConfig;
 import com.llib.LeafiaLib.NumScale;
 import li.cil.oc.api.machine.Arguments;
@@ -69,9 +71,14 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 
 	@Shadow(remap = false) public long prevJoules;
 
+	@Unique public long netRemaining = 0;
+
 	@Shadow(remap = false) public long power;
 	@Shadow(remap = false) public FluidTankNTM tank;
 	@Unique public TileEntityCore core = null;
+
+	@Unique public long fuck_you = 0;
+	@Unique public long throughputLimit = 0;
 
 	@Unique public double level = 1;
 
@@ -151,6 +158,8 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 	public void update() {
 		core = null;
 		EnumFacing facing = getFront();
+		throughputLimit = fuck_you;
+		fuck_you = 0;
 		/*
 		EnumFacing facing = EnumFacing.getFront(this.getBlockMetadata());
 		for(int i = 1; i <= TileEntityCoreEmitter.range; i++) {
@@ -210,9 +219,12 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
                         // FIXME: can't rely on this to calculate the transfer amount, the net update is independent of this
                         totalTransfer += tryProvideSPK(target.getKey(), ForgeDirection.getOrientation(target.getValue()), transfer, false);
                     }
-                    power -= totalTransfer * 5000L;
+                    power -= Math.max(this.power-totalTransfer * 5000L,0);
 				}
 			}
+			netRemaining = power / 5000L;
+
+			LeafiaDebug.debugLog(world,power);
 
 			if (joules > 0) {
 
@@ -243,12 +255,20 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 	public void onReadFromNBT(NBTTagCompound compound,CallbackInfo ci) {
 		readTargetPos(compound);
 		level = compound.getDouble("level");
+		// big bruh
+		this.power = compound.getLong("power");
+		this.joules = compound.getLong("joules");
+		this.tank.readFromNBT(compound, "tank");
 	}
 
 	@Inject(method = "writeToNBT",at = @At("HEAD"),require = 1)
 	public void onWriteToNBT(NBTTagCompound compound,CallbackInfoReturnable<NBTTagCompound> cir) {
 		writeTargetPos(compound);
 		compound.setDouble("level",level);
+		// big bruh
+		compound.setLong("power", this.power);
+		compound.setLong("joules", this.joules);
+		this.tank.writeToNBT(compound, "tank");
 	}
 
 	// cleitn sht
@@ -270,9 +290,7 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 	}
 
 	@Override
-	public long syncSpk() {
-		return syncSpk;
-	}
+	public long syncSpk() { return syncSpk; }
 
 	@Override
 	public void sendToPlayer(EntityPlayer player) {
@@ -322,24 +340,45 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
     }
 
     @Override
-    public long getSPK() {
-        return syncJoules;
-    }
+    public long getSPK() { return joules; }
+
+	@Override
+	public long getNetRemaining() { return netRemaining; }
 
     @Override
     public void setSPK(long power) {
         this.joules = power;
     }
 	long cableTransfer = 0;
+
+	@Override
+	public void usePower(long power) {
+		IEnergyProviderMK2.super.usePower(power);
+		fuck_you += power;
+		netRemaining = this.power / 5000L;
+	}
+
+	@Override
+	public void setPower(long power) {
+		this.power = power;
+		netRemaining = this.power / 5000L;
+	}
+
 	@Override
 	public void setTransferredSpk(long power) {
 		cableTransfer += power;
+		LeafiaPassiveServer.queueFunction(()->this.power = Math.max(this.power-power*5000,0));
 	}
 
 	@Override
     public long getMaxSPK() {
         return Long.MAX_VALUE;
     }
+
+	@Override
+	public long getSPKProviderSpeed() {
+		return Math.max(syncJoules-throughputLimit/5000,0);
+	}
 
 	@Unique private BlockPos targetPosition = new BlockPos(0,0,0);
 	@Unique public TileEntityCore lastGetCore = null;

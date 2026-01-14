@@ -265,11 +265,25 @@ public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase i
     @Inject(method = "readFromNBT",at = @At("HEAD"),remap = true,require = 1)
     public void onReadFromNBT(NBTTagCompound compound,CallbackInfo ci) {
         readTargetPos(compound);
+        //bandaid shitfix
+        this.power = compound.getLong("power");
+        this.watts = compound.getInteger("watts");
+        this.joules = compound.getLong("joules");
+        this.prev = compound.getLong("prev");
+        this.isOn = compound.getBoolean("isOn");
+        this.tank.readFromNBT(compound, "tank");
     }
 
     @Inject(method = "writeToNBT",at = @At("HEAD"),remap = true,require = 1)
     public void onWriteToNBT(NBTTagCompound compound,CallbackInfoReturnable<NBTTagCompound> cir) {
         writeTargetPos(compound);
+        //bandaid shitfix
+        compound.setLong("power", this.power);
+        compound.setInteger("watts", this.watts);
+        compound.setLong("joules", this.joules);
+        compound.setLong("prev", this.prev);
+        compound.setBoolean("isOn", this.isOn);
+        this.tank.writeToNBT(compound, "tank");
     }
 
     // networking
