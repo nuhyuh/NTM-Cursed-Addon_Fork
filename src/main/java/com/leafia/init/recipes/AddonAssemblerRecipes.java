@@ -162,6 +162,7 @@ public class AddonAssemblerRecipes {
 				)
 		);
 		makeRecipe("ass.leafia.supercooler",new ComparableStack(AddonItems.supercooler, 1), new AStack[] { new ComparableStack(ModItems.coil_copper_torus, 3), new OreDictStack(STEEL.ingot(), 3), new OreDictStack(TI.plate(), 6), new ComparableStack(ModItems.plate_polymer, 12), new OreDictStack(BIGMT.ingot(), 2), new ComparableStack(PWR.exchanger,32), new ComparableStack(ModBlocks.watz_cooler,16) }, 100);
+		makeRecipe("ass.leafia.panel",new ComparableStack(ModBlocks.control_panel_custom, 1), new AStack[]{new ComparableStack(ModItems.circuit,1,EnumCircuitType.BASIC), new OreDictStack(STEEL.block(), 1), new ComparableStack(ModItems.wire_fine, 24, Mats.MAT_COPPER.id)}, 100);
 	}
 	public static void makeRecipe(String s,ComparableStack out, AStack[] in, int duration) {
 		INSTANCE.register(new GenericRecipe(s).setup(duration,100)
