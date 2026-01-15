@@ -74,7 +74,7 @@ public class CustomNukeMissileItem extends ItemMissileStandard implements IGUIPr
 	@Override
 	public void addInformation(ItemStack stack,World worldIn,List<String> list,ITooltipFlag flagIn) {
 		super.addInformation(stack,worldIn,list,flagIn);
-		list.add("§d["+I18nUtil.resolveKey("desc.custommissile")+"]§r");
+		list.add("§d["+I18nUtil.resolveKey("item.missile_customnuke.desc")+"]§r");
 	}
 
 	public static class CustomNukeMissileInventory extends ItemStackHandler {
