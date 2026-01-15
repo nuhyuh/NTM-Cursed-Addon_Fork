@@ -101,33 +101,33 @@ public abstract class MixinTileEntityReactorResearch extends TileEntityMachineBa
 	@Inject(method = "update",at = @At(value = "INVOKE", target = "Lcom/hbm/tileentity/machine/TileEntityReactorResearch;reaction()V",remap = false,shift = Shift.AFTER),require = 1,cancellable = true)
 	public void onUpdate(CallbackInfo ci) {
 		for (int i = 0; i < 12; i++) {
-			if (inventory.getStackInSlot(i).getItem() instanceof LeafiaRodItem)
+			if (inventory.getStackInSlot(i).getItem() instanceof LeafiaRodItem rod) {
 				handleLeafiaFuel(i,1);
-			NBTTagCompound nbt = inventory.getStackInSlot(i).getTagCompound();
-			if (nbt != null) {
-				LeafiaRodItem rod = (LeafiaRodItem)inventory.getStackInSlot(i).getItem();
-				if (nbt.getBoolean("nuke")) {
-					for (int j = 0; j < inventory.getSlots(); j++)
-						inventory.setStackInSlot(j, ItemStack.EMPTY);
-					world.setBlockToAir(pos);
-					rod.nuke(world,pos.add(0,1,0));
-					ci.cancel();
-					return;
-				}
-				if (nbt.getInteger("spillage") > 20*5) {
-					ItemStack prevStack = null;
-					for (int j = 0; j < inventory.getSlots(); j++) {
-						prevStack = LeafiaRodItem.comparePriority(inventory.getStackInSlot(j),prevStack);
-						inventory.setStackInSlot(j,ItemStack.EMPTY);
+				NBTTagCompound nbt = inventory.getStackInSlot(i).getTagCompound();
+				if (nbt != null) {
+					if (nbt.getBoolean("nuke")) {
+						for (int j = 0; j < inventory.getSlots(); j++)
+							inventory.setStackInSlot(j, ItemStack.EMPTY);
+						world.setBlockToAir(pos);
+						rod.nuke(world,pos.add(0,1,0));
+						ci.cancel();
+						return;
 					}
-					world.setBlockToAir(pos);
-					LeafiaRodItem detonate = (LeafiaRodItem) prevStack.getItem();
-					detonate.resetDetonate();
-					detonate.detonateRadius = 2;
-					detonate.detonate(world,pos);
-					explode();
-					ci.cancel();
-					return;
+					if (nbt.getInteger("spillage") > 20*5) {
+						ItemStack prevStack = null;
+						for (int j = 0; j < inventory.getSlots(); j++) {
+							prevStack = LeafiaRodItem.comparePriority(inventory.getStackInSlot(j),prevStack);
+							inventory.setStackInSlot(j,ItemStack.EMPTY);
+						}
+						world.setBlockToAir(pos);
+						LeafiaRodItem detonate = (LeafiaRodItem) prevStack.getItem();
+						detonate.resetDetonate();
+						detonate.detonateRadius = 2;
+						detonate.detonate(world,pos);
+						explode();
+						ci.cancel();
+						return;
+					}
 				}
 			}
 		}
