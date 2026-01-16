@@ -108,6 +108,8 @@ public class AddonCraftingRecipes {
 
 		addRecipeAuto(new ItemStack(AddonBlocks.broof),"CCC","P P",'C',new ItemStack(Blocks.CARPET,1,EnumDyeColor.GREEN.getDyeDamage()),'P',ModBlocks.steel_beam);
 
+		addRecipeAuto(new ItemStack(AddonItems.fix_survival, 1), " O ", "OTO", " O ", 'O', ModItems.ingot_osmiridium, 'T', ModItems.crystal_trixite);
+
 		hack.getRegistry().register(new PWRDebrisCrafting().setRegistryName(new ResourceLocation("leafia", "lwr_debris_crafting_handler")));
 	}
 	static void removeRecipesForItem(ForgeRegistry<IRecipe> reg,Item item) {
