@@ -40,6 +40,8 @@ public class MixinJEIConfig {
 		addon_categories.add(new JEICracking(help));
 		addon_categories.add(new JEIReformer(help));
 		addon_categories.add(new JEIHydrotreater(help));
+		addon_categories.add(new JEIArcWelder(help));
+		addon_categories.add(new JEISoldering(help));
 
 		for (IRecipeCategory<? extends IRecipeWrapper> category : addon_categories)
 			instance.addRecipeCategories(category);
@@ -123,5 +125,13 @@ public class MixinJEIConfig {
 	@Redirect(method = "register",at = @At(value = "INVOKE", target = "Lcom/hbm/handler/jei/HydrotreatingHandler;getRecipes()Ljava/util/List;"),require = 1)
 	public List hydro(HydrotreatingHandler instance) {
 		return JEIHydrotreater.Recipe.buildRecipes();
+	}
+	@Redirect(method = "register",at = @At(value = "INVOKE", target = "Lcom/hbm/handler/jei/ArcWelderRecipeHandler;getRecipes()Ljava/util/List;"),require = 1)
+	public List arc(ArcWelderRecipeHandler instance) {
+		return JEIArcWelder.Recipe.buildRecipes();
+	}
+	@Redirect(method = "register",at = @At(value = "INVOKE", target = "Lcom/hbm/handler/jei/SolderingStationRecipeHandler;getRecipes()Ljava/util/List;"),require = 1)
+	public List soldering(SolderingStationRecipeHandler instance) {
+		return JEISoldering.Recipe.buildRecipes();
 	}
 }

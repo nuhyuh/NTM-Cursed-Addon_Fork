@@ -89,6 +89,7 @@ public class LeafiaClientUtil {
 	/// add NTMFluid type fluid info for JEI
 	@SideOnly(Side.CLIENT)
 	public static void jeiFluidRenderInfo(FluidStack stack,List<String> info,int mx,int my,int x,int y,int width,int height) {
+		if (stack == null) return;
 		mx--; my--;
 		if (mx >= x && mx <= x+width && my >= y && my <= y+height) {
 			info.add(stack.type.getLocalizedName());
@@ -102,6 +103,7 @@ public class LeafiaClientUtil {
 	/// render NTMFluid type fluid for JEI
 	@SideOnly(Side.CLIENT)
 	public static void jeiFluidRenderTank(List<FluidStack> stacks,FluidStack stack,int x,int y,int width,int height,boolean horizontal) {
+		if (stack == null) return;
 		x++; y++;
 		FluidType type = stack.type;
 		int color = type.getTint();

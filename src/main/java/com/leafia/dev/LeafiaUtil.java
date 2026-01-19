@@ -15,10 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -374,5 +371,21 @@ public class LeafiaUtil {
 		}
 
 		return false;
+	}
+	/// I think there's a better way to do this but since I'm retarded here we are
+	public static String getFormatDecimal(double value,int minDecimals,int maxDecimals) {
+		value -= Math.floor(value);
+		String s = Double.toString(value);
+		if (s.endsWith(".0")) s = s.substring(0,s.length()-2);
+		boolean startCounting = false;
+		int decimals = 0;
+		for (char c : s.toCharArray()) {
+			if (c == '.')
+				startCounting = true;
+			else if (startCounting)
+				decimals++;
+		}
+		decimals = MathHelper.clamp(decimals,minDecimals,maxDecimals);
+		return "1."+decimals+"f";
 	}
 }

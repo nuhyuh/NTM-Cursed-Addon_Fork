@@ -23,7 +23,7 @@ public class CustomNukeMissileEntity extends EntityMissileTier0 implements IMixi
 
 	@Override
 	public boolean shouldDetonateInAir() {
-		return nuke > 0 || tnt >= 75;
+		return (nuke > 0 || tnt >= 75) && schrab <= 0 && sol <= 0 && euph <= 0;
 	}
 
 	// not really unused, required for loading save
