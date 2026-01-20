@@ -47,6 +47,7 @@ public class FalloutConfigInit {
 		removeByMatchingMaterial(Material.SAND);
 		removeByPrimary(ModBlocks.waste_trinitite);
 		removeByPrimary(ModBlocks.waste_trinitite_red);
+		/*
 		for (int i = 0; i <= 6; i++) {
 			entries.add(FalloutEntry.builder()
 					.addPrimary(LegacyBlocks.waste_snow.getDefaultState().withProperty(AddonBlockPowder.META,i),1)
@@ -62,7 +63,7 @@ public class FalloutConfigInit {
 				.opaque(true)
 				.solid(true)
 				.matchingMaterial(Material.SNOW)
-				.build());
+				.build());*/
 		entries.add(FalloutEntry.builder()
 				.addPrimary(LegacyBlocks.waste_ice.getDefaultState(), 1)
 				.max(3 * 15+25)
@@ -72,6 +73,13 @@ public class FalloutConfigInit {
 				.build());
 		for (int i = 1; i <= 3; i++) {
 			int m = 7-i;
+			entries.add(FalloutEntry.builder()
+					.addPrimary(LegacyBlocks.waste_snow.getStateFromMeta(m), 1)
+					.max(i * 15+25)
+					.opaque(true)
+					.solid(true)
+					.matchesState(Blocks.SNOW_LAYER.getDefaultState())
+					.build());
 			entries.add(FalloutEntry.builder()
 					.addPrimary(LegacyBlocks.waste_gravel.getStateFromMeta(m), 1)
 					.max(i * 15+25)

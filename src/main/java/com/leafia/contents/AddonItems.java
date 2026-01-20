@@ -450,7 +450,7 @@ public class AddonItems {
 
 	public static final Item advisor = new AdvisorItem("advisor").setCreativeTab(MainRegistry.consumableTab);
 
-	public static final Item missile_customnuke = new CustomNukeMissileItem("missile_customnuke");
+	public static final Item missile_customnuke = new CustomNukeMissileItem("missile_customnuke").setCreativeTab(MainRegistry.missileTab);
 
 	//public static final Item addon_battery_pack = new AddonBatteryPackItem("addon_battery_pack");
 
