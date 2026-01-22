@@ -105,7 +105,7 @@ public class AddonItems {
 				.setCreativeTab(MainRegistry.controlTab);
 		public static final Item
 				leafRodTHMEU
-				= new LeafiaRodItem("ThMEU",60000, 3350)
+				= new LeafiaRodItem("ThMEU",350000, 3350)
 				.setAppearance(ModItems.billet_thorium_fuel, BILLET, FUEL)
 				.setDecayProduct("depletedthorium")
 				.addRad(ItemRads.thoriumFuel)
@@ -384,7 +384,7 @@ public class AddonItems {
 				.setCreativeTab(MainRegistry.controlTab);
 		public static final Item
 				leafRodTh232
-				= new LeafiaRodItem("Th-232",450000, 3510)
+				= new LeafiaRodItem("Th-232",90000, 3510)
 				.setDecayProduct("thmeu")
 				.setAppearance(ModItems.billet_th232, BILLET, RAW)
 				.addRad(ItemRads.thorium232)

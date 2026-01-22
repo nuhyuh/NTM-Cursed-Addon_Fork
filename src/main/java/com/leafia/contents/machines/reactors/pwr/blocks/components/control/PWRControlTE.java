@@ -64,9 +64,14 @@ public class PWRControlTE extends PWRAssignableEntity implements ITickable, ICon
 		}
 	}
 
+	int lastBBHeight = 0;
 	AxisAlignedBB bb = null;
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
+		if (lastBBHeight != height) {
+			bb = null;
+			lastBBHeight = height;
+		}
 		if (bb == null) {
 			bb = new AxisAlignedBB(
 					pos.getX(),
