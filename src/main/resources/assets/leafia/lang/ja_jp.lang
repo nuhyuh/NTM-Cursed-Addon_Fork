@@ -162,6 +162,7 @@ item.battery_pack.capacitor_gold.name=金コンデンサー
 item.battery_pack.capacitor_niobium.name=ニオビウムコンデンサー
 item.battery_pack.capacitor_spark.name=スパークコンデンサー
 item.battery_pack.capacitor_tantalum.name=タンタリウムコンデンサー
+item.billet_kys.name=Kysmium-3000 Billet
 item.detonator_laser.desc2=マルチプレイで物を指すのにも使えるよ
 item.fix_tool.name=Cruci"fix"
 item.fix_survival.name=Satanic Energy Suppressor

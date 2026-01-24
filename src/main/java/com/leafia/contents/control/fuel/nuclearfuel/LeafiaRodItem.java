@@ -468,6 +468,10 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				n = "1.01916169^"+flux+" "+TextFormatting.DARK_RED+"(JUST NO)";
 				disableDecay = true;
 				break;
+			case "kys3000":
+				y = Math.tan(x);
+				n = "tan("+flux+") "+TextFormatting.LIGHT_PURPLE+"(KYS)";
+				break;
 		}
 		lastY = y;
 		if (updateHeat) {

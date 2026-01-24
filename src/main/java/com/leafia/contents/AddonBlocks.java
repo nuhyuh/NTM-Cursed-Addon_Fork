@@ -4,7 +4,6 @@ import com.custom_hbm.contents.oilycoal.BlockCoalBurning;
 import com.custom_hbm.contents.oilycoal.BlockCoalOil;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.ModSoundType;
-import com.hbm.blocks.generic.*;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.MainRegistry;
 import com.hbm.render.block.BlockBakeFrame;
@@ -19,8 +18,8 @@ import com.leafia.contents.building.light.LightEmitter;
 import com.leafia.contents.building.mixed.BlockMixedConcrete;
 import com.leafia.contents.building.pinkdoor.BlockPinkDoor;
 import com.leafia.contents.building.sign.SignBlock;
-import com.leafia.contents.debug.ff_test.source.FFSourceBlock;
-import com.leafia.contents.debug.ff_test.tank.FFTankBlock;
+import com.leafia.contents.debug.ff_test.source.DebugSourceBlock;
+import com.leafia.contents.debug.ff_test.tank.DebugTankBlock;
 import com.leafia.contents.fluids.FluorideFluid.FluorideFluidBlock;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexBlock;
 import com.leafia.contents.machines.panel.controltorch.ControlTorchBlock;
@@ -62,6 +61,7 @@ import com.leafia.contents.network.fluid.valves.FluidDuctValveRS;
 import com.leafia.contents.network.pipe_amat.AmatDuctStandard;
 import com.leafia.contents.network.pipe_amat.charger.AmatDuctChargerBlock;
 import com.leafia.contents.network.spk_cable.SPKCableBlock;
+import com.leafia.contents.nonmachines.fftank.FFTankBlock;
 import com.leafia.dev.blocks.blockbase.AddonBlockPowder;
 import com.leafia.dev.blocks.legacy.LegacyBlockHazardMeta;
 import com.leafia.dev.blocks.legacy.LegacyWasteEarth;
@@ -212,8 +212,8 @@ public class AddonBlocks {
 	static boolean test_dummy = TestBlocks.dummy;
 	public static class TestBlocks {
 		static boolean dummy = false;
-		public static final Block ffsource = new FFSourceBlock(Material.ANVIL,"test_ff_source");
-		public static final Block fftank = new FFTankBlock(Material.ANVIL,"test_ff_tank");
+		public static final Block ffsource = new DebugSourceBlock(Material.ANVIL,"test_ff_source");
+		public static final Block fftank = new DebugTankBlock(Material.ANVIL,"test_ff_tank");
 	}
 
 	public static final Block salt_separator = new SaltSeparatorBlock(Material.IRON,"salt_separator").setHardness(5.0F).setResistance(20.0F).setCreativeTab(MainRegistry.machineTab);
@@ -311,6 +311,8 @@ public class AddonBlocks {
 	public static final Block block_welded_osmiridium = new OsmiridiumBlock(Material.IRON,"block_welded_osmiridium").setHardness(15).setResistance(6500000);
 
 	public static final Block broof = new BroofBlock(Material.CARPET,"broof").setHardness(0.1F).setSoundType(SoundType.CLOTH).setCreativeTab(MainRegistry.blockTab);
+
+	public static final Block ff_tank = new FFTankBlock(Material.IRON,"ff_tank").setHardness(5).setResistance(100).setCreativeTab(MainRegistry.machineTab);
 
 	static {
 		if (Loader.isModLoaded("opencomputers")) {

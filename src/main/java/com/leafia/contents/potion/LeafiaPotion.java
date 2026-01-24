@@ -119,6 +119,7 @@ public class LeafiaPotion extends Potion {
 
 	public void performEffect(EntityLivingBase entity,int level) {
 		if (this == skindamage && !entity.world.isRemote) {
+			if (level > 2) level = 2; // foolproof
 			if (entity.getRNG().nextInt(50-level*20) == 0) {
 				Sweat particle = new Sweat(entity,Blocks.REDSTONE_BLOCK.getDefaultState(),1);
 				particle.emit(new Vec3d(entity.posX,entity.posY,entity.posZ),Vec3d.ZERO,entity.dimension);

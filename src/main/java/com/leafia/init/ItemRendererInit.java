@@ -29,12 +29,16 @@ import com.leafia.contents.machines.powercores.ams.stabilizer.AMSStabilizerRende
 import com.leafia.contents.machines.powercores.dfc.render.DFCComponentRender;
 import com.leafia.contents.machines.processing.mixingvat.MixingVatRender;
 import com.leafia.contents.machines.processing.mixingvat.MixingVatRender.MixingVatItemRender;
+import com.leafia.contents.machines.processing.mixingvat.MixingVatRenderNeo;
+import com.leafia.contents.machines.processing.mixingvat.MixingVatRenderNeo.MixingVatItemRenderNeo;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorRender;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorRender.SaltSeparatorItemRender;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisItemRender;
 import com.leafia.contents.network.ff_duct.utility.FFDuctUtilityRender.FFDuctUtilityItemRender;
 import com.leafia.contents.network.fluid.FluidDuctEquipmentRender.FluidDuctEquipmentItemRender;
 import com.leafia.contents.network.spk_cable.SPKCableRender.SPKCableItemRender;
+import com.leafia.contents.nonmachines.fftank.FFTankRender;
+import com.leafia.contents.nonmachines.fftank.FFTankRender.FFTankItemRender;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -63,7 +67,7 @@ public class ItemRendererInit {
 		register(AddonBlocks.ff_converter,ductUtilRenderer);
 
 		register(AddonBlocks.salt_separator,new SaltSeparatorItemRender());
-		register(AddonBlocks.mixingvat,new MixingVatItemRender());
+		register(AddonBlocks.mixingvat,new MixingVatItemRenderNeo());
 		register(AddonBlocks.coolant_heatex,new CoolantHeatexRender());
 
 		PWRDebrisItemRender lwrDebrisRender = new PWRDebrisItemRender();
@@ -89,6 +93,8 @@ public class ItemRendererInit {
 		register(AddonItems.missile_customnuke,new CustomNukeMissileItemRender());
 
 		register(AddonBlocks.broof,new BroofItemRender());
+
+		register(AddonBlocks.ff_tank,new FFTankItemRender());
 
 		/*fix(AddonItems.ams_focus_blank);
 		fix(AddonItems.ams_focus_booster);

@@ -41,6 +41,7 @@ import com.leafia.contents.machines.powercores.dfc.debris.AbsorberShrapnelEntity
 import com.leafia.contents.machines.powercores.dfc.debris.AbsorberShrapnelRender;
 import com.leafia.contents.machines.powercores.dfc.render.DFCCoreRender;
 import com.leafia.contents.machines.processing.mixingvat.MixingVatRender;
+import com.leafia.contents.machines.processing.mixingvat.MixingVatRenderNeo;
 import com.leafia.contents.machines.processing.mixingvat.MixingVatTE;
 import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitraryRender;
 import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitraryTE;
@@ -62,6 +63,8 @@ import com.leafia.contents.network.fluid.gauges.FluidDuctGaugeTE;
 import com.leafia.contents.network.fluid.valves.FluidDuctValveTE;
 import com.leafia.contents.network.spk_cable.SPKCableRender;
 import com.leafia.contents.network.spk_cable.SPKCableTE;
+import com.leafia.contents.nonmachines.fftank.FFTankRender;
+import com.leafia.contents.nonmachines.fftank.FFTankTE;
 import com.leafia.eventbuses.LeafiaClientListener;
 import com.leafia.init.AddonAdvancements;
 import com.leafia.init.ItemRendererInit;
@@ -131,7 +134,7 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 
 			ClientRegistry.bindTileEntitySpecialRenderer(SaltSeparatorTE.class,new SaltSeparatorRender());
 			ClientRegistry.bindTileEntitySpecialRenderer(MSRArbitraryTE.class,new MSRArbitraryRender());
-			ClientRegistry.bindTileEntitySpecialRenderer(MixingVatTE.class,new MixingVatRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(MixingVatTE.class,new MixingVatRenderNeo());
 			ClientRegistry.bindTileEntitySpecialRenderer(CoolantHeatexTE.class,new CoolantHeatexRender());
 
 			ClientRegistry.bindTileEntitySpecialRenderer(PWRControlTE.class,new PWRControlRender());
@@ -147,6 +150,7 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(AMSEmitterTE.class,new AMSEmitterRender());
 
 			ClientRegistry.bindTileEntitySpecialRenderer(BroofTE.class,new BroofRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(FFTankTE.class,new FFTankRender());
 		}
 		AddonJars.initJars();
 	}

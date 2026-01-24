@@ -4,8 +4,8 @@ import com.leafia.AddonBase;
 import com.leafia.contents.building.broof.BroofTE;
 import com.leafia.contents.building.light.LightTE;
 import com.leafia.contents.building.sign.SignTE;
-import com.leafia.contents.debug.ff_test.source.FFSourceTE;
-import com.leafia.contents.debug.ff_test.tank.FFTankTE;
+import com.leafia.contents.debug.ff_test.source.DebugSourceTE;
+import com.leafia.contents.debug.ff_test.tank.DebugTankTE;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexTE;
 import com.leafia.contents.machines.panel.controltorch.ControlTorchTE;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseTE;
@@ -37,6 +37,7 @@ import com.leafia.contents.network.fluid.valves.FluidDuctValveTE;
 import com.leafia.contents.network.pipe_amat.AmatDuctTE;
 import com.leafia.contents.network.pipe_amat.charger.AmatDuctChargerTE;
 import com.leafia.contents.network.spk_cable.SPKCableTE;
+import com.leafia.contents.nonmachines.fftank.FFTankTE;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -45,8 +46,8 @@ public class TEInit {
 	public static void preInit() {
 		{
 			// Debug TEs
-			register(FFSourceTE.class,"debug_ff_source");
-			register(FFTankTE.class,"debug_ff_tank");
+			register(DebugSourceTE.class,"debug_ff_source");
+			register(DebugTankTE.class,"debug_ff_tank");
 		}
 		register(SPKCableTE.class,"spk_cable_te");
 		register(CoreCEmitterTE.class,"core_creative_emitter_te");
@@ -82,6 +83,7 @@ public class TEInit {
 		register(AMSStabilizerTE.class,"ams_stabilizer_te");
 		register(AMSEmitterTE.class,"ams_emitter_te");
 		register(BroofTE.class,"broof_te");
+		register(FFTankTE.class,"ff_tank_te");
 	}
 	private static void register(Class<? extends TileEntity> clazz,String res) {
 		GameRegistry.registerTileEntity(clazz,new ResourceLocation(AddonBase.MODID,res));

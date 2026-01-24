@@ -19,6 +19,7 @@ import com.leafia.contents.machines.reactors.pwr.debris.RenderPWRDebris;
 import com.leafia.contents.network.ff_duct.utility.FFDuctUtilityRender;
 import com.leafia.contents.network.fluid.FluidDuctEquipmentRender;
 import com.leafia.contents.network.spk_cable.SPKCableRender;
+import com.leafia.contents.nonmachines.fftank.FFTankRender;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -70,6 +71,7 @@ public class ResourceInit {
 		_initClass(AddonMissileItemRender.class);
 		_initClass(AMSStabilizerRender.class);
 		_initClass(BroofRender.class);
+		_initClass(FFTankRender.class);
 		/*{
 			setWreckModel("intact");
 			setWreckModel("metal_rubble_0");

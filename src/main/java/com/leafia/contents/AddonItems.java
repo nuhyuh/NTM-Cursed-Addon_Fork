@@ -17,13 +17,17 @@ import com.leafia.contents.machines.powercores.dfc.CrucifixItem;
 import com.leafia.contents.machines.powercores.dfc.LCEItemLens;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisEntity.DebrisType;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisItem;
+import com.leafia.dev.items.itembase.AddonItemHazardBaked;
 import com.leafia.init.hazards.ItemRads;
 import com.leafia.dev.items.itembase.AddonItemBaked;
 import net.minecraft.block.Block;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -433,6 +437,20 @@ public class AddonItems {
 				.setReactivity(2)
 				.addDigamma(0.333)
 				.setCreativeTab(MainRegistry.controlTab);
+		public static final Item
+				leafRodKys
+				= new LeafiaRodItem("Kys-3000",Double.MAX_VALUE, 22) {
+					@Override
+					public void addInformation(ItemStack stack,@Nullable World worldIn,List<String> tooltip,ITooltipFlag flagIn) {
+						tooltip.add("Inspired by Quasar!");
+						tooltip.add("Corrstud will pay their life for this very rod.");
+						super.addInformation(stack,worldIn,tooltip,flagIn);
+					}
+				}
+				.setAppearance(AddonItems.billet_kys, BILLET, UNSTABLE)
+				.setEmission(114)
+				.setReactivity(514)
+				.setCreativeTab(null);
 		static {
 			LeafiaRodItem.confirmDecayProducts();
 		}
@@ -447,6 +465,15 @@ public class AddonItems {
 	public static final Item ingot_potassium = new AddonItemBaked("ingot_potassium","leafia/ingots/ingot_potassium").setCreativeTab(MainRegistry.partsTab);
 	public static final Item ingot_rubidium = new AddonItemBaked("ingot_rubidium","leafia/ingots/ingot_rubidium").setCreativeTab(MainRegistry.partsTab);
 	public static final Item ingot_francium = new AddonItemBaked("ingot_francium","leafia/ingots/ingot_francium").setCreativeTab(MainRegistry.partsTab);
+
+	public static final Item billet_kys = new AddonItemHazardBaked("billet_kys","leafia/billets/billet_kys") {
+		@Override
+		public void addInformation(ItemStack stack,@Nullable World worldIn,List<String> tooltip,ITooltipFlag flagIn) {
+			super.addInformation(stack,worldIn,tooltip,flagIn);
+			tooltip.add("Inspired by Quasar!");
+			tooltip.add("Corrstud will pay their life for this very billet.");
+		}
+	}.addCryogenic(5).setCreativeTab(null);
 
 	public static final Item advisor = new AdvisorItem("advisor").setCreativeTab(MainRegistry.consumableTab);
 

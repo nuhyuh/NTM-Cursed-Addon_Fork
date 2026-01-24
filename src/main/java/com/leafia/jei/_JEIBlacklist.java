@@ -3,6 +3,8 @@ package com.leafia.jei;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemPWRFuel.EnumPWRFuel;
+import com.leafia.contents.AddonItems;
+import com.leafia.contents.AddonItems.LeafiaRods;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
 import net.minecraft.item.ItemStack;
 
@@ -25,5 +27,7 @@ public class _JEIBlacklist {
 		blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.pwr_neutron_source));
 		blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.pwr_heatex));
 		blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.pwr_heatsink));
+		blacklist.addIngredientToBlacklist(new ItemStack(AddonItems.billet_kys));
+		blacklist.addIngredientToBlacklist(new ItemStack(LeafiaRods.leafRodKys));
 	}
 }
