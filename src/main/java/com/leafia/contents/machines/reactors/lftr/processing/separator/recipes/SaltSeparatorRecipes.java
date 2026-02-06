@@ -61,14 +61,14 @@ public class SaltSeparatorRecipes extends GenericRecipes<SaltSeparatorRecipe> {
 		this.register(new SaltSeparatorRecipe("separator.u233").setupNamed(60, 400).setIcon(ModItems.fluid_icon,AddonFluids.UF6_233.getID())
 				.setSalt(AddonFluids.FLUORIDE,1000)
 				.addMixture(MSRFuel.u233,3)
-				.inputFluids(new FluidStack(Fluids.FLUORINE, 500))
+				.inputFluids(new FluidStack(AddonFluids.FLUORINE, 500))
 				.outputFluids(new FluidStack(AddonFluids.FLUORIDE,1000),new FluidStack(AddonFluids.UF6_233, 300))
 				//.outputItems(new ItemStack(ModItems.powder_beryllium),new ItemStack(ModItems.powder_lithium))
 		);
 		this.register(new SaltSeparatorRecipe("separator.u235").setupNamed(60, 400).setIcon(ModItems.fluid_icon,AddonFluids.UF6_235.getID())
 						.setSalt(AddonFluids.FLUORIDE,1000)
 						.addMixture(MSRFuel.u235,3)
-						.inputFluids(new FluidStack(Fluids.FLUORINE, 500))
+						.inputFluids(new FluidStack(AddonFluids.FLUORINE, 500))
 						.outputFluids(new FluidStack(AddonFluids.FLUORIDE,1000),new FluidStack(AddonFluids.UF6_235, 300))
 		);
 	}
