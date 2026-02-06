@@ -65,7 +65,7 @@ public abstract class MixinEntityFalloutRain extends EntityExplosionChunkloading
 	 * @reason fuck off im going lazy
 	 */
 	@Overwrite(remap = false)
-	private void stompColumnToUpdates(ExtendedBlockStorage[] ebs,int x,int z,double distPercent,Long2ObjectOpenHashMap<IBlockState> updates,
+	void stompColumnToUpdates(ExtendedBlockStorage[] ebs,int x,int z,double distPercent,Long2ObjectOpenHashMap<IBlockState> updates,
 	                                  Long2ObjectOpenHashMap<IBlockState> spawnFalling,ThreadLocalRandom rand) {
 
 		int solidDepth = 0;

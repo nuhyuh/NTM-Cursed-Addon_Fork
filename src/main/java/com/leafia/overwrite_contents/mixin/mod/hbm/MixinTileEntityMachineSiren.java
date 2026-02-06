@@ -54,12 +54,12 @@ public abstract class MixinTileEntityMachineSiren extends TileEntity implements 
 	}
 
 	protected MixinTileEntityMachineSiren() {
-	}
+    }
 
-	@Unique
-	@Optional.Method(modid="computronics")
-	boolean checkSpeakerMode() {
-		boolean spk = false;
+    @Unique
+    @Optional.Method(modid="computronics")
+    boolean checkSpeakerMode() {
+        boolean spk = false;
 		for (EnumFacing face : EnumFacing.VALUES) {
 			TileEntity ate = world.getTileEntity(pos.offset(face));
 			if (computronics && ate != null && ate.hasCapability(AUDIO_RECEIVER_CAPABILITY,face.getOpposite())) {
@@ -84,7 +84,7 @@ public abstract class MixinTileEntityMachineSiren extends TileEntity implements 
 
 			int id = Arrays.asList(TrackType.VALUES).indexOf(getCurrentType());
 
-			if(getCurrentType().name().equals(TrackType.NULL.name())) {
+			if(getCurrentType() == TrackType.NULL) {
 				PacketDispatcher.wrapper.sendToDimension(new TESirenPacket(pos.getX(), pos.getY(), pos.getZ(), id, false), world.provider.getDimension());
 				return;
 			}
@@ -93,7 +93,7 @@ public abstract class MixinTileEntityMachineSiren extends TileEntity implements 
 			if (speakerMode)
 				active = false;
 
-			if(getCurrentType().getType().name().equals(SoundType.LOOP.name())) {
+			if(getCurrentType().getType() == SoundType.LOOP) {
 
 				PacketDispatcher.wrapper.sendToDimension(new TESirenPacket(pos.getX(), pos.getY(), pos.getZ(), id, active), world.provider.getDimension());
 			} else {
