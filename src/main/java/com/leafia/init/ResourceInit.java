@@ -97,7 +97,7 @@ public class ResourceInit {
 			throw new RuntimeException(t);
 		}
 		for (WaveFrontObjectVAO obj : allVAOs) {
-			obj.generate_vaos();
+			obj.uploadModels();
 		}
 		try {
 			resumeSplash.invokeExact();
