@@ -38,6 +38,7 @@
  * For more details, see https://docs.gradle.org/8.4/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
+    compileOnly('appeng:ae2-uel:v0.56.7') { transitive false } // or CE won't compile
     //implementation rfg.deobf("curse.maven:hbm-nuclear-tech-mod-community-edition-1312314:7142756")
     implementation rfg.deobf("curse.maven:hbm-nuclear-tech-mod-community-edition-1312314:7538547") // https://www.curseforge.com/minecraft/mc-mods/hbm-nuclear-tech-mod-community-edition/files/7538547
     implementation rfg.deobf("curse.maven:opencomputers-223008:6608365")
