@@ -82,9 +82,10 @@ public class AddonFluids {
 		DEATHSTEAM = new AddonFluidType("DEATHSTEAM",0x7c0000,4,0,0,EnumSymbol.NONE).setTemp(900).addTraits(GASEOUS,UNSIPHONABLE);
 		HF = new AddonFluidType("HF",0x3ea7ff,4,0,1,EnumSymbol.ACID).addTraits(GASEOUS,new FT_Corrosive(40),new FT_Poison(true, 1));
 		N2O = new AddonFluidType("N2O",0x6faf30,2,0,0,EnumSymbol.OXIDIZER).addTraits(GASEOUS);
-		if (Fluids.fromName("FLUORINE") != NONE)
+		if (Fluids.fromName("FLUORINE") != NONE) {
 			FLUORINE = Fluids.fromName("FLUORINE");
-		else
-			FLUORINE = new FluidType("FLUORINE",0xc5b055,4,0,4,EnumSymbol.NOWATER).addTraits(GASEOUS);
+			AddonFluidType.id++;
+		} else
+			FLUORINE = new AddonFluidType("FLUORINE",0xc5b055,4,0,4,EnumSymbol.NOWATER).addTraits(GASEOUS);
 	}
 }
