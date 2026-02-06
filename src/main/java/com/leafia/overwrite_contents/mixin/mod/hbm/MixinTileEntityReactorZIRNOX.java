@@ -7,15 +7,13 @@ import com.hbm.config.MobConfig;
 import com.hbm.entity.projectile.EntityZirnoxDebris;
 import com.hbm.entity.projectile.EntityZirnoxDebris.DebrisType;
 import com.hbm.explosion.ExplosionNukeGeneric;
-import com.hbm.forgefluid.FFUtils;
+import com.hbm.handler.CompatHandler;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.handler.radiation.ChunkRadiationManager;
 import com.hbm.handler.threading.PacketThreading;
-import com.hbm.inventory.container.ContainerReactorZirnox;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
-import com.hbm.inventory.gui.GUIReactorZirnox;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemZirnoxRod;
 import com.hbm.lib.DirPos;
@@ -23,7 +21,6 @@ import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.AdvancementManager;
 import com.hbm.main.MainRegistry;
-import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
@@ -48,9 +45,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -62,13 +56,14 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
 import static com.hbm.entity.projectile.EntityZirnoxDebris.DebrisType.*;
 
 @Mixin(value = TileEntityReactorZirnox.class)
-public abstract class MixinTileEntityReactorZIRNOX extends TileEntityMachineBase implements LeafiaPacketReceiver, IFluidStandardSenderMK2, IMixinTileEntityReactorZIRNOX, IGUIProvider {
+public abstract class MixinTileEntityReactorZIRNOX extends TileEntityMachineBase implements LeafiaPacketReceiver, IFluidStandardSenderMK2, IMixinTileEntityReactorZIRNOX, IGUIProvider, CompatHandler.OCComponent {
 	@Shadow(remap = false)
 	public FluidTankNTM water;
 	@Shadow(remap = false)
@@ -87,6 +82,27 @@ public abstract class MixinTileEntityReactorZIRNOX extends TileEntityMachineBase
 
 	@Shadow(remap = false)
 	public int heat;
+
+	@Shadow(remap = false)
+	@Optional.Method(modid = "opencomputers")
+	public abstract Object[] getWater(Context context,Arguments args);
+
+	@Shadow(remap = false)
+	@Optional.Method(modid = "opencomputers")
+	public abstract Object[] getSteam(Context context,Arguments args);
+
+	@Shadow(remap = false)
+	@Optional.Method(modid = "opencomputers")
+	public abstract Object[] getCarbonDioxide(Context context,Arguments args);
+
+	@Inject(method = "isItemValidForSlot",at = @At(value = "HEAD"),require = 1,cancellable = true,remap = false)
+	public void isItemValidForSlot(int i,ItemStack stack,CallbackInfoReturnable<Boolean> cir) {
+		if (i < 24 && stack.getItem() instanceof LeafiaRodItem) {
+			cir.setReturnValue(true);
+			cir.cancel();
+		}
+	}
+
 	// SERVER
 	@Unique public byte rods = 0;
 	@Unique public byte rodsTarget = 0;
@@ -621,5 +637,60 @@ public abstract class MixinTileEntityReactorZIRNOX extends TileEntityMachineBase
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getPressure(Context context,Arguments args) {
 		return new Object[]{pressureLCE};
+	}
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getInfo(Context context, Arguments args) {
+		return new Object[]{hulltemp, pressureLCE, water.getFill(), steam.getFill(), carbonDioxide.getFill(), rods};
+	}
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] setControl(Context context,Arguments args) {
+		rodsTarget = (byte)MathHelper.clamp(args.checkInteger(0),0,100);
+		return new Object[]{rodsTarget};
+	}
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getControl(Context context,Arguments args) {
+		return new Object[]{rods};
+	}
+
+	@Override
+	@Optional.Method(modid = "opencomputers")
+	public String[] methods() {
+		return new String[]{
+				"getTemp",
+				"getPressure",
+				"getWater",
+				"getSteam",
+				"getCarbonDioxide",
+				"getControl",
+				"getInfo",
+				"setControl"
+		};
+	}
+
+	@Override
+	@Optional.Method(modid = "opencomputers")
+	public Object[] invoke(String method, Context context, Arguments args) throws Exception {
+		switch (method) {
+			case ("getTemp"):
+				return getTemp(context, args);
+			case ("getPressure"):
+				return getPressure(context, args);
+			case ("getWater"):
+				return getWater(context, args);
+			case ("getSteam"):
+				return getSteam(context, args);
+			case ("getCarbonDioxide"):
+				return getCarbonDioxide(context, args);
+			case ("getControl"):
+				return getControl(context, args);
+			case ("setControl"):
+				return setControl(context, args);
+			case ("getInfo"):
+				return getInfo(context, args);
+		}
+		throw new NoSuchMethodException();
 	}
 }
