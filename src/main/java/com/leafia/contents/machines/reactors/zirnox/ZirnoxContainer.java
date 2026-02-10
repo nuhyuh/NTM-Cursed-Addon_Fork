@@ -1,6 +1,6 @@
 package com.leafia.contents.machines.reactors.zirnox;
 
-import com.hbm.inventory.SlotTakeOnly;
+import com.hbm.inventory.slot.SlotTakeOnly;
 import com.hbm.tileentity.machine.TileEntityReactorZirnox;
 import com.leafia.dev.container_utility.LeafiaItemTransferable;
 import net.minecraft.entity.player.EntityPlayer;

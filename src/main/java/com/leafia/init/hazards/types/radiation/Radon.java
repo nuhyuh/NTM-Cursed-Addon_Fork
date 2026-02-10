@@ -24,7 +24,7 @@ public class Radon implements IHazardType, LCERad {
     @Override
     public void onUpdate(EntityLivingBase target, double level, ItemStack stack) {
         if (!GeneralConfig.enableRadon) return;
-        if(ArmorRegistry.hasProtection(target, EntityEquipmentSlot.HEAD, ArmorRegistry.HazardClass.RAD_GAS)) {
+        if(ArmorRegistry.hasProtection(target, EntityEquipmentSlot.HEAD, ArmorRegistry.HazardClass.PARTICLE_FINE)) {
             ArmorUtil.damageGasMaskFilter(target, hazardRate);
         } else {
             ContaminationUtil.contaminate(target, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.RAD_BYPASS, level * hazardRate);

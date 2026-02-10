@@ -71,9 +71,9 @@ public class TransformerCoreLeafia implements IClassTransformer {
 	public static final String[] classesBeingTransformed = {
 			"com.hbm.packet.toserver.ItemFolderPacket.Handler",
 			"<REMOVED>",
-			"net.minecraft.client.gui.GuiMainMenu",
-			"net.minecraft.client.renderer.EntityRenderer",
-			"net.minecraftforge.fluids.FluidTank",
+			"<DISABLED>",//"net.minecraft.client.gui.GuiMainMenu",
+			"<DISABLED>",//"net.minecraft.client.renderer.EntityRenderer",
+			"<DISABLED>",//"net.minecraftforge.fluids.FluidTank",
 			"net.minecraft.world.ServerWorldEventHandler",
 			"<REMOVED>",//"com.hbm.inventory.fluid.tank.FluidTankNTM"
 			"net.minecraft.item.ItemStack",

@@ -12,6 +12,6 @@ import java.util.HashMap;
 public class AddonElectrolyzerRecipes {
 	static HashMap<FluidType,ElectrolysisRecipe> recipes = ElectrolyserFluidRecipes.recipes;
 	public static void register() {
-		recipes.put(AddonFluids.HF,new ElectrolysisRecipe(4000,new FluidStack(Fluids.HYDROGEN,2000),new FluidStack(Fluids.FLUORINE,2000)));
+		recipes.put(AddonFluids.HF,new ElectrolysisRecipe(4000,new FluidStack(Fluids.HYDROGEN,2000),new FluidStack(AddonFluids.FLUORINE,2000)));
 	}
 }

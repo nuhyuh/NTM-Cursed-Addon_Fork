@@ -32,7 +32,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
-import scala.util.Random;
+import java.util.Random;
 
 public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandardReceiverMK2, IEnergyReceiverMK2, IGUIProvider, LeafiaPacketReceiver {
 
