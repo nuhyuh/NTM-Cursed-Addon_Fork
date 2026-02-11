@@ -9,6 +9,12 @@ import com.leafia.contents.building.broof.BroofRender;
 import com.leafia.contents.building.light.LightRender;
 import com.leafia.contents.effects.folkvangr.visual.LCERenderCloudFleija;
 import com.leafia.contents.gear.advisor.AdvisorRender;
+import com.leafia.contents.machines.elevators.EvBufferRender;
+import com.leafia.contents.machines.elevators.EvPulleyRender;
+import com.leafia.contents.machines.elevators.EvShaftRender;
+import com.leafia.contents.machines.elevators.car.ElevatorRender;
+import com.leafia.contents.machines.elevators.floors.EvFloorRender;
+import com.leafia.contents.machines.elevators.weight.EvWeightRender;
 import com.leafia.contents.machines.powercores.ams.stabilizer.AMSStabilizerRender;
 import com.leafia.contents.machines.powercores.dfc.render.DFCComponentRender;
 import com.leafia.contents.machines.powercores.dfc.render.DFCCoreRender;
@@ -32,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.leafia.AddonBase._initClass;
+import static com.leafia.AddonBase._initMemberClasses;
 
 @SideOnly(Side.CLIENT)
 public class ResourceInit {
@@ -72,6 +79,13 @@ public class ResourceInit {
 		_initClass(AMSStabilizerRender.class);
 		_initClass(BroofRender.class);
 		_initClass(FFTankRender.class);
+		_initClass(ElevatorRender.class);
+		_initMemberClasses(ElevatorRender.class);
+		_initClass(EvWeightRender.class);
+		_initClass(EvBufferRender.class);
+		_initClass(EvShaftRender.class);
+		_initClass(EvPulleyRender.class);
+		_initClass(EvFloorRender.class);
 		/*{
 			setWreckModel("intact");
 			setWreckModel("metal_rubble_0");

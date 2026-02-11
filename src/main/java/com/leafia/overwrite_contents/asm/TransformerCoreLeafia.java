@@ -5,6 +5,7 @@ import com.leafia.contents.worldgen.biomes.effects.HasAcidicRain;
 import com.leafia.dev.firestorm.IFirestormBlock;
 import com.leafia.dev.machine.MachineTooltip;
 import com.leafia.passive.LeafiaPassiveServer;
+import com.leafia.settings.AddonConfig;
 import com.leafia.shit.AssHooks;
 import com.leafia.transformer.LeafiaGeneralLocal;
 import com.leafia.transformer.WorldServerLeafia;
@@ -71,9 +72,9 @@ public class TransformerCoreLeafia implements IClassTransformer {
 	public static final String[] classesBeingTransformed = {
 			"com.hbm.packet.toserver.ItemFolderPacket.Handler",
 			"<REMOVED>",
-			"<DISABLED>",//"net.minecraft.client.gui.GuiMainMenu",
-			"<DISABLED>",//"net.minecraft.client.renderer.EntityRenderer",
-			"<DISABLED>",//"net.minecraftforge.fluids.FluidTank",
+			"net.minecraft.client.gui.GuiMainMenu",
+			"net.minecraft.client.renderer.EntityRenderer",
+			"net.minecraftforge.fluids.FluidTank",
 			"net.minecraft.world.ServerWorldEventHandler",
 			"<REMOVED>",//"com.hbm.inventory.fluid.tank.FluidTankNTM"
 			"net.minecraft.item.ItemStack",
@@ -88,17 +89,11 @@ public class TransformerCoreLeafia implements IClassTransformer {
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] classBeingTransformed) {
 		///System.out.println("#Leaf: Transform Input: " + name + " : " + transformedName);
-
-
-		/*try {
-			if (!name.equals("net.minecraftforge.fml.common.Loader") && !name.equals("net.minecraftforge.fluids.capability.IFluidHandler"))
-				System.out.println("#Leaf: AssignableFrom "+IFluidHandler.class.isAssignableFrom(Class.forName(name)));
-		} catch (ClassNotFoundException e) {
-			System.out.println("#Leaf: Nope, errrrrrrrrr");
-		}*/
-
 		boolean isObfuscated = !name.equals(transformedName);
 		int index = Arrays.asList(classesBeingTransformed).indexOf(transformedName);
+		switch(index) {
+			case 2 -> { if (!AddonConfig.enableWackySplashes) index = -1; }
+		}
 		//return /*index != -1 ? */transform(index, classBeingTransformed, isObfuscated);// : classBeingTransformed;
 		return index != -1 ? transform(index, classBeingTransformed, isObfuscated) : classBeingTransformed;
 	}

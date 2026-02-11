@@ -26,6 +26,13 @@ import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodRender;
 import com.leafia.contents.effects.folkvangr.visual.LCERenderCloudFleija;
 import com.leafia.contents.effects.folkvangr.visual.LCERenderCloudRainbow;
 import com.leafia.contents.gear.utility.FuzzyIdentifierRender;
+import com.leafia.contents.machines.elevators.*;
+import com.leafia.contents.machines.elevators.car.ElevatorEntity;
+import com.leafia.contents.machines.elevators.car.ElevatorRender;
+import com.leafia.contents.machines.elevators.floors.EvFloorRender;
+import com.leafia.contents.machines.elevators.floors.EvFloorTE;
+import com.leafia.contents.machines.elevators.weight.EvWeightEntity;
+import com.leafia.contents.machines.elevators.weight.EvWeightRender;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexRender;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexTE;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseRender;
@@ -112,6 +119,9 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 			RenderingRegistry.registerEntityRenderingHandler(AbsorberShrapnelEntity.class,AbsorberShrapnelRender.FACTORY);
 			RenderingRegistry.registerEntityRenderingHandler(PWRDebrisEntity.class,RenderPWRDebris.FACTORY);
 			RenderingRegistry.registerEntityRenderingHandler(CustomNukeMissileEntity.class,CustomNukeMissileEntityRender.FACTORY);
+
+			RenderingRegistry.registerEntityRenderingHandler(ElevatorEntity.class,ElevatorRender.FACTORY);
+			RenderingRegistry.registerEntityRenderingHandler(EvWeightEntity.class,EvWeightRender.FACTORY);
 		}
 		{
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpinnyLight.class,new LCERenderSpinnyLight());
@@ -151,6 +161,11 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 
 			ClientRegistry.bindTileEntitySpecialRenderer(BroofTE.class,new BroofRender());
 			ClientRegistry.bindTileEntitySpecialRenderer(FFTankTE.class,new FFTankRender());
+
+			ClientRegistry.bindTileEntitySpecialRenderer(EvFloorTE.class, new EvFloorRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(EvPulleyTE.class, new EvPulleyRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(EvShaftTE.class, new EvShaftRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(EvBufferTE.class, new EvBufferRender());
 		}
 		AddonJars.initJars();
 	}

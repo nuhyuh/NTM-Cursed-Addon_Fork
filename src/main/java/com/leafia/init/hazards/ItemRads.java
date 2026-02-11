@@ -10,6 +10,7 @@ import com.leafia.database.AddonOreDictHazards;
 import com.leafia.init.hazards.modifiers.NBTModifier;
 import com.leafia.init.hazards.modifiers.NBTModifier.NBTKey;
 import com.leafia.init.hazards.types.radiation.*;
+import com.leafia.settings.AddonConfig;
 import net.minecraft.item.Item;
 
 import java.util.*;
@@ -148,6 +149,7 @@ public class ItemRads {
 		public void apply(HazardData data) { apply(data,1); }
 		public void apply(HazardData data,float multiplier) {
 			/// thanks mov but im just deleting it ^-^
+			if (!AddonConfig.enableHealthMod) return;
 			for (HazardEntry entry : data.entries) {
 				if (entry.type instanceof HazardTypeRadiation) {
 					data.entries.remove(entry);

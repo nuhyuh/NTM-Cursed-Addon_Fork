@@ -13,6 +13,8 @@ import com.leafia.contents.gear.advisor.AdvisorItem;
 import com.leafia.contents.gear.ntmfbottle.ItemNTMFBottle;
 import com.leafia.contents.gear.utility.FuzzyIdentifierItem;
 import com.leafia.contents.gear.wands.ItemWandV;
+import com.leafia.contents.machines.elevators.car.chips.EvChipItem;
+import com.leafia.contents.machines.elevators.car.styles.EvStyleItem;
 import com.leafia.contents.machines.powercores.dfc.CrucifixItem;
 import com.leafia.contents.machines.powercores.dfc.LCEItemLens;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisEntity.DebrisType;
@@ -484,6 +486,18 @@ public class AddonItems {
 	public static final Item component_limiter = new AddonItemBaked("component_limiter").setCreativeTab(MainRegistry.partsTab);
 	public static final Item component_emitter = new AddonItemBaked("component_emitter").setCreativeTab(MainRegistry.partsTab);
 	public static final Item supercooler = new AddonItemBaked("supercooler").setCreativeTab(MainRegistry.partsTab);
+
+	public static class ElevatorStyles {
+		public static final List<EvStyleItem> styleItems = new ArrayList<>();
+		public static final Item s6chip = new EvChipItem("ev_chip_s6","leafia/elevators/chip_s6");
+		public static final Item skyliftchip = new EvChipItem("ev_chip_skylift","leafia/elevators/chip_skylift");
+		public static final Item s6floor = new EvStyleItem("ev_s6floor");
+		public static final Item s6ceiling = new EvStyleItem("ev_s6ceiling");
+		public static final Item s6door = new EvStyleItem("ev_s6door");
+		public static final Item s6wall = new EvStyleItem("ev_s6wall");
+		public static final Item s6window = new EvStyleItem("ev_s6window");
+		public static final Item skyliftdoor = new EvStyleItem("ev_skyliftdoor");
+	}
 
 	private static void modifyItemParams() {
 		ModItems.pwr_fuel.setCreativeTab(null);

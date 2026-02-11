@@ -21,6 +21,11 @@ import com.leafia.contents.building.sign.SignBlock;
 import com.leafia.contents.debug.ff_test.source.DebugSourceBlock;
 import com.leafia.contents.debug.ff_test.tank.DebugTankBlock;
 import com.leafia.contents.fluids.FluorideFluid.FluorideFluidBlock;
+import com.leafia.contents.machines.elevators.EvBuffer;
+import com.leafia.contents.machines.elevators.EvPulley;
+import com.leafia.contents.machines.elevators.EvShaft;
+import com.leafia.contents.machines.elevators.EvShaftNeo;
+import com.leafia.contents.machines.elevators.floors.EvFloor;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexBlock;
 import com.leafia.contents.machines.panel.controltorch.ControlTorchBlock;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseBlock;
@@ -313,6 +318,17 @@ public class AddonBlocks {
 	public static final Block broof = new BroofBlock(Material.CARPET,"broof").setHardness(0.1F).setSoundType(SoundType.CLOTH).setCreativeTab(MainRegistry.blockTab);
 
 	public static final Block ff_tank = new FFTankBlock(Material.IRON,"ff_tank").setHardness(5).setResistance(100).setCreativeTab(MainRegistry.machineTab);
+
+	static boolean ev_dummy = Elevators.dummy;
+	public static class Elevators {
+		static boolean dummy = false;
+		public static final int guiIdFloor = 365;
+		public static final int guiIdCabin = 366;
+		public static final Block pulley = new EvPulley(Material.IRON,"elevator_pulley");
+		public static final Block shaft = new EvShaftNeo(Material.IRON,"elevator_shaft");
+		public static final Block buffer = new EvBuffer(Material.IRON,"elevator_buffer");
+		public static final Block s6_floor = new EvFloor(Material.IRON,"elevator_s6floor");
+	}
 
 	static {
 		if (Loader.isModLoaded("opencomputers")) {

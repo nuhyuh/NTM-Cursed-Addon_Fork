@@ -19,6 +19,7 @@ import com.leafia.init.recipes.*;
 import com.leafia.overwrite_contents.asm.TransformerCoreLeafia;
 import com.leafia.overwrite_contents.other.LCEItemCatalyst;
 import com.leafia.settings.AddonConfig;
+import com.leafia.unsorted.AddonGuiHandler;
 import com.llib.exceptions.LeafiaDevFlaw;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -83,9 +84,7 @@ public class AddonBase {
 			System.out.println("ENUM: "+value.name()+", ORDINAL: "+value.ordinal());
 		}
 
-		Configuration config = new Configuration(new File(proxy.getDataDir().getPath() + "/config/hbm/leafia.cfg"));
-		config.load();
-		AddonConfig.loadFromConfig(config);
+		_initClass(AddonConfig.class);
 
 		PacketDispatcher.LISTENERS.add(new AddonPacketRegister());
 
@@ -110,6 +109,7 @@ public class AddonBase {
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
 		proxy.preInit(event);
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance,new AddonGuiHandler());
 
 		LCEItemCatalyst.registerMeltingPoints();
 

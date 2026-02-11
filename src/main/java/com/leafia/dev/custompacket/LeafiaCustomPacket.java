@@ -7,6 +7,7 @@ import com.hbm.packet.threading.ThreadedPacket;
 import com.leafia.contents.gear.advisor.AdvisorItem;
 import com.leafia.contents.gear.utility.FuzzyIdentifierItem.FuzzyIdentifierPacket;
 import com.leafia.contents.gear.utility.FuzzyIdentifierItem.FuzzyIdentifierResponsePacket;
+import com.leafia.contents.machines.elevators.car.ElevatorEntity.*;
 import com.leafia.dev.LeafiaDebug.Tracker.VisualizerPacket;
 import com.leafia.dev.optimization.bitbyte.LeafiaBuf;
 import com.leafia.dev.optimization.diagnosis.RecordablePacket;
@@ -36,7 +37,15 @@ public class LeafiaCustomPacket extends RecordablePacket {
 		DFC_SHOCK(new DFCShockPacket()),
 		EXPLOSION_NT(new ExplosionNTSyncPacket()),
 		FUZZY_RESPONSE(new FuzzyIdentifierResponsePacket()),
-		ADVISOR_WARNING(new AdvisorItem.AdvisorWarningPacket())
+		ADVISOR_WARNING(new AdvisorItem.AdvisorWarningPacket()),
+		ELEVATOR_BUTTON_SYNC(new EvButtonSyncPacket()),
+		ELEVATOR_BUTTON_ENABLED_SYNC(new EvButtonEnablePacket()),
+		ELEVATOR_BUTTON_CLICK_SYNC(new EvButtonClickPacket()),
+		ELEVATOR_BUTTON_CLICKED(new EvButtonInteractPacket()),
+		ELEVATOR_BUTTON_MODIFY(new EvButtonModifyPacket()),
+		ELEVATOR_SPECIAL_SYNC(new EvSpecialFloorsSyncPacket()),
+		ELEVATOR_SYNC_REQUEST(new EvSyncRequestPacket()),
+		ELEVATOR_INVENTORY_SYNC(new EvInventorySyncPacket()),
 		;
 		final LeafiaCustomPacketEncoder encoder;
 		CustomPacketType() { encoder = null; }

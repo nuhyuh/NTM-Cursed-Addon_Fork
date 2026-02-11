@@ -9,6 +9,7 @@ import com.hbm.render.tileentity.IItemRendererProvider;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonBlocks.LetterSigns;
 import com.leafia.contents.AddonItems;
+import com.leafia.contents.AddonItems.ElevatorStyles;
 import com.leafia.contents.AddonItems.LeafiaRods;
 import com.leafia.contents.bomb.missile.customnuke.CustomNukeMissileItemRender;
 import com.leafia.contents.building.broof.BroofRender;
@@ -19,6 +20,8 @@ import com.leafia.contents.building.sign.SignRender;
 import com.leafia.contents.building.sign.SignRender.SignItemRender;
 import com.leafia.contents.control.battery.AddonBatteryPackItemRender;
 import com.leafia.contents.gear.advisor.AdvisorRender;
+import com.leafia.contents.machines.elevators.car.styles.EvStyleItem;
+import com.leafia.contents.machines.elevators.car.styles.EvStyleItemRender;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexRender;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseRender;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseRender.AMSBaseItemRender;
@@ -95,6 +98,10 @@ public class ItemRendererInit {
 		register(AddonBlocks.broof,new BroofItemRender());
 
 		register(AddonBlocks.ff_tank,new FFTankItemRender());
+
+		EvStyleItemRender evr = new EvStyleItemRender();
+		for (EvStyleItem styleItem : ElevatorStyles.styleItems)
+			register(styleItem,evr);
 
 		/*fix(AddonItems.ams_focus_blank);
 		fix(AddonItems.ams_focus_booster);
