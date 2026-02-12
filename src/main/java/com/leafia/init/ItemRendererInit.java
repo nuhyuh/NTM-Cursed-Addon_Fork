@@ -22,6 +22,8 @@ import com.leafia.contents.control.battery.AddonBatteryPackItemRender;
 import com.leafia.contents.gear.advisor.AdvisorRender;
 import com.leafia.contents.machines.elevators.car.styles.EvStyleItem;
 import com.leafia.contents.machines.elevators.car.styles.EvStyleItemRender;
+import com.leafia.contents.machines.elevators.items.EvSpawnItemRender;
+import com.leafia.contents.machines.elevators.items.WeightSpawnItemRender;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexRender;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseRender;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseRender.AMSBaseItemRender;
@@ -102,6 +104,9 @@ public class ItemRendererInit {
 		EvStyleItemRender evr = new EvStyleItemRender();
 		for (EvStyleItem styleItem : ElevatorStyles.styleItems)
 			register(styleItem,evr);
+
+		register(AddonItems.ev_spawn,new EvSpawnItemRender());
+		register(AddonItems.weight_spawn,new WeightSpawnItemRender());
 
 		/*fix(AddonItems.ams_focus_blank);
 		fix(AddonItems.ams_focus_booster);

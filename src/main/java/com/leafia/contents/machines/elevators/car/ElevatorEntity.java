@@ -6,6 +6,7 @@ import com.hbm.items.tool.ItemTooling;
 import com.hbm.main.MainRegistry;
 import com.leafia.AddonBase;
 import com.leafia.contents.AddonBlocks.Elevators;
+import com.leafia.contents.AddonItems;
 import com.leafia.contents.machines.elevators.EvBuffer;
 import com.leafia.contents.machines.elevators.EvPulleyTE;
 import com.leafia.contents.machines.elevators.EvShaft;
@@ -74,6 +75,7 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 	public static final DataParameter<String> STYLE_BACK = EntityDataManager.createKey(ElevatorEntity.class,DataSerializers.STRING);
 	public static final DataParameter<String>[] styleParams = new DataParameter[]{STYLE_FLOOR,STYLE_CEILING,STYLE_FRONT,STYLE_LEFT,STYLE_BACK,STYLE_RIGHT};
 	public static final DataParameter<String> FLOOR_DISPLAY = EntityDataManager.createKey(ElevatorEntity.class,DataSerializers.STRING);
+	public NBTTagCompound loadData = null;
 	public final Map<Integer,String> specialDisplayFloors = new HashMap<>();
 	public static final String[] ALLOWED_DIGITS = new String[]{"0","1","2","3","4","5","6","7","8","9","-","L","R","B","E"};
 	public static boolean isDigitAllowed(String s) {
@@ -756,6 +758,20 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 					//world.createExplosion(null,posX,posY,posZ,1,false);
 				} else {
 				}
+			} else if (tool.getType() == ToolType.HAND_DRILL) {
+				if (this.isEntityAlive() && !world.isRemote) {
+					ItemStack stacc = new ItemStack(AddonItems.ev_spawn);
+					NBTTagCompound tag = new NBTTagCompound();
+					NBTTagCompound entityData = new NBTTagCompound();
+					writeEntityToNBT(entityData);
+					tag.setTag("configuration",entityData);
+					stacc.setTagCompound(tag);
+					entityDropItem(stacc,0);
+					int slots = inventory.getSlots();
+					for (int i = 0; i < slots; i++)
+						inventory.setStackInSlot(i,ItemStack.EMPTY);
+					this.setDead();
+				}
 			}
 		}
 		return true;
@@ -969,6 +985,11 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+		if (!world.isRemote) {
+			if (loadData != null)
+				readEntityFromNBT(loadData);
+			loadData = null;
+		}
 		//this.rotationYaw+=45/20f;
 		try { // fuck you, i surround the whole shit with try/catch
 			if (world.isRemote) {
@@ -1044,11 +1065,14 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 					if (pulley == null)
 						setMotion(motionX/2,motionY-9.8/400,motionZ/2);
 				}
-				for (int i = 0; i < 2; i++) {
-					EnumFacing face = EnumFacing.byHorizontalIndex(i);
-					if (world.getBlockState(new BlockPos(posX,posY+0.5,posZ).add(face.getDirectionVec())).getBlock() instanceof EvShaftNeo) {
-						setMotion(0,motionY,0);
-						break;
+				if (pulley != null) {
+					for (int i = 0; i < 3; i++) {
+						EnumFacing face = EnumFacing.byHorizontalIndex(i);
+						if (world.getBlockState(new BlockPos(posX,posY+0.5,posZ).add(face.getDirectionVec())).getBlock() instanceof EvShaftNeo) {
+							setMotion(0,motionY,0);
+							setPosition(pulley.getPos().getX()+0.5,posY,pulley.getPos().getZ()+0.5);
+							break;
+						}
 					}
 				}
 				if (controller != null)
@@ -1186,8 +1210,9 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 		NBTTagCompound inv = compound.getCompoundTag("inventory");
 		if (inv != null)
 			inventory.deserializeNBT(inv);
-		if (controller != null)
-			controller.readEntityFromNBT(compound);
+		updateController();
+		if (controller != null && compound.hasKey("chipData"))
+			controller.readEntityFromNBT(compound.getCompoundTag("chipData"));
 	}
 
 	@Override
@@ -1220,7 +1245,10 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 		compound.setByte("floor",getDataInteger(FLOOR).byteValue());
 		compound.setByte("parkFloor",(byte)parkFloor);
 		compound.setTag("inventory",inventory.serializeNBT());
-		if (controller != null)
-			controller.writeEntityToNBT(compound);
+		if (controller != null) {
+			NBTTagCompound chipData = new NBTTagCompound();
+			controller.writeEntityToNBT(chipData);
+			compound.setTag("chipData",chipData);
+		}
 	}
 }

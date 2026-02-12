@@ -15,6 +15,8 @@ import com.leafia.contents.gear.utility.FuzzyIdentifierItem;
 import com.leafia.contents.gear.wands.ItemWandV;
 import com.leafia.contents.machines.elevators.car.chips.EvChipItem;
 import com.leafia.contents.machines.elevators.car.styles.EvStyleItem;
+import com.leafia.contents.machines.elevators.items.EvSpawnItem;
+import com.leafia.contents.machines.elevators.items.WeightSpawnItem;
 import com.leafia.contents.machines.powercores.dfc.CrucifixItem;
 import com.leafia.contents.machines.powercores.dfc.LCEItemLens;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisEntity.DebrisType;
@@ -498,6 +500,9 @@ public class AddonItems {
 		public static final Item s6window = new EvStyleItem("ev_s6window");
 		public static final Item skyliftdoor = new EvStyleItem("ev_skyliftdoor");
 	}
+
+	public static final Item ev_spawn = new EvSpawnItem("ev_spawn");
+	public static final Item weight_spawn = new WeightSpawnItem("weight_spawn");
 
 	private static void modifyItemParams() {
 		ModItems.pwr_fuel.setCreativeTab(null);

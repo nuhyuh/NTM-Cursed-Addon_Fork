@@ -716,28 +716,55 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				status = -1;
 			if (meltdown)
 				status = 3;
-			switch(status) {
-				case 0:
-					list.add(TextFormatting.LIGHT_PURPLE+"["+bar+TextFormatting.LIGHT_PURPLE+"]");
-					list.add(TextFormatting.LIGHT_PURPLE+"  "+I18nUtil.resolveKey("item.leafiarod.status.1"));
-					break;
-				case 1:
-					list.add(TextFormatting.GREEN+"["+bar+TextFormatting.GREEN+"]");
-					list.add(TextFormatting.GREEN+"  "+I18nUtil.resolveKey("item.leafiarod.status.2"));
-					break;
-				case 2:
-					list.add(TextFormatting.RED+"["+bar+TextFormatting.RED+"]");
-					list.add(TextFormatting.RED+"  "+I18nUtil.resolveKey("item.leafiarod.status.3"));
-					break;
-				case 3:
-					list.add(TextFormatting.DARK_RED+"["+bar+TextFormatting.DARK_RED+"]");
-					meltdownFlash = Math.floorMod(meltdownFlash+1,20);
-					list.add((meltdownFlash >= 11) ? "" : TextFormatting.DARK_RED +"  "+I18nUtil.resolveKey("item.leafiarod.status.4"));
-					break;
-				case -1:
-					list.add(TextFormatting.DARK_AQUA+"["+TextFormatting.DARK_GRAY+bar+TextFormatting.DARK_AQUA+"]");
-					list.add(TextFormatting.AQUA+"  "+I18nUtil.resolveKey("item.leafiarod.status.0"));
-					break;
+			if (functionId.equals("dgomega")) {
+
+				switch(status) {
+					case 0:
+						list.add(TextFormatting.RED+"["+bar+TextFormatting.RED+"]");
+						list.add(TextFormatting.RED+"  "+I18nUtil.resolveKey("item.leafiarod.status.1dg"));
+						break;
+					case 1:
+						list.add(TextFormatting.DARK_RED+"["+bar+TextFormatting.DARK_RED+"]");
+						list.add(TextFormatting.DARK_RED+"  "+I18nUtil.resolveKey("item.leafiarod.status.2dg"));
+						break;
+					case 2:
+						list.add(TextFormatting.GRAY+"["+bar+TextFormatting.GRAY+"]");
+						list.add(TextFormatting.GRAY+"  "+I18nUtil.resolveKey("item.leafiarod.status.3dg"));
+						break;
+					case 3:
+						list.add(TextFormatting.GRAY+"["+bar+TextFormatting.GRAY+"]");
+						meltdownFlash = Math.floorMod(meltdownFlash+1,20);
+						list.add((meltdownFlash >= 11) ? "" : TextFormatting.GRAY +"  "+I18nUtil.resolveKey("item.leafiarod.status.4dg"));
+						break;
+					case -1:
+						list.add(TextFormatting.DARK_GREEN+"["+TextFormatting.DARK_GRAY+bar+TextFormatting.DARK_GREEN+"]");
+						list.add(TextFormatting.GREEN+"  "+I18nUtil.resolveKey("item.leafiarod.status.0dg"));
+						break;
+				}
+			} else {
+				switch(status) {
+					case 0:
+						list.add(TextFormatting.LIGHT_PURPLE+"["+bar+TextFormatting.LIGHT_PURPLE+"]");
+						list.add(TextFormatting.LIGHT_PURPLE+"  "+I18nUtil.resolveKey("item.leafiarod.status.1"));
+						break;
+					case 1:
+						list.add(TextFormatting.GREEN+"["+bar+TextFormatting.GREEN+"]");
+						list.add(TextFormatting.GREEN+"  "+I18nUtil.resolveKey("item.leafiarod.status.2"));
+						break;
+					case 2:
+						list.add(TextFormatting.RED+"["+bar+TextFormatting.RED+"]");
+						list.add(TextFormatting.RED+"  "+I18nUtil.resolveKey("item.leafiarod.status.3"));
+						break;
+					case 3:
+						list.add(TextFormatting.DARK_RED+"["+bar+TextFormatting.DARK_RED+"]");
+						meltdownFlash = Math.floorMod(meltdownFlash+1,20);
+						list.add((meltdownFlash >= 11) ? "" : TextFormatting.DARK_RED +"  "+I18nUtil.resolveKey("item.leafiarod.status.4"));
+						break;
+					case -1:
+						list.add(TextFormatting.DARK_AQUA+"["+TextFormatting.DARK_GRAY+bar+TextFormatting.DARK_AQUA+"]");
+						list.add(TextFormatting.AQUA+"  "+I18nUtil.resolveKey("item.leafiarod.status.0"));
+						break;
+				}
 			}
 		}
 	}
