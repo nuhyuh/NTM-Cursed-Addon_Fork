@@ -262,10 +262,12 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 				button.updateHitboxes();
 		}
 		Entity[] list = new Entity[buttons.size()*panels.size()];
-		for (int i = 0; i < buttons.size(); i++) {
-			for (int j = 0; j < panels.size(); j++)
-				list[i*panels.size()+j] = buttons.get(i).hitboxes.get(j);
-		}
+		try {
+			for (int i = 0; i < buttons.size(); i++) {
+				for (int j = 0; j < panels.size(); j++)
+					list[i*panels.size()+j] = buttons.get(i).hitboxes.get(j);
+			}
+		} catch (IndexOutOfBoundsException ignored) {}
 		return list;
 	}
 	public LeafiaSet<String> enabledButtons = new LeafiaSet<>();
@@ -741,7 +743,13 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
-		return new AxisAlignedBB(new Vec3d(posX-1.5,posY,posZ-1.5),new Vec3d(posX+1.5,posY+2.5,posZ+1.5));
+		double renderMaxHeight = posY+2.5;
+		if (pulley != null) {
+			double pulleyHeight = pulley.getPos().getY();
+			if (renderMaxHeight < pulleyHeight)
+				renderMaxHeight = pulleyHeight;
+		}
+		return new AxisAlignedBB(new Vec3d(posX-1.5,posY,posZ-1.5),new Vec3d(posX+1.5,renderMaxHeight,posZ+1.5));
 	}
 
 	@Override
@@ -764,6 +772,8 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 					NBTTagCompound tag = new NBTTagCompound();
 					NBTTagCompound entityData = new NBTTagCompound();
 					writeEntityToNBT(entityData);
+					entityData.removeTag("enableds");
+					entityData.removeTag("chipData");
 					tag.setTag("configuration",entityData);
 					stacc.setTagCompound(tag);
 					entityDropItem(stacc,0);
@@ -999,6 +1009,8 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 					packet.localEntity = this;
 					LeafiaCustomPacket.__start(packet).__sendToServer();
 				}
+				if (pulley == null)
+					findPulley();
 				for (ElevatorButton button : buttons) button.onUpdate();
 				for (String btn : clickedButtons.keySet()) {
 					clickedButtons.put(btn,clickedButtons.get(btn)+1);
@@ -1192,24 +1204,25 @@ public class ElevatorEntity extends Entity implements IEntityMultiPart, IEntityC
 				}
 			}
 		}
-		NBTTagCompound displays = compound.getCompoundTag("displays");
-		if (displays != null) {
+		if (compound.hasKey("displays")) {
+			NBTTagCompound displays = compound.getCompoundTag("displays");
 			specialDisplayFloors.clear();
 			for (String key : displays.getKeySet()) {
 				Integer floor = Integer.parseInt(key);
 				specialDisplayFloors.put(floor,displays.getString(key));
 			}
 		}
-		NBTTagList enableds = compound.getTagList("enableds",8);
-		if (enableds != null) {
+		if (compound.hasKey("enableds")) {
+			NBTTagList enableds = compound.getTagList("enableds",8);
 			for (NBTBase enabled : enableds)
 				enabledButtons.add(((NBTTagString) enabled).toString());
 		}
 		dataManager.set(FLOOR,(int)compound.getByte("floor"));
 		parkFloor = compound.getByte("parkFloor");
-		NBTTagCompound inv = compound.getCompoundTag("inventory");
-		if (inv != null)
+		if (compound.hasKey("inventory")) {
+			NBTTagCompound inv = compound.getCompoundTag("inventory");
 			inventory.deserializeNBT(inv);
+		}
 		updateController();
 		if (controller != null && compound.hasKey("chipData"))
 			controller.readEntityFromNBT(compound.getCompoundTag("chipData"));

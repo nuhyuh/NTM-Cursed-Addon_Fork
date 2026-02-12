@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 import java.util.ConcurrentModificationException;
@@ -39,6 +40,7 @@ public class ElevatorRender extends Render<ElevatorEntity> {
 		return map;
 	}
 	public static ResourceLocation support = resource("support");
+	static ResourceLocation cable = resource("rope");
 	public static class S6 {
 		public static final WaveFrontObjectVAO mdl = model("otis_s6");
 		public static final ResourceLocation floor = resource("s6/floor");
@@ -71,6 +73,30 @@ public class ElevatorRender extends Render<ElevatorEntity> {
 		public static final LeafiaMap<String,ResourceLocation> ind = indicator("skylift/indicator/");
 	}
 
+	public void renderCable(Vec3d startPos,Vec3d endPos,double thickness) {
+		thickness/=2;
+		LeafiaBrush brush = LeafiaBrush.instance;
+		brush.addVertexWithUV(startPos.x-thickness,startPos.y,startPos.z+thickness,0,1);
+		brush.addVertexWithUV(startPos.x+thickness,startPos.y,startPos.z+thickness,1,1);
+		brush.addVertexWithUV(endPos.x+thickness,endPos.y,endPos.z+thickness,1,0);
+		brush.addVertexWithUV(endPos.x-thickness,endPos.y,endPos.z+thickness,0,0);
+
+		brush.addVertexWithUV(startPos.x+thickness,startPos.y,startPos.z-thickness,0,1);
+		brush.addVertexWithUV(startPos.x-thickness,startPos.y,startPos.z-thickness,1,1);
+		brush.addVertexWithUV(endPos.x-thickness,endPos.y,endPos.z-thickness,1,0);
+		brush.addVertexWithUV(endPos.x+thickness,endPos.y,endPos.z-thickness,0,0);
+
+		brush.addVertexWithUV(startPos.x-thickness,startPos.y,startPos.z-thickness,0,1);
+		brush.addVertexWithUV(startPos.x-thickness,startPos.y,startPos.z+thickness,1,1);
+		brush.addVertexWithUV(endPos.x-thickness,endPos.y,endPos.z+thickness,1,0);
+		brush.addVertexWithUV(endPos.x-thickness,endPos.y,endPos.z-thickness,0,0);
+
+		brush.addVertexWithUV(startPos.x+thickness,startPos.y,startPos.z+thickness,0,1);
+		brush.addVertexWithUV(startPos.x+thickness,startPos.y,startPos.z-thickness,1,1);
+		brush.addVertexWithUV(endPos.x+thickness,endPos.y,endPos.z-thickness,1,0);
+		brush.addVertexWithUV(endPos.x+thickness,endPos.y,endPos.z+thickness,0,0);
+	}
+
 	@Override
 	public void doRender(ElevatorEntity entity,double x,double y,double z,float entityYaw,float partialTicks) {
 		LeafiaGls.pushMatrix();
@@ -79,6 +105,23 @@ public class ElevatorRender extends Render<ElevatorEntity> {
 
 		LeafiaBrush brush = LeafiaBrush.instance;
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		bindTexture(cable);
+		if (entity.pulley != null) {
+			LeafiaGls.pushMatrix();
+			Vec3d pos = new Vec3d(
+					entity.prevPosX+(entity.posX-entity.prevPosX)*partialTicks,
+					entity.prevPosY+(entity.posY-entity.prevPosY)*partialTicks+2.5,
+					entity.prevPosZ+(entity.posZ-entity.prevPosZ)*partialTicks
+			);
+			Vec3d pulleyPos = new Vec3d(entity.pulley.getPos()).add(0.5,0,0.5);
+			Vec3d difference = pulleyPos.subtract(pos);
+			LeafiaGls.translate(0,2.5,0);
+			brush.startDrawingQuads();
+			for (int i = -2; i <= 2; i++)
+				renderCable(new Vec3d(0,0,i*0.0625*2),difference.add(0,0,i*0.0625*2),0.0625);
+			brush.draw();
+			LeafiaGls.popMatrix();
+		}
 		bindTexture(support);
 		S6.mdl.renderPart("Frames");
 		LeafiaGls.color(1,1,1);

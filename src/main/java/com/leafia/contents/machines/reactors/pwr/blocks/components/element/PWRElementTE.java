@@ -554,6 +554,13 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 
 	public PWRElementTE() {
 		super(1);
+		this.inventory = new ItemStackHandler(1) {
+			@Override
+			protected void onContentsChanged(int slot) {
+				super.onContentsChanged(slot);
+				markDirty();
+			}
+		};
 	}
 
 	public void connectUpper() { // For clients, called only on validate()

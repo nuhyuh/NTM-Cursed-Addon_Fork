@@ -5,6 +5,7 @@ import com.leafia.contents.machines.elevators.EvPulleyTE;
 import com.leafia.contents.machines.elevators.car.ElevatorEntity;
 import com.leafia.dev.LeafiaDebug;
 import com.leafia.dev.items.itembase.AddonItemBase;
+import com.leafia.dev.machine.MachineTooltip;
 import com.leafia.dev.math.FiaMatrix;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +35,7 @@ public class EvSpawnItem extends AddonItemBase {
 	}
 	@Override
 	public void addInformation(ItemStack stack,@Nullable World worldIn,List<String> tooltip,ITooltipFlag flagIn) {
+		MachineTooltip.addWIP(tooltip);
 		tooltip.addAll(Arrays.asList(I18nUtil.resolveKey("item.ev_spawn.desc").split("\\$")));
 		super.addInformation(stack,worldIn,tooltip,flagIn);
 	}
@@ -74,11 +76,11 @@ public class EvSpawnItem extends AddonItemBase {
 					);
 					world.spawnEntity(elevator);
 				}
+				return new ActionResult<>(EnumActionResult.SUCCESS,ItemStack.EMPTY);
 			} else {
 				if (world.isRemote)
 					player.sendMessage(new TextComponentTranslation("item.ev_spawn.error.direction").setStyle(new Style().setColor(TextFormatting.RED)));
 			}
-			return new ActionResult<>(EnumActionResult.SUCCESS,ItemStack.EMPTY);
 		} else {
 			if (world.isRemote)
 				player.sendMessage(new TextComponentTranslation("item.ev_spawn.error.pulley").setStyle(new Style().setColor(TextFormatting.RED)));

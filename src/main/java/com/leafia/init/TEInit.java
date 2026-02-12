@@ -28,6 +28,7 @@ import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSepar
 import com.leafia.contents.machines.reactors.pwr.blocks.components.computer.PWRComputerTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.element.PWRElementTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.element.PWRProxyTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.port.PWRPortTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.terminal.PWRTerminalTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreckEntity;
@@ -71,6 +72,7 @@ public class TEInit {
 		register(CoolantHeatexTE.class,"coolant_heatex_te");
 		register(PWRControlTE.class,"lwr_control_te");
 		register(PWRElementTE.class,"lwr_element_te");
+		register(PWRProxyTE.class,"lwr_proxy_te");
 		register(PWRPortTE.class,"lwr_port_te");
 		register(PWRTerminalTE.class,"lwr_terminal_te");
 		register(PWRComputerTE.class,"lwr_computer_te");

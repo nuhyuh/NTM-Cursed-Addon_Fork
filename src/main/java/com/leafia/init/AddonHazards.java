@@ -96,6 +96,12 @@ public class AddonHazards {
 		HazardSystem.register(ModItems.blades_titanium,makeData(SHARP,40));
 		HazardSystem.register(ModItems.blades_advanced_alloy,makeData(SHARP,40));
 
+		HazardSystem.register(ModItems.nugget_zirconium,makeData(SHARP,10));
+		HazardSystem.register(ModItems.debris_shrapnel,makeData(SHARP,1));
+
+		HazardSystem.register(AddonItems.pwr_shrapnel,makeData(SHARP,35));
+		HazardSystem.register(AddonItems.pwr_shard,makeData(SHARP,85));
+
 		registerHazard(OreDictManager.OSMIRIDIUM,new HazardEntry(DIGAMMA,0.004));
 		HazardSystem.register(AddonBlocks.block_welded_osmiridium,makeData(DIGAMMA,0.04f));
 

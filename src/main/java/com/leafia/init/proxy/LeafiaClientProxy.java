@@ -11,6 +11,7 @@ import com.hbm.entity.effect.EntityCloudFleijaRainbow;
 import com.hbm.tileentity.deco.TileEntitySpinnyLight;
 import com.hbm.tileentity.machine.*;
 import com.leafia.contents.AddonBlocks;
+import com.leafia.contents.AddonBlocks.PWR;
 import com.leafia.contents.AddonItems;
 import com.leafia.contents.bomb.missile.customnuke.entity.CustomNukeMissileEntity;
 import com.leafia.contents.bomb.missile.customnuke.entity.CustomNukeMissileEntityRender;
@@ -57,6 +58,7 @@ import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSepar
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlRender;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.element.PWRElementBlock;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreckEntity;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.RenderPWRMeshedWreck;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisEntity;
@@ -110,6 +112,9 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 		{
 			ModelLoader.setCustomStateMapper(AddonBlocks.door_fuckoff,new StateMap.Builder().ignore(BlockDoor.POWERED).build());
 			ModelLoader.setCustomStateMapper(AddonBlocks.fluid_fluoride,new StateMap.Builder().ignore(BlockFluidClassic.LEVEL).build());
+			ModelLoader.setCustomStateMapper(PWR.element,new StateMap.Builder().ignore(PWRElementBlock.stacked).build());
+			ModelLoader.setCustomStateMapper(PWR.element_old,new StateMap.Builder().ignore(PWRElementBlock.stacked).build());
+			ModelLoader.setCustomStateMapper(PWR.element_old_blank,new StateMap.Builder().ignore(PWRElementBlock.stacked).build());
 		}
 		{
 			RenderingRegistry.registerEntityRenderingHandler(EntityCloudFleija.class,LCERenderCloudFleija.FACTORY);
