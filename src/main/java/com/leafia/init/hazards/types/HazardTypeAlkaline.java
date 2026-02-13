@@ -30,7 +30,8 @@ public class HazardTypeAlkaline implements IHazardType {
 			int damage = reactAlkaline(entity.world,held,entity.posX,entity.posY,entity.posZ,(int)v);
 			if (damage > 200) {
 				if (entity instanceof EntityPlayer player) {
-					player.inventory.mainInventory.set(player.inventory.currentItem,held.getItem().getContainerItem(held));
+					held.shrink(held.getCount());
+					//player.inventory.mainInventory.set(player.inventory.currentItem,held.getItem().getContainerItem(held));
 					player.inventoryContainer.detectAndSendChanges();
 				}
 			}
