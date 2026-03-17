@@ -2,6 +2,7 @@ package com.leafia.init;
 
 import com.leafia.AddonBase;
 import com.leafia.contents.building.broof.BroofTE;
+import com.leafia.contents.building.doors.special.reactor_door.ReactorDoorTE;
 import com.leafia.contents.building.light.LightTE;
 import com.leafia.contents.building.sign.SignTE;
 import com.leafia.contents.debug.blackhole_test.DebugBHTE;
@@ -37,7 +38,7 @@ import com.leafia.contents.machines.reactors.pwr.blocks.components.occs.outlet.P
 import com.leafia.contents.machines.reactors.pwr.blocks.components.port.PWRPortTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.terminal.PWRTerminalTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreckEntity;
-import com.leafia.contents.machines.reactors.rbmk.realersim.RBMKRealerSimTE;
+import com.leafia.contents.machines.reactors.rbmk.columns.realersim.RBMKRealerSimTE;
 import com.leafia.contents.miscellanous.diverter.DiverterTE;
 import com.leafia.contents.miscellanous.regex_filter.pneumatic.RegexFilterTE;
 import com.leafia.contents.miscellanous.slop.SlopTE;
@@ -114,6 +115,7 @@ public class TEInit {
 		register(HPBoilerTE.class,"hp_boiler_te");
 		register(RegexFilterTE.class,"regex_filter_te");
 		register(DebugBHTE.class,"debug_bh_te");
+		register(ReactorDoorTE.class,"reactor_door_te");
 	}
 	private static void register(Class<? extends TileEntity> clazz,String res) {
 		GameRegistry.registerTileEntity(clazz,new ResourceLocation(AddonBase.MODID,res));

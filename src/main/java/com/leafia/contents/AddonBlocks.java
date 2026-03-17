@@ -8,16 +8,20 @@ import com.hbm.blocks.ModSoundTypes;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.MainRegistry;
 import com.hbm.render.block.BlockBakeFrame;
+import com.hbm.render.block.BlockBakeFrame.BlockForm;
 import com.leafia.AddonBase;
 import com.leafia.contents.AddonFluids.AddonFF;
 import com.leafia.contents.bomb.balefire.AshBalefire;
 import com.leafia.contents.bomb.balefire.BaleoniteBlock;
 import com.leafia.contents.bomb.digamma.DigammititeBlock;
 import com.leafia.contents.building.broof.BroofBlock;
+import com.leafia.contents.building.doors.AddonDoorDecl;
+import com.leafia.contents.building.doors.special.reactor_door.ReactorDoorBlock;
+import com.leafia.contents.building.generic.ConcreteBricks;
 import com.leafia.contents.building.light.LightBlock;
 import com.leafia.contents.building.light.LightEmitter;
-import com.leafia.contents.building.linedasphalt.LinedAsphaltBlock;
-import com.leafia.contents.building.mixed.BlockMixedConcrete;
+import com.leafia.contents.building.generic.lined_asphalt.LinedAsphaltBlock;
+import com.leafia.contents.building.generic.mixed.BlockMixedConcrete;
 import com.leafia.contents.building.pinkdoor.BlockPinkDoor;
 import com.leafia.contents.building.sign.SignBlock;
 import com.leafia.contents.debug.blackhole_test.DebugBHBlock;
@@ -63,7 +67,7 @@ import com.leafia.contents.machines.reactors.pwr.blocks.components.terminal.PWRT
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreck;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckMetal;
 import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckStone;
-import com.leafia.contents.machines.reactors.rbmk.realersim.RBMKRealerSimBlock;
+import com.leafia.contents.machines.reactors.rbmk.columns.realersim.RBMKRealerSimBlock;
 import com.leafia.contents.miscellanous.diverter.DiverterBlock;
 import com.leafia.contents.miscellanous.regex_filter.pneumatic.RegexFilterBlock;
 import com.leafia.contents.miscellanous.slop.SlopBlock;
@@ -366,9 +370,9 @@ public class AddonBlocks {
 
 		public static final Block waste_terracotta = new LegacyBlockHazardMeta(Material.ROCK, SoundType.STONE, "waste_terracotta", "contamination/terracotta/", BlockBakeFrame.BlockForm.ALL, (short) 7).setCreativeTab(MainRegistry.resourceTab).setHardness(4.0F).setResistance(8.0F);
 		public static final Block waste_sand_red = new LegacyWasteSand(Material.SAND, SoundType.SAND, "waste_sand_red").setHardness(0.5F).setResistance(1.0F).setCreativeTab(MainRegistry.resourceTab);
-		public static final Block waste_red_sandstone = new LegacyBlockHazardMeta(Material.ROCK, SoundType.STONE, "waste_red_sandstone", "contamination/red_sandstone/", BlockBakeFrame.BlockForm.PILLAR_BOTTOM, (short) 7).setCreativeTab(MainRegistry.resourceTab).setHardness(3.0F).setResistance(6.0F);
+		public static final Block waste_red_sandstone = new LegacyBlockHazardMeta(Material.ROCK, SoundType.STONE, "waste_red_sandstone", "contamination/red_sandstone/", BlockForm.BOTTOM_TOP_TINTED, (short) 7).setCreativeTab(MainRegistry.resourceTab).setHardness(3.0F).setResistance(6.0F);
 		public static final Block waste_sand = new LegacyWasteSand(Material.SAND, SoundType.SAND, "waste_sand").setHardness(0.5F).setResistance(1.0F).setCreativeTab(MainRegistry.resourceTab);
-		public static final Block waste_sandstone = new LegacyBlockHazardMeta(Material.ROCK, SoundType.STONE, "waste_sandstone", "contamination/sandstone/", BlockBakeFrame.BlockForm.PILLAR_BOTTOM, (short) 7).setCreativeTab(MainRegistry.resourceTab).setHardness(3.0F).setResistance(6.0F);
+		public static final Block waste_sandstone = new LegacyBlockHazardMeta(Material.ROCK, SoundType.STONE, "waste_sandstone", "contamination/sandstone/", BlockBakeFrame.BlockForm.BOTTOM_TOP_TINTED, (short) 7).setCreativeTab(MainRegistry.resourceTab).setHardness(3.0F).setResistance(6.0F);
 		public static final Block waste_gravel = new LegacyWasteSand(Material.GROUND, SoundType.GROUND, "waste_gravel").setHardness(0.5F).setResistance(1.0F).setCreativeTab(MainRegistry.resourceTab);
 		public static final Block waste_dirt = new LegacyWasteEarth(Material.GROUND, SoundType.GROUND, true, "waste_dirt").setHardness(0.5F).setResistance(1.0F).setCreativeTab(MainRegistry.resourceTab);
 		public static final Block waste_snow = new AddonBlockPowder(Material.SNOW, SoundType.SNOW, "waste_snow").setCreativeTab(MainRegistry.resourceTab).setHardness(0.1F).setLightOpacity(0);
@@ -416,6 +420,10 @@ public class AddonBlocks {
 	public static final Block hp_boiler = new HPBoilerBlock(Material.IRON,"hp_boiler").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
 
 	public static final Block regex_filter = new RegexFilterBlock(Material.IRON,"regex_filter").setSoundType(ModSoundTypes.pipe).setHardness(0.1F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
+
+	public static final Block reactor_door = new ReactorDoorBlock(Material.IRON,AddonDoorDecl.REACTOR_DOOR,true,"reactor_door").setHardness(150.0F).setResistance(13500.0F).setCreativeTab(MainRegistry.machineTab);
+
+	public static final Block brick_concrete_dark = new ConcreteBricks(Material.ROCK,"brick_concrete_dark","brick_dark_concrete"); // :leafeon_facepalm:
 
 	static {
 		if (Loader.isModLoaded("opencomputers")) {
