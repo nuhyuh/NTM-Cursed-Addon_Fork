@@ -14,14 +14,17 @@ import com.hbm.tileentity.machine.*;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonBlocks.PWR;
 import com.leafia.contents.AddonItems;
+import com.leafia.contents.bomb.missile.AddonMissileItemRender;
 import com.leafia.contents.bomb.missile.customnuke.entity.CustomNukeMissileEntity;
 import com.leafia.contents.bomb.missile.customnuke.entity.CustomNukeMissileEntityRender;
-import com.leafia.contents.building.broof.BroofRender;
-import com.leafia.contents.building.broof.BroofTE;
+import com.leafia.contents.building.storage.broof.BroofRender;
+import com.leafia.contents.building.storage.broof.BroofTE;
 import com.leafia.contents.building.light.LightRender;
 import com.leafia.contents.building.light.LightTE;
 import com.leafia.contents.building.sign.SignRender;
 import com.leafia.contents.building.sign.SignTE;
+import com.leafia.contents.building.storage.rack.RackRender;
+import com.leafia.contents.building.storage.rack.RackTE;
 import com.leafia.contents.cannery.AddonJars;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodRender;
@@ -42,6 +45,10 @@ import com.leafia.contents.machines.heat.rtheater.HeaterRTGRender;
 import com.leafia.contents.machines.heat.rtheater.HeaterRTGTE;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexRender;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexTE;
+import com.leafia.contents.machines.misc.modular_turbine.ModularTurbineComponentRender;
+import com.leafia.contents.machines.misc.modular_turbine.ModularTurbineComponentTE;
+import com.leafia.contents.machines.misc.modular_turbine.core.MTCoreRender;
+import com.leafia.contents.machines.misc.modular_turbine.core.MTCoreTE;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseRender;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseTE;
 import com.leafia.contents.machines.powercores.ams.emitter.AMSEmitterRender;
@@ -112,6 +119,7 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 				throw flaw;
 			}
 		}
+		AddonMissileItemRender.init();
 		{
 			ModelLoader.setCustomStateMapper(AddonBlocks.door_fuckoff,new StateMap.Builder().ignore(BlockDoor.POWERED).build());
 			ModelLoader.setCustomStateMapper(AddonBlocks.fluid_fluoride,new StateMap.Builder().ignore(BlockFluidClassic.LEVEL).build());
@@ -189,6 +197,10 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrateSteel.class,crateLabel);
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrateTungsten.class,crateLabel);
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrateDesh.class,crateLabel);
+
+			ClientRegistry.bindTileEntitySpecialRenderer(RackTE.class,new RackRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(ModularTurbineComponentTE.class,new ModularTurbineComponentRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(MTCoreTE.class,new MTCoreRender());
 		}
 		AddonJars.initJars();
 	}

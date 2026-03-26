@@ -6,6 +6,7 @@ import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
 import com.hbm.util.I18nUtil;
 import com.leafia.AddonBase;
+import com.leafia.AddonBase.AddonLoadingStage;
 import com.leafia.contents.bomb.missile.customnuke.CustomNukeMissileItem;
 import com.leafia.contents.building.generic.lined_asphalt.LinedAsphaltBlock;
 import com.leafia.contents.building.pinkdoor.ItemPinkDoor;
@@ -34,6 +35,7 @@ import com.leafia.dev.items.itembase.AddonItemHazardBaked;
 import com.leafia.init.hazards.ItemRads;
 import com.leafia.dev.items.itembase.AddonItemBaked;
 import com.leafia.settings.AddonConfig;
+import com.llib.exceptions.LeafiaDevFlaw;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -54,6 +56,10 @@ import static com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem.ItemTyp
 import static com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem.Purity.*;
 
 public class AddonItems {
+	static {
+		if (AddonBase.staticLoadingStage != AddonLoadingStage.ITEMS)
+			throw new LeafiaDevFlaw("AddonItems loaded before it should!");
+	}
 	public static final List<Item> ALL_ITEMS = new ArrayList<Item>();
 	public static final Item door_fuckoff = new ItemPinkDoor("door_fuckoff").setCreativeTab(null);
 

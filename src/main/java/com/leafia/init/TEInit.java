@@ -1,13 +1,15 @@
 package com.leafia.init;
 
 import com.leafia.AddonBase;
-import com.leafia.contents.building.broof.BroofTE;
+import com.leafia.contents.building.storage.broof.BroofTE;
 import com.leafia.contents.building.doors.special.reactor_door.ReactorDoorTE;
 import com.leafia.contents.building.light.LightTE;
 import com.leafia.contents.building.sign.SignTE;
+import com.leafia.contents.building.storage.rack.RackTE;
 import com.leafia.contents.debug.blackhole_test.DebugBHTE;
 import com.leafia.contents.debug.ff_test.source.DebugSourceTE;
 import com.leafia.contents.debug.ff_test.tank.DebugTankTE;
+import com.leafia.contents.debug.fluid_voider.VoiderTE;
 import com.leafia.contents.machines.elevators.EvBufferTE;
 import com.leafia.contents.machines.elevators.EvPulleyTE;
 import com.leafia.contents.machines.elevators.EvShaftTE;
@@ -15,6 +17,9 @@ import com.leafia.contents.machines.elevators.floors.EvFloorTE;
 import com.leafia.contents.machines.heat.hpboiler.HPBoilerTE;
 import com.leafia.contents.machines.heat.rtheater.HeaterRTGTE;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexTE;
+import com.leafia.contents.machines.misc.modular_turbine.ModularTurbineComponentTE;
+import com.leafia.contents.machines.misc.modular_turbine.core.MTCoreTE;
+import com.leafia.contents.machines.misc.modular_turbine.ports.MTComponentPortTE;
 import com.leafia.contents.machines.panel.controltorch.ControlTorchTE;
 import com.leafia.contents.machines.powercores.ams.base.AMSBaseTE;
 import com.leafia.contents.machines.powercores.ams.emitter.AMSEmitterTE;
@@ -116,6 +121,11 @@ public class TEInit {
 		register(RegexFilterTE.class,"regex_filter_te");
 		register(DebugBHTE.class,"debug_bh_te");
 		register(ReactorDoorTE.class,"reactor_door_te");
+		register(RackTE.class,"rack_te");
+		register(MTCoreTE.class,"mt_core_te");
+		register(ModularTurbineComponentTE.class,"mt_component_te");
+		register(MTComponentPortTE.class,"mt_component_port_te");
+		register(VoiderTE.class,"debug_voider_te");
 	}
 	private static void register(Class<? extends TileEntity> clazz,String res) {
 		GameRegistry.registerTileEntity(clazz,new ResourceLocation(AddonBase.MODID,res));

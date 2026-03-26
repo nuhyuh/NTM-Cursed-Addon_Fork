@@ -9,7 +9,7 @@ import com.hbm.util.ArmorRegistry.HazardClass;
 import com.hbm.util.I18nUtil;
 import com.leafia.contents.gear.advisor.container.AdvisorUI;
 import com.leafia.contents.gear.advisor.container.AdvisorUI.HistoryElement;
-import com.leafia.contents.gear.advisor.container.Bruh;
+import com.leafia.dev.gui.DummyContainer;
 import com.leafia.contents.gear.advisor.container.IAdvisorUI;
 import com.leafia.dev.custompacket.LeafiaCustomPacket;
 import com.leafia.dev.custompacket.LeafiaCustomPacketEncoder;
@@ -57,7 +57,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class AdvisorItem extends AddonItemBase implements IGUIProvider {
+public class AdvisorItem extends AddonItemBase {//implements IGUIProvider {
 	public static void setCover(EntityPlayer player,boolean open) {
 		if (open) {
 			ItemStack stack = null;
@@ -88,21 +88,30 @@ public class AdvisorItem extends AddonItemBase implements IGUIProvider {
 			player.inventoryContainer.detectAndSendChanges();
 		}
 	}
+	/*
 	@Override
 	public Container provideContainer(int i,EntityPlayer entityPlayer,World world,int i1,int i2,int i3) {
 		setCover(entityPlayer,true);
-		return new Bruh();
+		return new DummyContainer();
 	}
 	@Override
 	@SideOnly(Side.CLIENT)
 	public GuiScreen provideGUI(int i,EntityPlayer entityPlayer,World world,int i1,int i2,int i3) {
 		return new AdvisorUI();
+	}*/ // this sucks
+	@SideOnly(Side.CLIENT)
+	void openFuckingUI() {
+		Minecraft.getMinecraft().displayGuiScreen(new AdvisorUI());
 	}
 	@Override
 	public @NotNull ActionResult<ItemStack> onItemRightClick(World world,EntityPlayer player,EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (hand != EnumHand.MAIN_HAND) return new ActionResult<>(EnumActionResult.FAIL,stack);
-		if (!world.isRemote) player.openGui(MainRegistry.instance, 0, world, 0, 0, 0);
+		//if (!world.isRemote) player.openGui(MainRegistry.instance, 0, world, 0, 0, 0);
+		if (!world.isRemote)
+			setCover(player,true);
+		else
+			openFuckingUI();
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 	public static void addWarningHistory(EntityPlayer player,String id) {
